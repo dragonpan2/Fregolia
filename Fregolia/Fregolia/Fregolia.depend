@@ -1,0 +1,34 @@
+# depslib dependency file v1.0
+1486072780 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.cpp
+	"initOpenGL.h"
+
+1486072711 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.h
+	"externalIncludes.h"
+
+1487865061 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\externalincludes.h
+	<glm.hpp>
+	<gtc/matrix_transform.hpp>
+	<gtc/type_ptr.hpp>
+	<glew.h>
+	<SDL.h>
+	<SDL_mixer.h>
+	<SOIL.h>
+	<iostream>
+	<fstream>
+	<sstream>
+	<vector>
+
+1486073158 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\shaderutilities.cpp
+	"shaderUtilities.h"
+
+1486066976 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\shaderutilities.h
+	"externalIncludes.h"
+
+1487861177 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\environment.cpp
+
+1487865005 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.cpp
+	"loadModel.h"
+
+1487864951 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.h
+	"externalIncludes.h"
+

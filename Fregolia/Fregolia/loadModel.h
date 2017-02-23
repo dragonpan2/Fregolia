@@ -14,4 +14,6 @@ class imageModel
     private:
         GLuint mTextureVBO, mVerticesVBO;
         GLuint mTexture;
+
+        int imageID;
 };

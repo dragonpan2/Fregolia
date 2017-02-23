@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
 
 #endif // EXTERNALINCLUDES_H_INCLUDED
