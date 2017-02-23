@@ -121,6 +121,8 @@ void imageModel::drawImage(GLuint shaderProgram)
     glBindTexture(GL_TEXTURE_2D, mTexture);
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(glGetUniformLocation(shaderProgram, "Texture"), GL_TEXTURE0);
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "TMat"), 1, GL_FALSE, glm::value_ptr(glm::translate(glm::mat4(1.0f), glm::vec3(0.1, 0.1, 0.1))));
+
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
