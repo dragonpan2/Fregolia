@@ -49,7 +49,8 @@ void imageModel::loadFile(std::string pFilePath)
         {
             mTexture = SOIL_load_OGL_texture(line.substr(2).c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 
-            if(mTexture == 0 || NULL) {
+            if(mTexture == 0 || NULL)
+            {
                 std::cout << "Erreur de chargement SOIL: '" << SOIL_last_result() << "'" << std::endl;
             }
 
@@ -80,7 +81,7 @@ void imageModel::loadFile(std::string pFilePath)
     glBindBuffer(GL_ARRAY_BUFFER, mTextureVBO);
 
     glBufferData(GL_ARRAY_BUFFER,
-                 listeTexture.size() * sizeof(float),
+                 listeTexture.size() * sizeof(glm::vec2),
                  listeTexture.data(),
                  GL_DYNAMIC_DRAW);
 
@@ -89,6 +90,40 @@ void imageModel::loadFile(std::string pFilePath)
 
 void imageModel::drawImage(GLuint shaderProgram)
 {
+    glUseProgram(shaderProgram);
 
+    GLint vertAttribute = glGetAttribLocation(shaderProgram, "Coord2D");
+    GLint texAttribute = glGetAttribLocation(shaderProgram, "texCoords");
+
+    if(vertAttribute < 0 || texAttribute < 0)
+    {
+        std::cout << "OpenGL: " << glGetError() << std::endl;
+    }
+
+    glEnableVertexAttribArray(vertAttribute);
+    glBindBuffer(GL_ARRAY_BUFFER, mVerticesVBO);
+
+    glVertexAttribPointer(vertAttribute,
+                          2,
+                          GL_FLOAT,
+                          GL_FALSE,
+                          0,
+                          0);
+
+    glEnableVertexAttribArray(texAttribute);
+    glBindBuffer(GL_ARRAY_BUFFER, mTextureVBO);
+
+    glVertexAttribPointer(texAttribute,
+                          2,
+                          GL_FLOAT,
+                          GL_FALSE,
+                          0,
+                          0);
+
+    glBindTexture(GL_TEXTURE_2D, mTexture);
+    glActiveTexture(GL_TEXTURE0);
+    glUniform1i(glGetUniformLocation(shaderProgram, "Texture"), GL_TEXTURE0);
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
