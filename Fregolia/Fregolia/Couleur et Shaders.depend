@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1486072780 source:c:\users\simon\documents\programmation\c++\opengl - couleur et shaders\initopengl.cpp
+	"initOpenGL.h"
+
+1486072711 c:\users\simon\documents\programmation\c++\opengl - couleur et shaders\initopengl.h
+	"externalIncludes.h"
+
+1486069493 c:\users\simon\documents\programmation\c++\opengl - couleur et shaders\externalincludes.h
+	<glm.hpp>
+	<gtc/matrix_transform.hpp>
+	<gtc/type_ptr.hpp>
+	<glew.h>
+	<SDL.h>
+	<SDL_mixer.h>
+	<iostream>
+	<fstream>
+	<vector>
+
+1486073116 source:c:\users\simon\documents\programmation\c++\opengl - couleur et shaders\main.cpp
+	"externalIncludes.h"
+	"initOpenGL.h"
+	"shaderUtilities.h"
+
+1486066976 c:\users\simon\documents\programmation\c++\opengl - couleur et shaders\shaderutilities.h
+	"externalIncludes.h"
+
+1486073158 source:c:\users\simon\documents\programmation\c++\opengl - couleur et shaders\shaderutilities.cpp
+	"shaderUtilities.h"
+

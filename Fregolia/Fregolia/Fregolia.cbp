@@ -32,6 +32,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="environment.cpp" />
+		<Unit filename="environment.h" />
+		<Unit filename="externalIncludes.h" />
+		<Unit filename="loadModel.cpp" />
+		<Unit filename="loadModel.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
