@@ -35,9 +35,13 @@
 		<Unit filename="environment.cpp" />
 		<Unit filename="environment.h" />
 		<Unit filename="externalIncludes.h" />
+		<Unit filename="initOpenGL.cpp" />
+		<Unit filename="initOpenGL.h" />
 		<Unit filename="loadModel.cpp" />
 		<Unit filename="loadModel.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="shaderUtilities.cpp" />
+		<Unit filename="shaderUtilities.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
