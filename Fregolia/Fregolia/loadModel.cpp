@@ -84,8 +84,6 @@ void imageModel::loadFile(std::string pFilePath)
                  listeTexture.size() * sizeof(glm::vec2),
                  listeTexture.data(),
                  GL_DYNAMIC_DRAW);
-
-
 }
 
 void imageModel::drawImage(GLuint shaderProgram)
