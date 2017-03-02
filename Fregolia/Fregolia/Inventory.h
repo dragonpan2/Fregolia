@@ -5,19 +5,21 @@
 
 class Inventory
 {
-    public:
-        Inventory();
-        virtual ~Inventory();
-      bool  fullCheck();
-      void  pickup(Item itemToAdd);
-       void drop(Item itemToDrop);
-        void dropDirect(int indexToDrop);
-        void dropAll();
-       std:: vector<Item> inventoryList;
+public:
+    Inventory();
+    virtual ~Inventory();
+    bool  fullCheck();
+    void  pickup(Item itemToAdd);
+    void drop(Item itemToDrop);
+    void dropDirect(int indexToDrop);
+    void dropAll();
+    void destroyItem(Item itemToDestroy);
+    void destroyItemDirect(int indexToDestroy);
+    std:: vector<Item> inventoryList;
 
-    protected:
+protected:
 
-    private:
+private:
 
 };
 
