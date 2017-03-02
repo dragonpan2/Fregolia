@@ -10,8 +10,11 @@ imageModel::~imageModel()
 
 }
 
-void imageModel::loadFile(std::string pFilePath)
+void imageModel::loadFile(std::string pFilePath, glm::vec2 pPos)
 {
+    mPos = pPos;
+    mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(pPos.x, pPos.y, 0.0f));
+
     std::vector<glm::vec2> listePoints;
     std::vector<glm::vec2> listeTexture;
 
@@ -41,6 +44,13 @@ void imageModel::loadFile(std::string pFilePath)
                 listeTexture.push_back(coord);
             }
         }
+        else if(line.substr(0, 2) == "d ")
+        {
+            std::istringstream streamLine(line.substr(2));
+            glm::vec2 coord;
+            streamLine >> mDimensions.x;
+            streamLine >> mDimensions.y;
+        }
         else if(line.substr(0, 3) == "id ")
         {
             imageID = atoi(line.substr(2).c_str());
@@ -49,7 +59,7 @@ void imageModel::loadFile(std::string pFilePath)
         {
             mTexture = SOIL_load_OGL_texture(line.substr(2).c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 
-            if(mTexture == 0 || NULL)
+            if(mTexture == 0)
             {
                 std::cout << "Erreur de chargement SOIL: '" << SOIL_last_result() << "'" << std::endl;
             }
@@ -65,6 +75,8 @@ void imageModel::loadFile(std::string pFilePath)
             glBindTexture(GL_TEXTURE_2D, 0);
         }
     }
+
+    fichier.close();
 
     glGenBuffers(1, &mVerticesVBO);
     glGenBuffers(1, &mTextureVBO);
@@ -86,14 +98,21 @@ void imageModel::loadFile(std::string pFilePath)
                  GL_DYNAMIC_DRAW);
 }
 
-void imageModel::drawImage(GLuint shaderProgram)
+void imageModel::drawImage(GLuint shaderProgram, glm::mat4 pView, glm::mat4 pProj)
 {
     glUseProgram(shaderProgram);
 
     GLint vertAttribute = glGetAttribLocation(shaderProgram, "Coord2D");
     GLint texAttribute = glGetAttribLocation(shaderProgram, "texCoords");
 
+
     if(vertAttribute < 0 || texAttribute < 0)
+    {
+        std::cout << "OpenGL: " << glGetError() << std::endl;
+    }
+
+    GLint tex = glGetUniformLocation(shaderProgram, "Texture");
+    if(tex < 0)
     {
         std::cout << "OpenGL: " << glGetError() << std::endl;
     }
@@ -121,9 +140,23 @@ void imageModel::drawImage(GLuint shaderProgram)
     glBindTexture(GL_TEXTURE_2D, mTexture);
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(glGetUniformLocation(shaderProgram, "Texture"), GL_TEXTURE0);
-    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "TMat"), 1, GL_FALSE, glm::value_ptr(glm::translate(glm::mat4(1.0f), glm::vec3(0.1, 0.1, 0.1))));
 
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "MMat"), 1, GL_FALSE, glm::value_ptr(mTranslateMat));
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "VMat"), 1, GL_FALSE, glm::value_ptr(pView));
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "PMat"), 1, GL_FALSE, glm::value_ptr(pProj));
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    //std::cout << "ERREURFINAL: " << glGetError() << std::endl;
 }
 
+void imageModel::moveImage(glm::vec2 pDeplacement)
+{
+    mPos += pDeplacement;
+    mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
+}
+
+glm::vec2 imageModel::getPos()
+{
+    return mPos;
+}

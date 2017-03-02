@@ -5,7 +5,7 @@
 1486072711 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.h
 	"externalIncludes.h"
 
-1488472716 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\externalincludes.h
+1487865061 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\externalincludes.h
 	<glm.hpp>
 	<gtc/matrix_transform.hpp>
 	<gtc/type_ptr.hpp>
@@ -13,7 +13,6 @@
 	<SDL.h>
 	<SDL_mixer.h>
 	<SOIL.h>
-	<algorithm>
 	<iostream>
 	<fstream>
 	<sstream>
@@ -27,7 +26,7 @@
 
 1487861177 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\environment.cpp
 
-1487868633 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.cpp
+1487867365 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.cpp
 	"loadModel.h"
 
 1487864951 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.h
@@ -39,46 +38,89 @@
 	"shaderUtilities.h"
 	"loadModel.h"
 
-1488467365 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.cpp
-	"Inventory.h"
+1488381108 source:e:\fregolia\fregolia\fregolia\environment.cpp
 
-1488469098 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.h
-	"Item.h"
+1488381108 source:e:\fregolia\fregolia\fregolia\initopengl.cpp
+	"initOpenGL.h"
+
+1488381108 e:\fregolia\fregolia\fregolia\initopengl.h
 	"externalIncludes.h"
 
-1488472581 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.h
+1488381108 e:\fregolia\fregolia\fregolia\externalincludes.h
+	<glm.hpp>
+	<gtc/matrix_transform.hpp>
+	<gtc/type_ptr.hpp>
+	<glew.h>
+	<SDL.h>
+	<SDL_mixer.h>
+	<SOIL.h>
+	<iostream>
+	<fstream>
+	<sstream>
+	<vector>
 
-1488460393 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.cpp
-	"Item.h"
+1488461784 source:e:\fregolia\fregolia\fregolia\loadmodel.cpp
+	"loadModel.h"
 
-1488465506 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\meleeweapon.cpp
-	"MeleeWeapon.h"
-
-1488464792 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\meleeweapon.h
-	"Weapon.h"
+1488461926 e:\fregolia\fregolia\fregolia\loadmodel.h
 	"externalIncludes.h"
 
-1488466147 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\weapon.h
-	"Item.h"
+1488461784 source:e:\fregolia\fregolia\fregolia\main.cpp
+	"externalIncludes.h"
+	"initOpenGL.h"
+	"shaderUtilities.h"
+	"loadModel.h"
 
-1488465562 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.cpp
-	"RangedWeapon.h"
-
-1488472387 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.h
-	"Weapon.h"
+1488381123 e:\fregolia\fregolia\fregolia\shaderutilities.h
 	"externalIncludes.h"
 
-1488466191 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\weapon.cpp
-	"Weapon.h"
+1488381123 source:e:\fregolia\fregolia\fregolia\shaderutilities.cpp
+	"shaderUtilities.h"
 
-1488469098 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\consumable.cpp
-	"Consumable.h"
+1488381108 source:d:\fregolia\fregolia\fregolia\environment.cpp
 
-1488471251 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\consumable.h
+1488381108 source:d:\fregolia\fregolia\fregolia\initopengl.cpp
+	"initOpenGL.h"
 
-1488472387 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.cpp
-	"Enemy.h"
-
-1488472472 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.h
+1488381108 d:\fregolia\fregolia\fregolia\initopengl.h
 	"externalIncludes.h"
+
+1488381108 d:\fregolia\fregolia\fregolia\externalincludes.h
+	<glm.hpp>
+	<gtc/matrix_transform.hpp>
+	<gtc/type_ptr.hpp>
+	<glew.h>
+	<SDL.h>
+	<SDL_mixer.h>
+	<SOIL.h>
+	<iostream>
+	<fstream>
+	<sstream>
+	<vector>
+
+1488471986 source:d:\fregolia\fregolia\fregolia\loadmodel.cpp
+	"loadModel.h"
+
+1488465251 d:\fregolia\fregolia\fregolia\loadmodel.h
+	"externalIncludes.h"
+
+1488472561 source:d:\fregolia\fregolia\fregolia\main.cpp
+	"externalIncludes.h"
+	"initOpenGL.h"
+	"shaderUtilities.h"
+	"loadModel.h"
+	"personnage.h"
+
+1488381123 d:\fregolia\fregolia\fregolia\shaderutilities.h
+	"externalIncludes.h"
+
+1488472282 source:d:\fregolia\fregolia\fregolia\personnage.cpp
+	"personnage.h"
+
+1488462453 d:\fregolia\fregolia\fregolia\personnage.h
+	"externalIncludes.h"
+	"loadModel.h"
+
+1488381123 source:d:\fregolia\fregolia\fregolia\shaderutilities.cpp
+	"shaderUtilities.h"
 
