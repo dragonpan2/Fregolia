@@ -9,3 +9,10 @@ Weapon::~Weapon()
 {
     //dtor
 }
+
+void Weapon::damageWeapon() {
+}
+
+void Weapon::rangeWeapon() {
+    //tor
+}

@@ -6,16 +6,16 @@ class Weapon: public Item
 {
 
 
-    public:
-        Weapon();
-        virtual ~Weapon();
-       virtual bool peutTirer();
+public:
+    Weapon();
+    virtual ~Weapon();
+    virtual bool peutTirer();
 
-    protected:
-bool estPrpjectile;
-virtual void damageWeapon();
-        virtual void rangeWeapon();
-    private:
+protected:
+    bool estPrpjectile;
+    virtual void damageWeapon();
+    virtual void rangeWeapon();
+private:
 
 };
 
