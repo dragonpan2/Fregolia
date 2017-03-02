@@ -8,7 +8,7 @@ class RangedWeapon: public Weapon
     public:
         RangedWeapon();
         virtual ~RangedWeapon();
-virtual bool peutTirer();
+        virtual bool peutTirer();
     protected:
 
     private:

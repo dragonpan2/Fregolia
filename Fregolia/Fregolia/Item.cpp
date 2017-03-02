@@ -9,3 +9,6 @@ Item::~Item()
 {
     //dtor
 }
+
+Item::use() {
+}

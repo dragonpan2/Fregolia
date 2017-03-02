@@ -35,9 +35,10 @@ void Inventory::dropAll() {
 
 }
 
-void Inventory::destroyItem(Item itemToDestroy) {
-
+void Inventory::destroyItem(const Item itemToDestroy) {
+   // inventoryList.erase(std::remove(inventoryList.begin(), inventoryList.end(), itemToDestroy), inventoryList.end());
 }
 
 void Inventory::destroyItemDirect(int indexToDestroy) {
+    inventoryList.erase(inventoryList.begin() + indexToDestroy);
 }

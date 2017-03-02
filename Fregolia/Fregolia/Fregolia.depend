@@ -5,7 +5,7 @@
 1486072711 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.h
 	"externalIncludes.h"
 
-1487865061 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\externalincludes.h
+1488472716 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\externalincludes.h
 	<glm.hpp>
 	<gtc/matrix_transform.hpp>
 	<gtc/type_ptr.hpp>
@@ -13,6 +13,7 @@
 	<SDL.h>
 	<SDL_mixer.h>
 	<SOIL.h>
+	<algorithm>
 	<iostream>
 	<fstream>
 	<sstream>
@@ -38,14 +39,14 @@
 	"shaderUtilities.h"
 	"loadModel.h"
 
-1488464724 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.cpp
+1488467365 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.cpp
 	"Inventory.h"
 
-1488464603 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.h
+1488469098 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.h
 	"Item.h"
 	"externalIncludes.h"
 
-1488460393 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.h
+1488472581 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.h
 
 1488460393 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.cpp
 	"Item.h"
@@ -63,10 +64,21 @@
 1488465562 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.cpp
 	"RangedWeapon.h"
 
-1488465616 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.h
+1488472387 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.h
 	"Weapon.h"
 	"externalIncludes.h"
 
 1488466191 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\weapon.cpp
 	"Weapon.h"
+
+1488469098 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\consumable.cpp
+	"Consumable.h"
+
+1488471251 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\consumable.h
+
+1488472387 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.cpp
+	"Enemy.h"
+
+1488472472 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.h
+	"externalIncludes.h"
 

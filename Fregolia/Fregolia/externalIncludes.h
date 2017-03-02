@@ -12,6 +12,7 @@
 
 #include <SOIL.h>
 
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <sstream>

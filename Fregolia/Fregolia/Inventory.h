@@ -8,6 +8,7 @@ class Inventory
 public:
     Inventory();
     virtual ~Inventory();
+    int selectedIndex;
     bool  fullCheck();
     void  pickup(Item itemToAdd);
     void drop(Item itemToDrop);
