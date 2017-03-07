@@ -13,6 +13,7 @@
 				<Option compiler="pic" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="pic" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,6 +34,20 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Consumable.cpp" />
+		<Unit filename="Consumable.h" />
+		<Unit filename="Enemy.cpp" />
+		<Unit filename="Enemy.h" />
+		<Unit filename="Inventory.cpp" />
+		<Unit filename="Inventory.h" />
+		<Unit filename="Item.cpp" />
+		<Unit filename="Item.h" />
+		<Unit filename="MeleeWeapon.cpp" />
+		<Unit filename="MeleeWeapon.h" />
+		<Unit filename="RangedWeapon.cpp" />
+		<Unit filename="RangedWeapon.h" />
+		<Unit filename="Weapon.cpp" />
+		<Unit filename="Weapon.h" />
 		<Unit filename="environment.cpp" />
 		<Unit filename="environment.h" />
 		<Unit filename="externalIncludes.h" />
