@@ -8,18 +8,19 @@ using namespace std;
 
 /** VARIABLES GLOBALES **/
 
-GLuint shaderProgram;
+GLuint shaderProgram, waveProgram;
 
-imageModel /*testImage,*/ testBackground;
+imageModel testBackground;
 imageModel testCollision;
 Personnage testPerso;
 
 glm::mat4 projection, view;
 glm::vec3 cameraPos, cameraTarget;
 
-int listeTouches[sizeof(SDL_Scancode)] = {0};
+int listeTouches[1000] = {0};
 
 int timeLastFrame;
+float totalTime = 0.0f;
 
 /** DÉCLARATIONS DE FONCTIONS **/
 
@@ -34,14 +35,14 @@ void gererMouvement();
 int initResources()
 {
     shaderProgram = createProgram("./resources/vertShader.v", "./resources/fragShader.f");
+    waveProgram = createProgram("./resources/vertShader.v", "./resources/fragWaveShader.f");
 
-    //testImage.loadFile("./resources/testImage.txt", glm::vec2(-400.0f, -300.0f));
-    testBackground.loadFile("./resources/testBg.txt", glm::vec2(-400.0f, -300.0f));
-    testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(-400.0f, -300.0f));
-    testCollision.loadFile("./resources/tile.txt", glm::vec2(-400.0f, -300.0f));
+    testBackground.loadFile("./resources/testBg.txt", glm::vec2(-512.0f, -384.0f));
+    testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(-512.0f, -384.0f));
+    testCollision.loadFile("./resources/tile.txt", glm::vec2(-512.0f, -550.0f));
 
-    projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, 1.0f, 1000.0f);
-    view = glm::lookAt(glm::vec3(0,0,0), glm::vec3(0,0,-1), glm::vec3(0,-1,0));
+    projection = glm::ortho(0.0f, 1024.0f, 768.0f, 0.0f, 1.0f, 1000.0f);
+    view = glm::lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
     return 0;
 }
@@ -55,14 +56,23 @@ int renderScreen(SDL_Window* pWindow)
     glClearColor(0.3, 0.3, 0.35, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    testBackground.drawImage(shaderProgram, view, projection);
-    testCollision.drawImage(shaderProgram, view, projection);
-    //testImage.drawImage(shaderProgram, view, projection);
-    testPerso.drawImage(shaderProgram, view, projection);
+    testPerso.gererDeplacement(timeLastFrame);
+
+    if(testPerso.isCollision(&testCollision)) testPerso.resoudreCollision(testPerso.getDeplacement(&testCollision));
+    testBackground.setPos(testPerso.getPos());
+
+    testBackground.drawImage(waveProgram, totalTime, view, projection);
+    testCollision.drawImage(shaderProgram, totalTime, view, projection);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    testPerso.drawImage(shaderProgram, totalTime, view, projection);
+    glDisable(GL_BLEND);
 
     SDL_GL_SwapWindow(pWindow);
 
     timeLastFrame = SDL_GetTicks() - curTime;
+    totalTime += timeLastFrame;
     std::cout << timeLastFrame << std::endl;
 
     return 0;
@@ -71,20 +81,15 @@ int renderScreen(SDL_Window* pWindow)
 void gererMouvement()
 {
     if(listeTouches[SDL_SCANCODE_W]) {
-        //testImage.moveImage(glm::vec2(0, 1));
-        testPerso.gererDeplacements(timeLastFrame, glm::vec2(0, 1));
+        testPerso.setState(2, glm::vec2(0, 1));
     }
     if(listeTouches[SDL_SCANCODE_S]) {
-        //testImage.moveImage(glm::vec2(0, -1));
-        testPerso.gererDeplacements(timeLastFrame, glm::vec2(0, -1));
     }
     if(listeTouches[SDL_SCANCODE_A]) {
-        //testImage.moveImage(glm::vec2(1, 0));
-        testPerso.gererDeplacements(timeLastFrame, glm::vec2(1, 0));
+        testPerso.setState(1, glm::vec2(-1, 0));
     }
     if(listeTouches[SDL_SCANCODE_D]) {
-        //testImage.moveImage(glm::vec2(-1, 0));
-        testPerso.gererDeplacements(timeLastFrame, glm::vec2(-1, 0));
+        testPerso.setState(1, glm::vec2(1, 0));
     }
 }
 
@@ -125,22 +130,10 @@ int main(int argc, char* argv[])
                 default:
                     break;
             }
-            /*const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-            if(keystate[SDL_SCANCODE_W]) {
-                testImage.moveImage(glm::vec2(0, 1));
-            }
-            if(keystate[SDL_SCANCODE_S]) {
-                testImage.moveImage(glm::vec2(0, -1));
-            }
-            if(keystate[SDL_SCANCODE_A]) {
-                testImage.moveImage(glm::vec2(1, 0));
-            }
-            if(keystate[SDL_SCANCODE_D]) {
-                testImage.moveImage(glm::vec2(-1, 0));
-            }*/
         }
 
         gererMouvement();
+        view = glm::lookAt(glm::vec3(testPerso.getPos().x - 512, testPerso.getPos().y + 384, 0), glm::vec3(testPerso.getPos().x - 512, testPerso.getPos().y + 384, 1), glm::vec3(0, -1, 0));
 
         if(renderScreen(mainWindow))
         {

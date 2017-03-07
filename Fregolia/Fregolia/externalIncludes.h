@@ -17,4 +17,6 @@
 #include <sstream>
 #include <vector>
 
+#define CONSTANTE_GRAVITE 9.8f
+
 #endif // EXTERNALINCLUDES_H_INCLUDED

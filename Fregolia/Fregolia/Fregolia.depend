@@ -124,3 +124,100 @@
 1488381123 source:d:\fregolia\fregolia\fregolia\shaderutilities.cpp
 	"shaderUtilities.h"
 
+1488381108 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\environment.cpp
+
+1488756599 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\initopengl.cpp
+	"initOpenGL.h"
+
+1488381108 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\initopengl.h
+	"externalIncludes.h"
+
+1488913649 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\externalincludes.h
+	<glm.hpp>
+	<gtc/matrix_transform.hpp>
+	<gtc/type_ptr.hpp>
+	<glew.h>
+	<SDL.h>
+	<SDL_mixer.h>
+	<SOIL.h>
+	<iostream>
+	<fstream>
+	<sstream>
+	<vector>
+
+1488910613 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\loadmodel.cpp
+	"loadModel.h"
+
+1488755767 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\loadmodel.h
+	"externalIncludes.h"
+	"Collisions.h"
+
+1488914399 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\main.cpp
+	"externalIncludes.h"
+	"initOpenGL.h"
+	"shaderUtilities.h"
+	"loadModel.h"
+	"personnage.h"
+
+1488381123 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\shaderutilities.h
+	"externalIncludes.h"
+
+1488913811 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\personnage.h
+	"externalIncludes.h"
+	"loadModel.h"
+
+1488913736 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\personnage.cpp
+	"personnage.h"
+
+1488381123 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\shaderutilities.cpp
+	"shaderUtilities.h"
+
+1488488041 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\consumable.cpp
+	"Consumable.h"
+
+1488488041 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\consumable.h
+
+1488488041 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\enemy.cpp
+	"Enemy.h"
+
+1488488041 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\enemy.h
+	"externalIncludes.h"
+
+1488488041 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\inventory.cpp
+	"Inventory.h"
+
+1488488041 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\inventory.h
+	"Item.h"
+	"externalIncludes.h"
+
+1488488941 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\item.h
+
+1488488948 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\item.cpp
+	"Item.h"
+
+1488488041 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\meleeweapon.cpp
+	"MeleeWeapon.h"
+
+1488488041 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\meleeweapon.h
+	"Weapon.h"
+	"externalIncludes.h"
+
+1488488041 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\weapon.h
+	"Item.h"
+
+1488488041 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\rangedweapon.cpp
+	"RangedWeapon.h"
+
+1488488041 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\rangedweapon.h
+	"Weapon.h"
+	"externalIncludes.h"
+
+1488488041 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\weapon.cpp
+	"Weapon.h"
+
+1488913153 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\collisions.cpp
+	"Collisions.h"
+
+1488910613 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\collisions.h
+	"externalIncludes.h"
+

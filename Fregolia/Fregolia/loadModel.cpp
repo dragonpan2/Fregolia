@@ -34,7 +34,7 @@ void imageModel::loadFile(std::string pFilePath, glm::vec2 pPos)
                 listePoints.push_back(coord);
             }
         }
-        else if(line.substr(0, 2) == "t ")
+        if(line.substr(0, 2) == "t ")
         {
             std::istringstream streamLine(line.substr(2));
             glm::vec2 coord;
@@ -78,6 +78,22 @@ void imageModel::loadFile(std::string pFilePath, glm::vec2 pPos)
 
     fichier.close();
 
+    /// Génération des points du AABB
+    mCoins[0] = glm::vec2((-mDimensions.x / 2) + mPos.x, (mDimensions.y / 2) + mPos.y);
+    mCoins[1] = glm::vec2((mDimensions.x / 2) + mPos.x, (mDimensions.y / 2) + mPos.y);
+    mCoins[2] = glm::vec2((mDimensions.x / 2) + mPos.x, (-mDimensions.y / 2) + mPos.y);
+    mCoins[3] = glm::vec2((-mDimensions.x / 2) + mPos.x, (-mDimensions.y / 2) + mPos.y);
+
+    /// Génération des bords du AABB
+    mAxes[0] = mCoins[1] - mCoins[0];
+    mAxes[1] = mCoins[3] - mCoins[0];
+
+    mAxesLongueur[0] = glm::length(mAxes[0]);
+    mAxesLongueur[1] = glm::length(mAxes[1]);
+
+    mAxes[0] = glm::normalize(mAxes[0]);
+    mAxes[1] = glm::normalize(mAxes[1]);
+
     glGenBuffers(1, &mVerticesVBO);
     glGenBuffers(1, &mTextureVBO);
 
@@ -98,7 +114,7 @@ void imageModel::loadFile(std::string pFilePath, glm::vec2 pPos)
                  GL_DYNAMIC_DRAW);
 }
 
-void imageModel::drawImage(GLuint shaderProgram, glm::mat4 pView, glm::mat4 pProj)
+void imageModel::drawImage(GLuint shaderProgram, float pTimeElapsed, glm::mat4 pView, glm::mat4 pProj)
 {
     glUseProgram(shaderProgram);
 
@@ -145,6 +161,8 @@ void imageModel::drawImage(GLuint shaderProgram, glm::mat4 pView, glm::mat4 pPro
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "VMat"), 1, GL_FALSE, glm::value_ptr(pView));
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "PMat"), 1, GL_FALSE, glm::value_ptr(pProj));
 
+    glUniform1f(glGetUniformLocation(shaderProgram, "time"), pTimeElapsed);
+
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     //std::cout << "ERREURFINAL: " << glGetError() << std::endl;
@@ -154,9 +172,24 @@ void imageModel::moveImage(glm::vec2 pDeplacement)
 {
     mPos += pDeplacement;
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
+    changeBB(pDeplacement);
 }
 
 glm::vec2 imageModel::getPos()
 {
     return mPos;
+}
+
+void imageModel::changeBB(glm::vec2 pDeplacement)
+{
+    mCoins[0] += pDeplacement;
+    mCoins[1] += pDeplacement;
+    mCoins[2] += pDeplacement;
+    mCoins[3] += pDeplacement;
+}
+
+void imageModel::setPos(glm::vec2 pPos)
+{
+    mPos = pPos;
+    mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
 }

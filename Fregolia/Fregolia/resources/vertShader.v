@@ -11,5 +11,5 @@ out vec2 fTexCoords;
 void main(void)
 {
 	fTexCoords = texCoords;
-	gl_Position = PMat * VMat * MMat * vec4(Coord2D, -1.0, 1);
+	gl_Position = PMat * VMat * MMat * vec4(Coord2D, 1.0, 1);
 }
