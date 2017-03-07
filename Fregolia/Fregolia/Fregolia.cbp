@@ -13,12 +13,14 @@
 				<Option compiler="gcc_opengl" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/Fregolia" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
+<<<<<<< HEAD
 				<Option compiler="copy_of_copy_of_mingw_posix_sjlj_471_test_2" />
 				<Option projectCompilerOptionsRelation="-1" />
 				<Option projectLinkerOptionsRelation="-1" />
@@ -33,6 +35,16 @@
 					<AskRebuildNeeded command="" />
 					<SilentBuild command=" &gt; $(CMD_NULL)" />
 				</MakeCommands>
+=======
+				<Option compiler="gcc_opengl" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+>>>>>>> origin/master
 			</Target>
 		</Build>
 		<Compiler>
