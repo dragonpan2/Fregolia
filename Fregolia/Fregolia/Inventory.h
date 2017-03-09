@@ -11,6 +11,7 @@ public:
     int selectedIndex;
     bool  fullCheck();
     void  pickup(Item itemToAdd);
+    void pickupMethod(Item itemToAdd);
     void drop(Item itemToDrop);
     void dropDirect(int indexToDrop);
     void dropAll();
