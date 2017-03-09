@@ -7,7 +7,7 @@ class Item
     public:
         Item();
         virtual ~Item();
-        virtual void use();
+        virtual void use(Item itemToUse);
 
     protected:
 

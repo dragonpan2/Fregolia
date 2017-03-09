@@ -11,9 +11,10 @@ MeleeWeapon::~MeleeWeapon()
 {
     //dtor
 }
-bool Weapon ::  peutTirer()
+bool MeleeWeapon ::  peutTirer()
 {
 
-Weapon::estPrpjectile=false;
-return estPrpjectile;
+Weapon::estProjectile=false;
+return estProjectile;
+
 }

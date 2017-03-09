@@ -16,3 +16,8 @@ void Weapon::damageWeapon() {
 void Weapon::rangeWeapon() {
     //tor
 }
+
+bool Weapon::peutTirer()
+{
+
+}

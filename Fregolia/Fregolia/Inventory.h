@@ -9,9 +9,8 @@ public:
     Inventory();
     virtual ~Inventory();
     int selectedIndex;
-    bool  fullCheck();
-    void  pickup(Item itemToAdd);
-    void pickupMethod(Item itemToAdd);
+    bool fullCheck();
+    void pickup(Item itemToAdd);
     void drop(Item itemToDrop);
     void dropDirect(int indexToDrop);
     void dropAll();

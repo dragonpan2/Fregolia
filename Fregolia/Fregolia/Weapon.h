@@ -12,7 +12,7 @@ public:
     virtual bool peutTirer();
 
 protected:
-    bool estPrpjectile;
+    bool estProjectile;
     virtual void damageWeapon();
     virtual void rangeWeapon();
 private:

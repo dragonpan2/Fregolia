@@ -4,13 +4,14 @@
 #include "externalIncludes.h"
 class MeleeWeapon : public Weapon
 {
-    public:
-        MeleeWeapon();
-        virtual ~MeleeWeapon() final;
+public:
+    MeleeWeapon();
+    virtual ~MeleeWeapon();
+    virtual bool peutTirer();
 
-    protected:
+protected:
 
-    private:
+private:
 
 };
 
