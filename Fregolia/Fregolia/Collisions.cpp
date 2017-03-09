@@ -46,7 +46,7 @@ bool Collidable::checkOverlap(Collidable* pOther)
         /// Pour cet axe, on a le minimum et le maximum de l'autre BB.
 
         /// On veut maintenant voir s'il y a intersection entre les deux, i.e. si un des points de l'autre BB est entre les deux points de celui-ci. REFERENCE POUR LE TRUC DE LA LONGUEUR: http://www.flipcode.com/archives/2D_OBB_Intersection.shtml
-        std::cout << i << "LENGTH: " << glm::length(mAxes[i]) << std::endl;
+        //std::cout << i << "LENGTH: " << glm::length(mAxes[i]) << std::endl;
 
         if(glm::dot(mCoins[0], mAxes[i]) > maxAutre || glm::dot(mCoins[0], mAxes[i]) + mAxesLongueur[i] < minAutre) return false;
         else if(maxAutre - glm::dot(mCoins[0], mAxes[i]) < mMinDistance) /// Plus grand car 1 / distance!
@@ -63,7 +63,7 @@ bool Collidable::checkOverlap(Collidable* pOther)
 glm::vec2 Collidable::getDeplacement(Collidable* pOther)
 {
     if(mMinDistance <= pOther->getMinDistance()) {
-        std::cout << mMinDistance << "; " << mMinAxe.x << " " << mMinAxe.y << std::endl;
+        //std::cout << mMinDistance << "; " << mMinAxe.x << " " << mMinAxe.y << std::endl;
         return mMinDistance * glm::vec2(0, 1);
     }
     else return pOther->getDeplacement(this);

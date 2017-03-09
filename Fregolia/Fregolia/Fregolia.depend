@@ -33,7 +33,7 @@
 	"externalIncludes.h"
 	"Collisions.h"
 
-1489028184 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\main.cpp
+1489072173 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\main.cpp
 	"externalIncludes.h"
 	"initOpenGL.h"
 	"shaderUtilities.h"
@@ -259,7 +259,7 @@
 1489029264 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.cpp
 	"Inventory.h"
 
-1489066158 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.h
+1489069332 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.h
 	"Item.h"
 	"externalIncludes.h"
 
@@ -276,11 +276,16 @@
 1489028184 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\personnage.cpp
 	"personnage.h"
 
-1489028183 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\collisions.cpp
+1489072146 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\collisions.cpp
 	"Collisions.h"
 
 1489068753 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravitymanager.cpp
 	"GravityManager.h"
 
 1489068753 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravitymanager.h
+
+1489068792 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicobject.cpp
+	"PhysicObject.h"
+
+1489068816 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicobject.h
 
