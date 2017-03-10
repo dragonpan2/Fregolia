@@ -10,7 +10,7 @@ using namespace std;
 
 GLuint shaderProgram, waveProgram;
 
-imageModel testSeal; //test here
+//imageModel testSeal; //test here
 imageModel testBackground;
 imageModel testCollision;
 Personnage testPerso;
@@ -38,7 +38,7 @@ int initResources()
     shaderProgram = createProgram("./resources/vertShader.v", "./resources/fragShader.f");
     waveProgram = createProgram("./resources/vertShader.v", "./resources/fragWaveShader.f");
 
-    testSeal.loadFile("./resources/polar.txt", glm::vec2(-312.0f,-384.0f)); //test here
+//    testSeal.loadFile("./resources/polar.txt", glm::vec2(-312.0f,-384.0f)); //test here
     testBackground.loadFile("./resources/testBg.txt", glm::vec2(-512.0f, -384.0f));
     testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(-512.0f, -384.0f));
     testCollision.loadFile("./resources/tile.txt", glm::vec2(-512.0f, -550.0f));
@@ -67,7 +67,7 @@ int renderScreen(SDL_Window* pWindow)
     testBackground.drawImage(waveProgram, totalTime, view, projection);
     testCollision.drawImage(shaderProgram, totalTime, view, projection);
 
-    testSeal.drawImage(shaderProgram, totalTime,view,projection); //test here
+   // testSeal.drawImage(shaderProgram, totalTime,view,projection); //test here
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

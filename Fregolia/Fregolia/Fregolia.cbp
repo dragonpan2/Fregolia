@@ -10,18 +10,7 @@
 				<Option output="bin/Debug/Fregolia" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
-				<Option compiler="gcc_opengl" />
-				<Compiler>
-					<Add option="-g" />
-					<Add directory="include" />
-				</Compiler>
-			</Target>
-			<Target title="Release">
-				<Option output="bin/Release/Fregolia" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
-				<Option type="1" />
-<<<<<<< HEAD
-				<Option compiler="copy_of_copy_of_mingw_posix_sjlj_471_test_2" />
+				<Option compiler="pic" />
 				<Option projectCompilerOptionsRelation="-1" />
 				<Option projectLinkerOptionsRelation="-1" />
 				<Option projectIncludeDirsRelation="-1" />
@@ -35,8 +24,16 @@
 					<AskRebuildNeeded command="" />
 					<SilentBuild command=" &gt; $(CMD_NULL)" />
 				</MakeCommands>
-=======
-				<Option compiler="gcc_opengl" />
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Fregolia" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="pic" />
+				<Option projectCompilerOptionsRelation="-1" />
+				<Option projectLinkerOptionsRelation="-1" />
+				<Option projectIncludeDirsRelation="-1" />
+				<Option projectLibDirsRelation="-1" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add directory="include" />
@@ -44,23 +41,38 @@
 				<Linker>
 					<Add option="-s" />
 				</Linker>
->>>>>>> origin/master
+				<MakeCommands>
+					<Build command="" />
+					<CompileFile command="" />
+					<Clean command="" />
+					<DistClean command="" />
+					<AskRebuildNeeded command="" />
+					<SilentBuild command=" &gt; $(CMD_NULL)" />
+				</MakeCommands>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="AI.cpp" />
+		<Unit filename="Ai.h" />
+		<Unit filename="Collisions.cpp" />
+		<Unit filename="Collisions.h" />
 		<Unit filename="Consumable.cpp" />
 		<Unit filename="Consumable.h" />
 		<Unit filename="Enemy.cpp" />
 		<Unit filename="Enemy.h" />
+		<Unit filename="GravityManager.cpp" />
+		<Unit filename="GravityManager.h" />
 		<Unit filename="Inventory.cpp" />
 		<Unit filename="Inventory.h" />
 		<Unit filename="Item.cpp" />
 		<Unit filename="Item.h" />
 		<Unit filename="MeleeWeapon.cpp" />
 		<Unit filename="MeleeWeapon.h" />
+		<Unit filename="PhysicObject.cpp" />
+		<Unit filename="PhysicObject.h" />
 		<Unit filename="RangedWeapon.cpp" />
 		<Unit filename="RangedWeapon.h" />
 		<Unit filename="Weapon.cpp" />
