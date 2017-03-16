@@ -3,6 +3,7 @@
 #include "shaderUtilities.h"
 #include "loadModel.h"
 #include "personnage.h"
+#include "environment.h"
 
 using namespace std;
 
@@ -10,9 +11,8 @@ using namespace std;
 
 GLuint shaderProgram, waveProgram;
 
-//imageModel testSeal; //test here
-imageModel testBackground;
-imageModel testCollision;
+imageModel testSky, testBackground, testForeground, testCollision1, testCollision2, testPorte;
+Environnement testEnv;
 Personnage testPerso;
 
 glm::mat4 projection, view;
@@ -38,13 +38,24 @@ int initResources()
     shaderProgram = createProgram("./resources/vertShader.v", "./resources/fragShader.f");
     waveProgram = createProgram("./resources/vertShader.v", "./resources/fragWaveShader.f");
 
-//    testSeal.loadFile("./resources/polar.txt", glm::vec2(-312.0f,-384.0f)); //test here
-    testBackground.loadFile("./resources/testBg.txt", glm::vec2(-512.0f, -384.0f));
-    testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(-512.0f, -384.0f));
-    testCollision.loadFile("./resources/tile.txt", glm::vec2(-512.0f, -550.0f));
+    testPorte.loadFile("./resources/Porte.txt", glm::vec2(450.0f, 0.0f));
+    testSky.loadFile("./resources/Sky.txt", glm::vec2(0.0f, 0.0f));
+    testBackground.loadFile("./resources/Background.txt", glm::vec2(0.0f, 0.0f));
+    testForeground.loadFile("./resources/Foreground.txt", glm::vec2(0.0f, 0.0f));
+    testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(-400.0f, 0.0f));
+    testCollision1.loadFile("./resources/tile.txt", glm::vec2(-450.0f, -180.0f));
+    testCollision2.loadFile("./resources/tile2.txt", glm::vec2(300.0f, -230.0f));
 
-    projection = glm::ortho(0.0f, 1024.0f, 768.0f, 0.0f, 1.0f, 1000.0f);
-    view = glm::lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+    testEnv.setSky(&testSky);
+    testEnv.setBackground(&testBackground);
+    testEnv.addObject(&testCollision1);
+    testEnv.addObject(&testCollision2);
+    testEnv.setForeground(&testForeground);
+
+
+    projection = glm::ortho(0.0f, (float) SCREEN_WIDTH, (float) SCREEN_HEIGHT, 0.0f, 1.0f, 1000.0f);
+    view = glm::lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(0, -1, 0));
+    testEnv.setMatrices(view, projection);
 
     return 0;
 }
@@ -57,21 +68,30 @@ int renderScreen(SDL_Window* pWindow)
 
     glClearColor(0.3, 0.3, 0.35, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
-
     testPerso.gererDeplacement(timeLastFrame);
+for(int i = 0; i < 50; ++i) {
+    testPerso.isCollision(&testCollision1);
+    testPerso.isCollision(&testCollision2);
+    testPerso.getDeplacement(&testCollision1);
+    testPerso.getDeplacement(&testCollision2);
+    testPerso.resoudreCollision(glm::vec2(0, 0));
+    testPerso.resoudreCollision(glm::vec2(0, 0));
+}
+    if(testPerso.isCollision(&testCollision1)) testPerso.resoudreCollision(testPerso.getDeplacement(&testCollision1));
+    if(testPerso.isCollision(&testCollision2)) testPerso.resoudreCollision(testPerso.getDeplacement(&testCollision2));
+    if(testPerso.isCollision(&testPorte)) std::cout << "Changement de piece!" << std::endl;
+    if(testPerso.verifierMort()) testPerso.reset(glm::vec2(-400.0f, 0.0f));
 
-    if(testPerso.isCollision(&testCollision)) testPerso.resoudreCollision(testPerso.getDeplacement(&testCollision));
-    testBackground.setPos(testPerso.getPos());
-
-
-    testBackground.drawImage(waveProgram, totalTime, view, projection);
-    testCollision.drawImage(shaderProgram, totalTime, view, projection);
-
-   // testSeal.drawImage(shaderProgram, totalTime,view,projection); //test here
-
+    testEnv.drawSky(waveProgram, totalTime);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    testEnv.drawBackground(shaderProgram, totalTime);
+    testEnv.drawGround(shaderProgram, totalTime);
+
     testPerso.drawImage(shaderProgram, totalTime, view, projection);
+
+
+    testEnv.drawForeground(shaderProgram, totalTime);
     glDisable(GL_BLEND);
 
     SDL_GL_SwapWindow(pWindow);
@@ -85,7 +105,7 @@ int renderScreen(SDL_Window* pWindow)
 
 void gererMouvement()
 {
-    if(listeTouches[SDL_SCANCODE_W]) {
+    if(listeTouches[SDL_SCANCODE_SPACE]) {
         testPerso.setState(2, glm::vec2(0, 1));
     }
     if(listeTouches[SDL_SCANCODE_S]) {
@@ -138,7 +158,9 @@ int main(int argc, char* argv[])
         }
 
         gererMouvement();
-        view = glm::lookAt(glm::vec3(testPerso.getPos().x - 512, testPerso.getPos().y + 384, 0), glm::vec3(testPerso.getPos().x - 512, testPerso.getPos().y + 384, 1), glm::vec3(0, -1, 0));
+        view = glm::lookAt(glm::vec3(-512, 300, 0), glm::vec3(-512, 300, 1), glm::vec3(0, -1, 0));
+        testEnv.setMatrices(view, projection);
+
 
         if(renderScreen(mainWindow))
         {

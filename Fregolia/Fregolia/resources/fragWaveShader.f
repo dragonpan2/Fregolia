@@ -14,7 +14,7 @@ void main(void)
 
 	vec2 newTexCoords = vec2(fTexCoords.x + factor*(pos.x/range), fTexCoords.y + factor*(pos.y/range));
 	vec4 texColor = texture(Texture, newTexCoords);
-	vec4 outColor = vec4(texColor + tempColor);
+	vec4 outColor = vec4(texColor /*+ tempColor*/);
 	//outColor = vec4(outColor.x * sin(fTexCoords.x), outColor.y * sin(fTexCoords.y), outColor.z, outColor.w);
 	gl_FragColor = outColor;	
 }

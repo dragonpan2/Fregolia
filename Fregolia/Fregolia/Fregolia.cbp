@@ -10,17 +10,34 @@
 				<Option output="bin/Debug/Fregolia" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
+<<<<<<< HEAD
 				<Option compiler="pic" />
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="include" />
 				</Compiler>
+=======
+				<Option compiler="copy_of_copy_of_mingw_posix_sjlj_471_test_2" />
+				<Option projectCompilerOptionsRelation="-1" />
+				<Option projectLinkerOptionsRelation="-1" />
+				<Option projectIncludeDirsRelation="-1" />
+				<Option projectResourceIncludeDirsRelation="-1" />
+				<Option projectLibDirsRelation="-1" />
+				<MakeCommands>
+					<Build command="" />
+					<CompileFile command="" />
+					<Clean command="" />
+					<DistClean command="" />
+					<AskRebuildNeeded command="" />
+					<SilentBuild command=" &gt; $(CMD_NULL)" />
+				</MakeCommands>
+>>>>>>> origin/master
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/Fregolia" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
-				<Option compiler="pic" />
+				<Option compiler="copy_of_copy_of_mingw_posix_sjlj_471_test_2" />
 				<Option projectCompilerOptionsRelation="-1" />
 				<Option projectLinkerOptionsRelation="-1" />
 				<Option projectIncludeDirsRelation="-1" />
@@ -60,6 +77,8 @@
 		<Unit filename="MeleeWeapon.h" />
 		<Unit filename="RangedWeapon.cpp" />
 		<Unit filename="RangedWeapon.h" />
+		<Unit filename="Water.cpp" />
+		<Unit filename="Water.h" />
 		<Unit filename="Weapon.cpp" />
 		<Unit filename="Weapon.h" />
 		<Unit filename="environment.cpp" />

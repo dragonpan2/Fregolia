@@ -22,6 +22,9 @@ class Personnage : public imageModel
         virtual void setState(int pState, glm::vec2 pDir);
         virtual int getState();
 
+        virtual bool verifierMort();
+        virtual void reset(glm::vec2 pPos);
+
     private:
         int mVitesse;
         int mImpulsionSaut = 30, mVitesseSaut = 0;
@@ -30,6 +33,8 @@ class Personnage : public imageModel
         int mState = 0;
 
         glm::vec2 mDirection = glm::vec2(0, 0);
+
+        bool mMort;
 
 };
 
