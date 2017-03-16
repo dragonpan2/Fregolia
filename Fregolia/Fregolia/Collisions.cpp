@@ -64,7 +64,7 @@ glm::vec2 Collidable::getDeplacement(Collidable* pOther)
 {
     if(mMinDistance <= pOther->getMinDistance()) {
         //std::cout << mMinDistance << "; " << mMinAxe.x << " " << mMinAxe.y << std::endl;
-        return mMinDistance * glm::vec2(0, 1);
+        return mMinDistance * mMinAxe;
     }
-    else return pOther->getDeplacement(this);
+    else return pOther->getDeplacement(this) * -1.0f;
 }

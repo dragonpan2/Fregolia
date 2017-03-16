@@ -7,7 +7,9 @@ imageModel::imageModel()
 
 imageModel::~imageModel()
 {
-
+    glDeleteBuffers(1, &mVerticesVBO);
+    glDeleteBuffers(1, &mTextureVBO);
+    glDeleteTextures(1, &mTexture);
 }
 
 void imageModel::loadFile(std::string pFilePath, glm::vec2 pPos)

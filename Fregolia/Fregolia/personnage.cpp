@@ -3,6 +3,7 @@
 Personnage::Personnage()
 {
     mState = 1;
+    mMort = false;
 }
 
 Personnage::~Personnage()
@@ -103,4 +104,24 @@ void Personnage::gererDeplacement(int pDeltaTemps)
     changeBB(deplacement);
 
     mDirection = glm::vec2(0, 0);
+}
+
+bool Personnage::verifierMort()
+{
+    if(mPos.y < -SCREEN_HEIGHT)
+        mMort = true;
+
+    return mMort;
+}
+
+void Personnage::reset(glm::vec2 pPos)
+{
+    mState = 1;
+    mMort = false;
+    glm::vec2 deplacement = pPos - mPos;
+    mPos = pPos;
+    mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
+    changeBB(deplacement);
+    mDirection = glm::vec2(0, 0);
+    mVitesseSaut = 0;
 }
