@@ -51,3 +51,18 @@ void Inventory::destroyItemDirect(int indexToDestroy)
 {
     inventoryList.erase(inventoryList.begin() + indexToDestroy);
 }
+
+void Inventory::addItem(Item itemToAdd)
+{
+    //visuellement ajouter l'item a l'inventaire
+    inventoryList.push_back(itemToAdd);
+
+}
+
+void Inventory::removeItem(Item itemToRemove)
+{
+
+    //visuellement enlever l'item de l'inventaire
+    //inventoryList.erase(std::remove(inventoryList.begin(), inventoryList.end(), itemToRemove), inventoryList.end());
+
+}

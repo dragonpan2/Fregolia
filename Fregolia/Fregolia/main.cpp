@@ -4,6 +4,7 @@
 #include "loadModel.h"
 #include "personnage.h"
 #include "environment.h"
+#include "Weapon.h"
 
 using namespace std;
 
@@ -14,6 +15,9 @@ GLuint shaderProgram, waveProgram;
 imageModel testSky, testBackground, testForeground, testCollision1, testCollision2, testPorte;
 Environnement testEnv;
 Personnage testPerso;
+Weapon testWeapon;
+Inventory testInventory;
+Enemy testEnemy;
 
 glm::mat4 projection, view;
 glm::vec3 cameraPos, cameraTarget;
@@ -25,6 +29,7 @@ float totalTime = 0.0f;
 
 /** DÉCLARATIONS DE FONCTIONS **/
 
+void gererWeapon();
 int initResources();
 int renderScreen(SDL_Window* pWindow);
 int renderTriangle();
@@ -32,6 +37,26 @@ void gererMouvement();
 
 
 /** CODE **/
+
+void gererWeapon()
+{
+    if(listeTouches[SDL_SCANCODE_TAB])
+    {
+        if(testWeapon.siEquipped())
+        {
+            testWeapon.unequipWeapon(testWeapon, testInventory);
+        }
+        else
+        {
+            testWeapon.equipWeapon(testWeapon, testInventory);
+        }
+    }
+
+    if(listeTouches[SDL_SCANCODE_F])
+    {
+        testWeapon.use(testEnemy);
+    }
+}
 
 int initResources()
 {
@@ -69,14 +94,15 @@ int renderScreen(SDL_Window* pWindow)
     glClearColor(0.3, 0.3, 0.35, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     testPerso.gererDeplacement(timeLastFrame);
-for(int i = 0; i < 50; ++i) {
-    testPerso.isCollision(&testCollision1);
-    testPerso.isCollision(&testCollision2);
-    testPerso.getDeplacement(&testCollision1);
-    testPerso.getDeplacement(&testCollision2);
-    testPerso.resoudreCollision(glm::vec2(0, 0));
-    testPerso.resoudreCollision(glm::vec2(0, 0));
-}
+    for(int i = 0; i < 50; ++i)
+    {
+        testPerso.isCollision(&testCollision1);
+        testPerso.isCollision(&testCollision2);
+        testPerso.getDeplacement(&testCollision1);
+        testPerso.getDeplacement(&testCollision2);
+        testPerso.resoudreCollision(glm::vec2(0, 0));
+        testPerso.resoudreCollision(glm::vec2(0, 0));
+    }
     if(testPerso.isCollision(&testCollision1)) testPerso.resoudreCollision(testPerso.getDeplacement(&testCollision1));
     if(testPerso.isCollision(&testCollision2)) testPerso.resoudreCollision(testPerso.getDeplacement(&testCollision2));
     if(testPerso.isCollision(&testPorte)) std::cout << "Changement de piece!" << std::endl;
@@ -105,15 +131,19 @@ for(int i = 0; i < 50; ++i) {
 
 void gererMouvement()
 {
-    if(listeTouches[SDL_SCANCODE_SPACE]) {
+    if(listeTouches[SDL_SCANCODE_SPACE])
+    {
         testPerso.setState(2, glm::vec2(0, 1));
     }
-    if(listeTouches[SDL_SCANCODE_S]) {
+    if(listeTouches[SDL_SCANCODE_S])
+    {
     }
-    if(listeTouches[SDL_SCANCODE_A]) {
+    if(listeTouches[SDL_SCANCODE_A])
+    {
         testPerso.setState(1, glm::vec2(-1, 0));
     }
-    if(listeTouches[SDL_SCANCODE_D]) {
+    if(listeTouches[SDL_SCANCODE_D])
+    {
         testPerso.setState(1, glm::vec2(1, 0));
     }
 }
@@ -146,14 +176,14 @@ int main(int argc, char* argv[])
             }
             switch(events.type)
             {
-                case SDL_KEYUP:
-                    listeTouches[events.key.keysym.scancode] = 0;
-                    break;
-                case SDL_KEYDOWN:
-                    listeTouches[events.key.keysym.scancode] = 1;
-                    break;
-                default:
-                    break;
+            case SDL_KEYUP:
+                listeTouches[events.key.keysym.scancode] = 0;
+                break;
+            case SDL_KEYDOWN:
+                listeTouches[events.key.keysym.scancode] = 1;
+                break;
+            default:
+                break;
             }
         }
 
