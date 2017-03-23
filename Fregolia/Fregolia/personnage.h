@@ -1,6 +1,5 @@
 #ifndef PERSONNAGE_H_INCLUDED
 #define PERSONNAGE_H_INCLUDED
-
 #include "externalIncludes.h"
 #include "loadModel.h"
 
@@ -22,13 +21,14 @@ class Personnage : public imageModel
         virtual void setState(int pState, glm::vec2 pDir);
         virtual int getState();
 
+        virtual void mangerConsumable();
         virtual bool verifierMort();
         virtual void reset(glm::vec2 pPos);
 
     private:
         int mVitesse;
         int mImpulsionSaut = 30, mVitesseSaut = 0;
-
+        int healthPersonnage = 100;
         /// 0 = Rien, 1 = Marche, 2 = Saut (incl. Chute)...
         int mState = 0;
 

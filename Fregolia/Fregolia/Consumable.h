@@ -4,12 +4,12 @@
 class Consumable
     {
     public:
-        int health;
-        void useConsumable();
+        void pickupConsumable();
+        int getQuantity();
     protected:
 
     private:
-
+        int quantity = 0;
     };
 
 
