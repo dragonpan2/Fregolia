@@ -13,6 +13,8 @@ using namespace std;
 GLuint shaderProgram, waveProgram;
 
 imageModel testSky, testBackground, testForeground, testCollision1, testCollision2, testPorte;
+//
+imageModel testInv;
 Environnement testEnv;
 Personnage testPerso;
 Weapon testWeapon;
@@ -77,6 +79,8 @@ int initResources()
     testEnv.addObject(&testCollision2);
     testEnv.setForeground(&testForeground);
 
+    //
+    testInv.loadFile("./resources/invex.txt", glm::vec2(0.0f, -400.0f));
 
     projection = glm::ortho(0.0f, (float) SCREEN_WIDTH, (float) SCREEN_HEIGHT, 0.0f, 1.0f, 1000.0f);
     view = glm::lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(0, -1, 0));
@@ -116,9 +120,11 @@ int renderScreen(SDL_Window* pWindow)
 
     testPerso.drawImage(shaderProgram, totalTime, view, projection);
 
-
     testEnv.drawForeground(shaderProgram, totalTime);
     glDisable(GL_BLEND);
+
+    //
+    testInv.drawImage(shaderProgram, totalTime, view, projection);
 
     SDL_GL_SwapWindow(pWindow);
 

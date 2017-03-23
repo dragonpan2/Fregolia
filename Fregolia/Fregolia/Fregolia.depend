@@ -279,7 +279,7 @@
 1489677789 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\personnage.cpp
 	"personnage.h"
 
-1489074494 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\collisions.cpp
+1489677788 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\collisions.cpp
 	"Collisions.h"
 
 1489072353 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravitymanager.cpp
@@ -303,4 +303,15 @@
 1489677788 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\environment.h
 	"externalIncludes.h"
 	"loadModel.h"
+
+1489677788 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\water.cpp
+	"Water.h"
+
+1489677788 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\water.h
+	"externalIncludes.h"
+
+1489679853 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\playerstatcollect.cpp
+	"PlayerStatCollect.h"
+
+1489680802 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\playerstatcollect.h
 
