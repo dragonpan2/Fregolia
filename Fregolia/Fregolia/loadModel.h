@@ -1,8 +1,9 @@
 #pragma once
 
 #include "externalIncludes.h"
+#include "Collisions.h"
 
-class imageModel
+class imageModel : public Collidable
 {
     public:
         imageModel();
@@ -10,19 +11,36 @@ class imageModel
 
         virtual void loadFile(std::string pFilePath, glm::vec2 pPos) final;
         virtual void moveImage(glm::vec2 pDeplacement) final;
-        virtual void drawImage(GLuint pShaderProgram, glm::mat4 pView, glm::mat4 pProj) final;
+        virtual void drawImage(GLuint pShaderProgram, float pTimeElapsed, glm::mat4 pView, glm::mat4 pProj) final;
 
         virtual glm::vec2 getPos();
+        virtual void setPos(glm::vec2 pPos); /// UTILISE SEULEMENT POUR LE BACKGROUND
+
+        virtual void setCanCollide(bool pValue) {mCanCollide = pValue;}
+        virtual bool getCanCollide() {return mCanCollide;}
+
+        virtual int getId() {return mImageID;}
+
+        virtual float setAngle(float pAngle) final;
+        virtual float getAngle() {return mAngle;}
+
+        virtual glm::vec2 getDimensions() {return mDimensions;}
 
     protected:
         glm::vec2 mPos;
-        glm::mat4 mTranslateMat;
+        glm::mat4 mTranslateMat, mRotateMat, mOBBRotateMat, mTotalMat;
+
+        float mAngle;
+
+        bool mCanCollide = false;
+
+        virtual void changeBB(glm::vec2 pDeplacement) final;
 
     private:
         GLuint mTextureVBO, mVerticesVBO;
         GLuint mTexture;
 
-        int imageID;
+        int mImageID;
 
         glm::vec2 mDimensions;
 };

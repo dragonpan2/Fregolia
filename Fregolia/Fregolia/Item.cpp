@@ -10,5 +10,8 @@ Item::~Item()
     //dtor
 }
 
-Item::use() {
+void Item::use(Item itemToUse) {
+
 }
+
+

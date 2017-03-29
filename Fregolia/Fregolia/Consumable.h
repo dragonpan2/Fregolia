@@ -5,6 +5,7 @@ class Consumable
     {
     public:
         int health;
+        void useConsumable();
     protected:
 
     private:

@@ -3,23 +3,38 @@
 #include "shaderUtilities.h"
 #include "loadModel.h"
 #include "personnage.h"
+#include "environment.h"
+#include "Water.h"
+#include "Gravity.h"
+#include "PhysicActor.h"
 
 using namespace std;
 
 /** VARIABLES GLOBALES **/
 
-GLuint shaderProgram;
+GLuint shaderProgram, waveProgram, waterProgram;
 
-imageModel /*testImage,*/ testBackground;
-imageModel testCollision;
+imageModel testCollision1, testCollision2, testPorte, testCollision3;
+imageModel testSouris;
+
+imageModel* currentSelection = nullptr;
+
+PhysicActor testRoche1, testRoche2;
+Environnement testEnv;
 Personnage testPerso;
+Water testWater;
+
+Gravity testGrav;
 
 glm::mat4 projection, view;
-glm::vec3 cameraPos, cameraTarget;
+glm::vec2 cameraPos;
 
-int listeTouches[sizeof(SDL_Scancode)] = {0};
+glm::vec2 startPos;
+
+int listeTouches[1000] = {0};
 
 int timeLastFrame;
+float totalTime = 0.0f;
 
 /** DÉCLARATIONS DE FONCTIONS **/
 
@@ -34,57 +49,106 @@ void gererMouvement();
 int initResources()
 {
     shaderProgram = createProgram("./resources/vertShader.v", "./resources/fragShader.f");
+    waveProgram = createProgram("./resources/vertShader.v", "./resources/fragWaveShader.f");
+    waterProgram = createProgram("./resources/vertWaterShader.v", "./resources/fragWaterShader.f");
 
-    //testImage.loadFile("./resources/testImage.txt", glm::vec2(-400.0f, -300.0f));
-    testBackground.loadFile("./resources/testBg.txt", glm::vec2(-400.0f, -300.0f));
-    testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(-400.0f, -300.0f));
-    testCollision.loadFile("./resources/tile.txt", glm::vec2(-400.0f, -300.0f));
+    testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(0.0f, 0.0f));
 
-    projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, 1.0f, 1000.0f);
-    view = glm::lookAt(glm::vec3(0,0,0), glm::vec3(0,0,-1), glm::vec3(0,-1,0));
+    testSouris.loadFile("./resources/mouse.txt", glm::vec2(0.0f, 0.0f));
+
+    startPos = testEnv.loadLevel("./resources/level0.txt");
+    testPerso.moveImage(startPos);
+
+    cameraPos = glm::vec2(0, 384);
+
+    projection = glm::ortho(0.0f, (float) SCREEN_WIDTH, (float) SCREEN_HEIGHT, 0.0f, 1.0f, 1000.0f);
+    view = glm::lookAt(glm::vec3(cameraPos.x, cameraPos.y, 0), glm::vec3(cameraPos.x, cameraPos.y, 1), glm::vec3(0, -1, 0));
+
+    testEnv.setMatrices(view, projection);
 
     return 0;
 }
 
 int renderScreen(SDL_Window* pWindow)
 {
-    int curTime = SDL_GetTicks();
-
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    glClearColor(0.3, 0.3, 0.35, 1.0);
+    glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    testBackground.drawImage(shaderProgram, view, projection);
-    testCollision.drawImage(shaderProgram, view, projection);
-    //testImage.drawImage(shaderProgram, view, projection);
-    testPerso.drawImage(shaderProgram, view, projection);
+
+
+    testEnv.resoudreCollisions(&testPerso);
+    if(testPerso.verifierMort()) testPerso.reset(startPos);
+
+
+
+    testEnv.drawSky(waveProgram, totalTime);
+
+
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    testEnv.drawBackground(shaderProgram, totalTime);
+    testEnv.drawGround(shaderProgram, totalTime);
+
+    testPerso.drawImage(shaderProgram, totalTime, view, projection);
+
+    testEnv.drawWater(waterProgram, timeLastFrame);
+    testEnv.drawForeground(shaderProgram, totalTime);
+
+    glDisable(GL_BLEND);
+
+
 
     SDL_GL_SwapWindow(pWindow);
 
-    timeLastFrame = SDL_GetTicks() - curTime;
-    std::cout << timeLastFrame << std::endl;
+    //std::cout << timeLastFrame << std::endl;
 
     return 0;
 }
 
 void gererMouvement()
 {
-    if(listeTouches[SDL_SCANCODE_W]) {
-        //testImage.moveImage(glm::vec2(0, 1));
-        testPerso.gererDeplacements(timeLastFrame, glm::vec2(0, 1));
+    if(listeTouches[SDL_SCANCODE_SPACE]) {
+        testPerso.setState(2, glm::vec2(0, 1));
     }
     if(listeTouches[SDL_SCANCODE_S]) {
-        //testImage.moveImage(glm::vec2(0, -1));
-        testPerso.gererDeplacements(timeLastFrame, glm::vec2(0, -1));
     }
     if(listeTouches[SDL_SCANCODE_A]) {
-        //testImage.moveImage(glm::vec2(1, 0));
-        testPerso.gererDeplacements(timeLastFrame, glm::vec2(1, 0));
+        testPerso.setState(1, glm::vec2(-1, 0));
     }
     if(listeTouches[SDL_SCANCODE_D]) {
-        //testImage.moveImage(glm::vec2(-1, 0));
-        testPerso.gererDeplacements(timeLastFrame, glm::vec2(-1, 0));
+        testPerso.setState(1, glm::vec2(1, 0));
+    }
+    if(listeTouches[SDL_SCANCODE_E]) {
+        testEnv.splash();
+        listeTouches[SDL_SCANCODE_E] = 0;
+    }
+}
+
+void deplacerSouris(int pX, int pY, int pRelX, int pRelY)
+{
+    /// Corrections car SDL = 0 - 1024; OGL = -512 - 512.
+    testSouris.setPos(glm::vec2(pX + cameraPos.x, 384 - pY));
+
+    if(currentSelection != nullptr)
+        currentSelection->moveImage(glm::vec2(pRelX, -pRelY));
+}
+
+void actualiserCamera()
+{
+    float distance = testPerso.getPos().x - (cameraPos.x + 512);
+
+    if(abs(distance) > 350)
+    {
+        if((cameraPos.x > testEnv.getLength().x + 10 && sgn(distance) == -1) || (cameraPos.x < testEnv.getLength().y - 10 && sgn(distance) == 1))
+        {
+            cameraPos.x += 12 * sgn(distance);
+            view = glm::lookAt(glm::vec3(cameraPos.x, cameraPos.y, 0), glm::vec3(cameraPos.x, cameraPos.y, 1), glm::vec3(0, -1, 0));
+            testEnv.setMatrices(view, projection);
+        }
     }
 }
 
@@ -106,8 +170,12 @@ int main(int argc, char* argv[])
         return -4;
     }
 
+    glDisable(GL_CULL_FACE);
+
     while(!loopEnd)
     {
+        int curTime = SDL_GetTicks();
+
         while(SDL_PollEvent(&events))
         {
             if(events.window.event == SDL_WINDOWEVENT_CLOSE || events.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
@@ -122,25 +190,36 @@ int main(int argc, char* argv[])
                 case SDL_KEYDOWN:
                     listeTouches[events.key.keysym.scancode] = 1;
                     break;
+                case SDL_MOUSEMOTION:
+                    deplacerSouris(events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    if(events.button.button == SDL_BUTTON_LEFT)
+                    {
+                        currentSelection = testEnv.getClickRef(&testSouris);
+                    }
+                    else if(events.button.button == SDL_BUTTON_RIGHT && currentSelection != nullptr)
+                    {
+                        std::cout << "Position: " << currentSelection->getPos().x << " " << currentSelection->getPos().y << "; Angle: " << currentSelection->getAngle() << std::endl;
+                        currentSelection = nullptr;
+                    }
+                    break;
+                case SDL_MOUSEBUTTONUP:
+                    break;
+                case SDL_MOUSEWHEEL:
+                        if(currentSelection != nullptr)
+                        {
+                            currentSelection->setAngle(currentSelection->getAngle() + 1 * sgn(events.wheel.y));
+                        }
+                    break;
                 default:
                     break;
             }
-            /*const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-            if(keystate[SDL_SCANCODE_W]) {
-                testImage.moveImage(glm::vec2(0, 1));
-            }
-            if(keystate[SDL_SCANCODE_S]) {
-                testImage.moveImage(glm::vec2(0, -1));
-            }
-            if(keystate[SDL_SCANCODE_A]) {
-                testImage.moveImage(glm::vec2(1, 0));
-            }
-            if(keystate[SDL_SCANCODE_D]) {
-                testImage.moveImage(glm::vec2(-1, 0));
-            }*/
         }
 
         gererMouvement();
+        testPerso.gererDeplacement(timeLastFrame);
+        actualiserCamera();
 
         if(renderScreen(mainWindow))
         {
@@ -149,6 +228,10 @@ int main(int argc, char* argv[])
             SDL_Quit();
             return -5;
         }
+
+        if(timeLastFrame < 1000 / 60) SDL_Delay(1000 / 60 - timeLastFrame);
+        timeLastFrame = SDL_GetTicks() - curTime;
+        totalTime += timeLastFrame;
     }
 
     SDL_GL_DeleteContext(mainContext);

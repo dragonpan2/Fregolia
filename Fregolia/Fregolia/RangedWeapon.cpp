@@ -14,7 +14,6 @@ RangedWeapon::~RangedWeapon()
 }
 bool RangedWeapon ::  peutTirer()
 {
-
-Weapon::estPrpjectile=true;
-return estPrpjectile;
+Weapon::estProjectile=true;
+return estProjectile;
 }
