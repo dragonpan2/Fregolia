@@ -94,7 +94,11 @@ int Personnage::getState()
 
 void Personnage::gererDeplacement(int pDeltaTemps)
 {
+<<<<<<< HEAD
     if(mVitesseSaut > 0) mVitesseSaut -= pDeltaTemps * 0.003;
+=======
+    if(mVitesseSaut > 0) mVitesseSaut -= pDeltaTemps * 0.03;
+>>>>>>> origin/master
     else mVitesseSaut = 0;
 
     glm::vec2 deplacement = glm::vec2( (mDirection.x) * mVitesse * pDeltaTemps / 100, pDeltaTemps * (mVitesseSaut - CONSTANTE_GRAVITE) / 10);

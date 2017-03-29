@@ -2,7 +2,11 @@
 
 Water::Water()
 {
+<<<<<<< HEAD
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+=======
+
+>>>>>>> origin/master
 }
 
 Water::~Water()
@@ -10,6 +14,7 @@ Water::~Water()
     glDeleteBuffers(1, &mVerticesVBO);
 }
 
+<<<<<<< HEAD
 void Water::initWater(glm::vec2 pStart, glm::vec2 pEnd, int pResolution, float pViscosite, float pK)
 {
     mViscosite = pViscosite;
@@ -21,10 +26,18 @@ void Water::initWater(glm::vec2 pStart, glm::vec2 pEnd, int pResolution, float p
     glm::vec2 pointActuel = pStart;
     mListePoints.push_back(glm::vec3(pointActuel.x, pointActuel.y, 0.0f));
     mListePoints.push_back(glm::vec3(pointActuel.x, -500.0f, 0.0f));
+=======
+void Water::initWater(glm::vec2 pStart, glm::vec2 pEnd, int pResolution)
+{
+    glm::vec2 delta = (pEnd - pStart) / (float) pResolution;
+    glm::vec2 pointActuel = pStart;
+    mListePoints.push_back(glm::vec4(pointActuel.x, pointActuel.y, 0.0f, 0.0f));
+>>>>>>> origin/master
 
     for(int i = 0; i < pResolution; ++i)
     {
         pointActuel += delta;
+<<<<<<< HEAD
         mListePoints.push_back(glm::vec3(pointActuel.x, pointActuel.y, 0.0f));
         mListePoints.push_back(glm::vec3(pointActuel.x, -500.0f, 0.0f));
     }
@@ -130,3 +143,31 @@ void Water::genererGeometrie()
 }
 
 
+=======
+        mListePoints.push_back(glm::vec4(pointActuel.x, pointActuel.y, 0.0f, 0.0f));
+    }
+
+
+}
+
+void Water::drawWater(GLuint pShaderProgram, float pTimeElapsed, glm::mat4 pView, glm::mat4 pProj)
+{
+
+}
+
+void Water::splashWater(int pRatio, int pIntensite)
+{
+
+}
+
+void Water::genererGeometrie()
+{
+
+}
+
+void Water::calculerPosition(int pPoint)
+{
+
+}
+
+>>>>>>> origin/master

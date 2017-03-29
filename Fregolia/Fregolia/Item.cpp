@@ -10,7 +10,11 @@ Item::~Item()
     //dtor
 }
 
+<<<<<<< HEAD
 void Item::use(Item itemToUse) {
+=======
+void Item::use() {
+>>>>>>> origin/master
 
 }
 

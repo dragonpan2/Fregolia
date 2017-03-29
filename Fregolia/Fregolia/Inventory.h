@@ -8,8 +8,13 @@ class Inventory
 public:
     Inventory();
     virtual ~Inventory();
+<<<<<<< HEAD
     int selectedIndex;
     bool fullCheck();
+=======
+    void removeItem(Item itemToRemove);
+    void addItem(Item itemToAdd);
+>>>>>>> origin/master
     void pickup(Item itemToAdd);
     void drop(Item itemToDrop);
     void dropDirect(int indexToDrop);
@@ -21,6 +26,8 @@ public:
 protected:
 
 private:
+    bool fullCheck();
+    int selectedIndex;
 
 };
 

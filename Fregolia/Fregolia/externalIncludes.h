@@ -27,4 +27,8 @@ template <typename T> int sgn(T val) {
     return (T(0) < val) - (val < T(0));
 }
 
+#define CONSTANTE_GRAVITE 9.8f
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
+
 #endif // EXTERNALINCLUDES_H_INCLUDED

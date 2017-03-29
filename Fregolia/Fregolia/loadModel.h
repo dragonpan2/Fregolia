@@ -18,6 +18,7 @@ class imageModel : public Collidable
 
         virtual void setCanCollide(bool pValue) {mCanCollide = pValue;}
         virtual bool getCanCollide() {return mCanCollide;}
+<<<<<<< HEAD
 
         virtual int getId() {return mImageID;}
 
@@ -25,12 +26,18 @@ class imageModel : public Collidable
         virtual float getAngle() {return mAngle;}
 
         virtual glm::vec2 getDimensions() {return mDimensions;}
+=======
+>>>>>>> origin/master
 
     protected:
         glm::vec2 mPos;
         glm::mat4 mTranslateMat, mRotateMat, mOBBRotateMat, mTotalMat;
 
         float mAngle;
+
+        bool mCanCollide = false;
+
+        virtual void changeBB(glm::vec2 pDeplacement) final;
 
         bool mCanCollide = false;
 
