@@ -3,6 +3,8 @@
 imageModel::imageModel()
 {
     mRotateMat = glm::mat4(1.0f);
+    mAngle = 0;
+    mOBBRotateMat = glm::mat4(1.0f);
 }
 
 imageModel::~imageModel()
@@ -80,21 +82,13 @@ void imageModel::loadFile(std::string pFilePath, glm::vec2 pPos)
 
     fichier.close();
 
-<<<<<<< HEAD
     /// Génération des points du OBB
-=======
-    /// Génération des points du AABB
->>>>>>> origin/master
     mCoins[0] = glm::vec2((-mDimensions.x / 2) + mPos.x, (mDimensions.y / 2) + mPos.y);
     mCoins[1] = glm::vec2((mDimensions.x / 2) + mPos.x, (mDimensions.y / 2) + mPos.y);
     mCoins[2] = glm::vec2((mDimensions.x / 2) + mPos.x, (-mDimensions.y / 2) + mPos.y);
     mCoins[3] = glm::vec2((-mDimensions.x / 2) + mPos.x, (-mDimensions.y / 2) + mPos.y);
 
-<<<<<<< HEAD
     /// Génération des bords du OBB
-=======
-    /// Génération des bords du AABB
->>>>>>> origin/master
     mAxes[0] = mCoins[1] - mCoins[0];
     mAxes[1] = mCoins[3] - mCoins[0];
 
@@ -202,7 +196,6 @@ void imageModel::changeBB(glm::vec2 pDeplacement)
 
 void imageModel::setPos(glm::vec2 pPos)
 {
-<<<<<<< HEAD
     glm::vec2 deplacement = pPos - mPos;
     mPos = pPos;
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
@@ -226,8 +219,4 @@ float imageModel::setAngle(float pAngle)
         glm::vec4 temp = mOBBRotateMat * glm::vec4(mAxes[i].x, mAxes[i].y, 0, 0);
         mAxes[i] = glm::vec2(temp.x, temp.y);
     }
-=======
-    mPos = pPos;
-    mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
->>>>>>> origin/master
 }

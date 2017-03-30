@@ -8,16 +8,6 @@ class Ai
     public:
         Ai();
         virtual ~Ai();
-<<<<<<< HEAD
-        int previousState; //1 green, 2 yellow, 3 red,4 orange
-        bool aiActive;
-        void stateSetter(glm::vec2 thisPos, glm::vec2 playerPos,glm::vec2 thisDirection , bool isPlayerSneak, int previousState);
-        void greenState(glm::vec2 thisPos,glm::vec2 thisDirection);
-        void yellowState();
-        void redState();
-        void orangeState();
-        int AiMethode();
-=======
 
         //var
         int previousState; //1 green, 2 yellow, 3 red,4 orange
@@ -35,7 +25,7 @@ class Ai
         int redState(glm::vec2 thisPos, glm::vec2 playerPos, glm::vec2 thisDirection);
         int orangeState();
         int AiMethode(glm::vec2 thisPos,glm::vec2 playerPos, glm::vec2 thisDirection, bool isPlayerSneak, int previousState);
->>>>>>> origin/master
+
 
     protected:
 

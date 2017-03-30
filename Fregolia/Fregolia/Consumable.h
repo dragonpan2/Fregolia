@@ -4,13 +4,13 @@
 class Consumable
     {
     public:
-<<<<<<< HEAD
+
         int health;
         void useConsumable();
-=======
+
         void pickupConsumable();
         int getQuantity();
->>>>>>> origin/master
+
     protected:
 
     private:

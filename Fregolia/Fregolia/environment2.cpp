@@ -9,6 +9,7 @@ Environnement::Environnement()
     mLevelLength = glm::vec2(0, 1024);
 }
 Environnement::~Environnement() {}
+
 void Environnement::setMatrices(glm::mat4 pView, glm::mat4 pProj)
 {
     mView = pView;

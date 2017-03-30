@@ -11,7 +11,7 @@ obj ./resources/level0/tile.txt 1328.0 -300.0 0.0 1 0 0
 obj ./resources/level0/tile2.txt 2665.0 -320.0 -30.0 1 1 1
 obj ./resources/level0/tile2.txt 200.0 100.0 -30.0 1 1 1
 
-prt ./resources/Porte.txt -400.0 0.0 
+prt ./resources/Porte.txt 400.0 0.0 
 
 wtr 0.0 5120.0 -320.0
 

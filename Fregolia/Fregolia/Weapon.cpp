@@ -18,12 +18,7 @@ void Weapon::damageWeapon() {
 void Weapon::rangeWeapon() {
 }
 
-<<<<<<< HEAD
-bool Weapon::peutTirer()
-{
 
-}
-=======
 void Weapon::equipWeapon(Item weaponToEquip, Inventory inventory)
 {
     isEquipped = true;
@@ -49,4 +44,3 @@ bool Weapon::siEquipped(){
     return isEquipped;
 }
 
->>>>>>> origin/master

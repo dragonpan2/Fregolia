@@ -10,22 +10,11 @@
 				<Option output="bin/Debug/Fregolia" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
-<<<<<<< HEAD
 				<Option compiler="gcc_opengl_pi" />
-=======
-				<Option compiler="copy_of_copy_of_mingw_posix_sjlj_471_test_2" />
->>>>>>> origin/master
 				<Option projectCompilerOptionsRelation="-1" />
 				<Option projectLinkerOptionsRelation="-1" />
 				<Option projectIncludeDirsRelation="-1" />
 				<Option projectLibDirsRelation="-1" />
-<<<<<<< HEAD
-=======
-				<Compiler>
-					<Add option="-g" />
-					<Add directory="include" />
-				</Compiler>
->>>>>>> origin/master
 				<MakeCommands>
 					<Build command="" />
 					<CompileFile command="" />
@@ -39,25 +28,12 @@
 				<Option output="bin/Release/Fregolia" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
-<<<<<<< HEAD
-				<Option compiler="gcc_opengl" />
-=======
 				<Option compiler="copy_of_copy_of_mingw_posix_sjlj_471_test_2" />
->>>>>>> origin/master
 				<Option projectCompilerOptionsRelation="-1" />
 				<Option projectLinkerOptionsRelation="-1" />
 				<Option projectIncludeDirsRelation="-1" />
+				<Option projectResourceIncludeDirsRelation="-1" />
 				<Option projectLibDirsRelation="-1" />
-<<<<<<< HEAD
-=======
-				<Compiler>
-					<Add option="-O2" />
-					<Add directory="include" />
-				</Compiler>
-				<Linker>
-					<Add option="-s" />
-				</Linker>
->>>>>>> origin/master
 				<MakeCommands>
 					<Build command="" />
 					<CompileFile command="" />
@@ -78,16 +54,10 @@
 		<Unit filename="Collisions.h" />
 		<Unit filename="Consumable.cpp" />
 		<Unit filename="Consumable.h" />
-<<<<<<< HEAD
 		<Unit filename="Enemy.cpp" />
 		<Unit filename="Enemy.h" />
 		<Unit filename="Gravity.cpp" />
 		<Unit filename="Gravity.h" />
-=======
-		<Unit filename="Consummable.h" />
-		<Unit filename="Enemy.cpp" />
-		<Unit filename="Enemy.h" />
->>>>>>> origin/master
 		<Unit filename="GravityManager.cpp" />
 		<Unit filename="GravityManager.h" />
 		<Unit filename="Inventory.cpp" />
@@ -96,27 +66,16 @@
 		<Unit filename="Item.h" />
 		<Unit filename="MeleeWeapon.cpp" />
 		<Unit filename="MeleeWeapon.h" />
-<<<<<<< HEAD
 		<Unit filename="PhysicActor.cpp" />
 		<Unit filename="PhysicActor.h" />
 		<Unit filename="PhysicObject.cpp" />
 		<Unit filename="PhysicObject.h" />
-=======
-		<Unit filename="PhysicObject.cpp" />
-		<Unit filename="PhysicObject.h" />
-		<Unit filename="PlayerStatCollect.cpp" />
-		<Unit filename="PlayerStatCollect.h" />
->>>>>>> origin/master
 		<Unit filename="RangedWeapon.cpp" />
 		<Unit filename="RangedWeapon.h" />
 		<Unit filename="Water.cpp" />
 		<Unit filename="Water.h" />
 		<Unit filename="Weapon.cpp" />
 		<Unit filename="Weapon.h" />
-<<<<<<< HEAD
-=======
-		<Unit filename="environment.cpp" />
->>>>>>> origin/master
 		<Unit filename="environment.h" />
 		<Unit filename="environment2.cpp" />
 		<Unit filename="externalIncludes.h" />

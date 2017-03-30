@@ -35,23 +35,6 @@ void Inventory::drop(Item itemToDrop)
 void Inventory::dropDirect(int indexToDrop)
 {
     inventoryList.erase(inventoryList.begin() + indexToDrop-1);
-<<<<<<< HEAD
-}
-
-void Inventory::dropAll()
-{
-    inventoryList.clear();
-}
-
-void Inventory::destroyItem(const Item itemToDestroy)
-{
-    //inventoryList.erase(std::remove(inventoryList.begin(), inventoryList.end(), itemToDestroy), inventoryList.end());
-}
-
-void Inventory::destroyItemDirect(int indexToDestroy)
-{
-    inventoryList.erase(inventoryList.begin() + indexToDestroy);
-=======
 }
 
 void Inventory::dropAll()
@@ -81,6 +64,4 @@ void Inventory::removeItem(Item itemToRemove)
 
     //visuellement enlever l'item de l'inventaire
     //inventoryList.erase(std::remove(inventoryList.begin(), inventoryList.end(), itemToRemove), inventoryList.end());
-
->>>>>>> origin/master
 }

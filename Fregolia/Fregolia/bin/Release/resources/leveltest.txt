@@ -1,0 +1,13 @@
+rid 0
+cnn 1
+sky ./resources/Sky.txt 0.0 0.0
+bkg ./resources/Background.txt 0.0 0.0
+frg ./resources/Foreground.txt 0.0 0.0
+
+obj ./resources/tile.txt -450.0 -180.0 0.0 1 0 1
+obj ./resources/tile.txt -200.0 100.0 30.0 1 1 1
+obj ./resources/tile2.txt 300.0 -230.0 0.0 1 0 1
+
+wtr -512.0 512.0 -200.0
+
+str -400.0 0.0
