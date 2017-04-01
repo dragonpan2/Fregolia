@@ -1,9 +1,11 @@
 #include "PhysicActor.h"
 
+
 PhysicActor::PhysicActor()
 {
-    mAccel = glm::vec2(0, 0);
-    mVitesse = glm::vec2(0, 0);
+    mAccel = glm::vec2(2, 35);
+    mVitesse = glm::vec2(400,300);
+    mCsteRessort=0.60f;
 }
 
 PhysicActor::~PhysicActor()
@@ -11,16 +13,20 @@ PhysicActor::~PhysicActor()
 
 }
 
-void PhysicActor::createActor(float pMuC, float pMasse)
+void PhysicActor::createActor(float pMuC, float pMasse,bool pEstCollision)
 {
     mMuC = pMuC;
     mMasse = pMasse;
+    mEstCollision=pEstCollision;
+
 }
 
 void PhysicActor::updateActor(float pDeltaTemps)
 {
+
     mVitesse += mAccel;
     this->moveImage(mVitesse * (pDeltaTemps / 1000));
+
 }
 
 void PhysicActor::setAcceleration(glm::vec2 pAccel)
@@ -52,3 +58,16 @@ float PhysicActor::getMasse()
 {
     return mMasse;
 }
+bool PhysicActor::getCollision(){
+
+return mEstCollision;
+}
+bool PhysicActor:: setCollision(bool pEstCollision)
+{
+mEstCollision=pEstCollision;
+}
+float PhysicActor:: getCsteRessort()
+{
+    return mCsteRessort;
+}
+

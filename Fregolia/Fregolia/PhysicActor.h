@@ -4,13 +4,14 @@
 #include "externalIncludes.h"
 #include "loadModel.h"
 
+
 class PhysicActor : public imageModel
 {
     public:
         PhysicActor();
         virtual ~PhysicActor();
 
-        virtual void createActor(float pMuC, float pMasse);
+        virtual void createActor(float pMuC, float pMasse,bool pEstCollision);
         virtual void updateActor(float pDeltaTemps);
 
         virtual void setAcceleration(glm::vec2 pAccel);
@@ -22,9 +23,16 @@ class PhysicActor : public imageModel
         virtual float getMuC();
         virtual float getMasse();
 
+        virtual bool getCollision();
+        virtual bool setCollision(bool pEstCollision);
+
+        virtual float getCsteRessort();
+
     private:
         glm::vec2 mAccel, mVitesse;
         float mMuC, mMasse;
+        bool mEstCollision;
+        float mCsteRessort;
 };
 
 #endif // PHYSICACTOR_H_INCLUDED
