@@ -1,6 +1,6 @@
 #ifndef AI_H_INCLUDED
 #define AI_H_INCLUDED
-
+#include "glm.hpp"
 #include "externalIncludes.h"
 
 class Ai
