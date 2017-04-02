@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1489028183 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.cpp
+1491104280 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.cpp
 	"initOpenGL.h"
 
-1486072711 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.h
+1491104280 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.h
 	"externalIncludes.h"
 
 1491151820 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\externalincludes.h
@@ -19,18 +19,18 @@
 	<vector>
 	<math.h>
 
-1486073158 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\shaderutilities.cpp
+1491104280 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\shaderutilities.cpp
 	"shaderUtilities.h"
 
-1486066976 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\shaderutilities.h
+1491104280 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\shaderutilities.h
 	"externalIncludes.h"
 
 1487861177 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\environment.cpp
 
-1489028183 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.cpp
+1491104280 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.cpp
 	"loadModel.h"
 
-1489028184 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.h
+1491104280 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.h
 	"externalIncludes.h"
 	"Collisions.h"
 
@@ -260,61 +260,65 @@
 1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.h
 	"externalIncludes.h"
 
-1489074491 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\meleeweapon.cpp
+1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\meleeweapon.cpp
 	"MeleeWeapon.h"
 
-1489074491 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\meleeweapon.h
+1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\meleeweapon.h
 	"Weapon.h"
 	"externalIncludes.h"
 
-1489074491 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\weapon.h
+1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\weapon.h
 	"Item.h"
+	"Inventory.h"
+	"Enemy.h"
 
-1489074491 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.h
+1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.h
 
-1489074491 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.cpp
+1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.cpp
 	"RangedWeapon.h"
 
-1488472387 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.h
+1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.h
 	"Weapon.h"
 	"externalIncludes.h"
 
-1489074491 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\weapon.cpp
+1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\weapon.cpp
 	"Weapon.h"
+	"Inventory.h"
+	"Enemy.h"
 
-1489074491 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.cpp
+1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.cpp
 	"Inventory.h"
 	<algorithm>
 
-1489074494 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.h
+1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.h
 	"Item.h"
 	"externalIncludes.h"
 
-1489074491 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.cpp
+1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.cpp
 	"Item.h"
 
 1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\collisions.h
 	"externalIncludes.h"
 
-1489028184 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\personnage.h
+1491104280 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\personnage.h
 	"externalIncludes.h"
 	"loadModel.h"
 
-1489028184 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\personnage.cpp
+1491104280 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\personnage.cpp
 	"personnage.h"
 
 1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\collisions.cpp
 	"Collisions.h"
 
-1489068753 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravitymanager.cpp
+1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravitymanager.cpp
 	"GravityManager.h"
 
-1489068753 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravitymanager.h
+1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravitymanager.h
 
-1489068792 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicobject.cpp
+1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicobject.cpp
 	"PhysicObject.h"
 
-1489068816 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicobject.h
+1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicobject.h
 
 1490827989 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\ai.cpp
 	"Ai.h"
@@ -849,11 +853,43 @@
 1491075054 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\gravity.cpp
 	"Gravity.h"
 
-1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.cpp
+1491171100 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.cpp
 	"Ai.h"
 	"externalIncludes.h"
 	<stdlib.h>
+	<iostream>
 
-1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.h
+1491172849 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.h
+	"glm.hpp"
 	"externalIncludes.h"
+
+1491104279 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\environment2.cpp
+	"environment.h"
+
+1491104279 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\environment.h
+	"externalIncludes.h"
+	"personnage.h"
+	"Water.h"
+	"loadModel.h"
+
+1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\water.h
+	"externalIncludes.h"
+
+1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravity.cpp
+	"Gravity.h"
+
+1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravity.h
+	"externalIncludes.h"
+	"PhysicActor.h"
+	"loadModel.h"
+
+1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicactor.h
+	"externalIncludes.h"
+	"loadModel.h"
+
+1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicactor.cpp
+	"PhysicActor.h"
+
+1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\water.cpp
+	"Water.h"
 

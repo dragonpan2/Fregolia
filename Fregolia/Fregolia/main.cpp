@@ -17,7 +17,7 @@ GLuint shaderProgram, waveProgram, waterProgram;
 
 imageModel testCollision1, testCollision2, testPorte, testCollision3;
 imageModel testSouris;
-
+imageModel testInv;
 imageModel* currentSelection = nullptr;
 
 PhysicActor testRoche1, testRoche2;
@@ -81,6 +81,8 @@ int initResources()
     testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(0.0f, 0.0f));
 
     testSouris.loadFile("./resources/mouse.txt", glm::vec2(0.0f, 0.0f));
+    //
+    testInv.loadFile("./resources/invex.txt", glm::vec2(500.0f, -325.0f));
 
     startPos = testEnv.loadLevel("./resources/level0.txt");
 
@@ -123,6 +125,8 @@ int renderScreen(SDL_Window* pWindow)
 
     glDisable(GL_BLEND);
 
+    //
+    testInv.drawImage(shaderProgram, totalTime, view, projection);
 
 
     SDL_GL_SwapWindow(pWindow);
