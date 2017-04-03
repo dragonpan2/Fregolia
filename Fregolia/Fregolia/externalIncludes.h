@@ -13,6 +13,7 @@
 #include <SOIL.h>
 
 #include <iostream>
+#include <iterator>
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -23,8 +24,8 @@
 #define SCREEN_HEIGHT 768
 
 /// Obtenir le signe d'un nombre; TEMPORAIRE
-template <typename T> int sgn(T val) {
-    return (T(0) < val) - (val < T(0));
+template <typename T> int signe(T nb) {
+    return ((T)0 < nb) - (nb < (T)0);
 }
 
 #define CONSTANTE_GRAVITE 9.8f

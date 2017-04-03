@@ -3,9 +3,7 @@
 
 PhysicActor::PhysicActor()
 {
-    mAccel = glm::vec2(2, 35);
-    mVitesse = glm::vec2(400,300);
-    mCsteRessort=0.60f;
+
 }
 
 PhysicActor::~PhysicActor()

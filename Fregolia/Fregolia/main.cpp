@@ -17,9 +17,14 @@ GLuint shaderProgram, waveProgram, waterProgram;
 
 imageModel testCollision1, testCollision2, testPorte, testCollision3;
 imageModel testSouris;
+<<<<<<< HEAD
 imageModel testInv;
 imageModel testEnemy;
 imageModel* currentSelection = nullptr;
+=======
+
+imageModel* currentSelection = 0;
+>>>>>>> origin/master
 
 PhysicActor testRoche1, testRoche2;
 Environnement testEnv;
@@ -50,6 +55,8 @@ int initResources();
 int renderScreen(SDL_Window* pWindow);
 int renderTriangle();
 void gererMouvement();
+void deplacerSouris(int pX, int pY, int pRelX, int pRelY);
+void actualiserCamera();
 
 
 /** CODE **/
@@ -81,6 +88,7 @@ int initResources()
     waterProgram = createProgram("./resources/vertWaterShader.v", "./resources/fragWaterShader.f");
 
     testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(0.0f, 0.0f));
+    testPerso.createActor(5, 5, false);
 
     testSouris.loadFile("./resources/mouse.txt", glm::vec2(0.0f, 0.0f));
     //
@@ -102,15 +110,31 @@ int initResources()
     return 0;
 }
 
+int actualiserLogique()
+{
+    gererMouvement();
+
+    testPerso.modifierVitesse(0);
+    testPerso.gererDeplacement(timeLastFrame);
+    actualiserCamera();
+
+    testEnv.resoudreCollisions(&testPerso);
+    for(std::vector<groundObject*>::iterator v = testEnv.getListeCollision(); v != testEnv.lastCollisionObj(); v++)
+    {
+        std::cout << (*v)->object->getId() << std::endl;
+    }
+
+    if(testPerso.verifierMort()) testPerso.reset(startPos);
+
+    return 0;
+}
+
 int renderScreen(SDL_Window* pWindow)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
-
-    testEnv.resoudreCollisions(&testPerso);
-    if(testPerso.verifierMort()) testPerso.reset(startPos);
 
 
 
@@ -146,19 +170,24 @@ void gererMouvement()
 {
     if(listeTouches[SDL_SCANCODE_SPACE]) {
         testPerso.setState(2, glm::vec2(0, 1));
+        //testPerso.modifierVitesse(2);
     }
     if(listeTouches[SDL_SCANCODE_S]) {
     }
     if(listeTouches[SDL_SCANCODE_A]) {
         testPerso.setState(1, glm::vec2(-1, 0));
+        //testPerso.modifierVitesse(1);
     }
     if(listeTouches[SDL_SCANCODE_D]) {
         testPerso.setState(1, glm::vec2(1, 0));
+        //testPerso.modifierVitesse(1);
     }
     if(listeTouches[SDL_SCANCODE_E]) {
         testEnv.splash();
         listeTouches[SDL_SCANCODE_E] = 0;
     }
+
+    //testPerso.modifierVitesse(0);
 }
 
 void deplacerSouris(int pX, int pY, int pRelX, int pRelY)
@@ -176,9 +205,10 @@ void actualiserCamera()
 
     if(abs(distance) > 350)
     {
-        if((cameraPos.x > testEnv.getLength().x + 10 && sgn(distance) == -1) || (cameraPos.x < testEnv.getLength().y - 10 && sgn(distance) == 1))
+        if((cameraPos.x > testEnv.getLength().x + 10 && signe(distance) == -1) || (cameraPos.x < testEnv.getLength().y - 10 && signe(distance) == 1))
         {
-            cameraPos.x += 12 * sgn(distance);
+            cameraPos.x += 12 * signe(distance);
+            if(currentSelection != nullptr) currentSelection->moveImage(glm::vec2(12 * signe(distance), 0));
             view = glm::lookAt(glm::vec3(cameraPos.x, cameraPos.y, 0), glm::vec3(cameraPos.x, cameraPos.y, 1), glm::vec3(0, -1, 0));
             testEnv.setMatrices(view, projection);
         }
@@ -245,7 +275,7 @@ int main(int argc, char* argv[])
                 case SDL_MOUSEWHEEL:
                         if(currentSelection != nullptr)
                         {
-                            currentSelection->setAngle(currentSelection->getAngle() + 1 * sgn(events.wheel.y));
+                            currentSelection->setAngle(currentSelection->getAngle() + 1 * signe(events.wheel.y));
                         }
                     break;
                 default:
@@ -253,9 +283,7 @@ int main(int argc, char* argv[])
             }
         }
 
-        gererMouvement();
-        testPerso.gererDeplacement(timeLastFrame);
-        actualiserCamera();
+        actualiserLogique();
 
         if(renderScreen(mainWindow))
         {

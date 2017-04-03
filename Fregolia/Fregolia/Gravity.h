@@ -11,11 +11,11 @@ class Gravity
 public:
     Gravity();
     ~Gravity();
-    const float GRAVITY=-0.173589;
+    const float GRAVITY=0.173589;
     const float F_AIR=0.00005;
     const float F_EAU=998 ;
     const float F_TERRE=0.15;
-    virtual void gravityApplication(PhysicActor* pPersonne,int pTempsEcoule);
+    virtual glm::vec2 gravityApplication(PhysicActor* pPersonne,int pTempsEcoule/*,imageModel* pSol*/);
     virtual void gravityApplicationVitesse(PhysicActor* pPersonne,int pTempsEcoule);
     virtual int paraboliqueApplication(PhysicActor* pPersonne,int pTempsEcoule);
     virtual float resistanceAirX(PhysicActor* pPersonne);
