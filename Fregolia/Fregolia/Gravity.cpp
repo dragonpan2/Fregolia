@@ -11,33 +11,40 @@ Gravity::~Gravity()
 
 
 /**La force de la gravité appliquer au PhysicActor **/
-void Gravity::gravityApplication(PhysicActor* pPersonne, int pTempsEcoule)
+glm::vec2 Gravity::gravityApplication(PhysicActor* pPersonne, int pTempsEcoule/*,imageModel* pSol*/)
 {
 
-    // float anglePente = glm::radians(((imageModel*) pPersonne)->getAngle());
-
+    // float anglePente = glm::radians(((imageModel*) pSol)->getAngle());
+     float accelerationX;
+float accelerationY;
     //forceGravitationnelle -= (pPersonne->getMuC() * forceGravitationnelle /** cos(anglePente)**/);
     //forceGravitationnelle = std::max(forceGravitationnelle, 0.0f);
+//if((int) anglePente % 90!=0){
+   accelerationX=  GRAVITY * pPersonne->getMasse() /* cos(anglePente)*/;
+//}
 
-    //  float accelerationX = ((int) anglePente % 90 == 0 ? 0 : forceGravitationnelle * cos(anglePente));
+//if(anglePente!=0){
+      accelerationY = GRAVITY * pPersonne->getMasse() /* sin(anglePente)*/;
+//}
 
-    float accelerationY = GRAVITY * pPersonne->getMasse() /** sin(anglePente)**/;
 
     /** Assigne la nouvelle accélération sur les Y au PhysicActor **/
     /*Pas collision */
-    if(!pPersonne->getCollision())
+ /**if(!pPersonne->getCollision())
     {
         pPersonne->setAcceleration(glm::vec2(pPersonne->getAcceleration().x, accelerationY));
     }
-    /*collision */
-    else
+    /*collision **/
+  /**  else
     {
         pPersonne->setAcceleration(glm::vec2(pPersonne->getAcceleration().x, 0));
-    }
+    }**/
 
+if(accelerationY<0){
+    accelerationY=-accelerationY;
+}
 
-
-
+return glm::vec2(accelerationX,accelerationY);
 
 }
 /** Change l'accélération du PhysicActor    **/
@@ -67,13 +74,13 @@ std::cout  << pPersonne->getAcceleration().x<<std::endl;
 int Gravity::paraboliqueApplication(PhysicActor* pPersonne,int pTempsEcoule)
 {
 
-    gravityApplication(pPersonne,pTempsEcoule);
+   // gravityApplication(pPersonne,pTempsEcoule);
 }
 /* Pas utilisé*/
 glm::vec2 Gravity::gravityObject(PhysicActor* pPersonne,int pTempsEcoule)
 {
 
-    gravityApplication(pPersonne,pTempsEcoule);
+  //  gravityApplication(pPersonne,pTempsEcoule);
 
     glm::vec2 vecteurObject(pPersonne->getVitesse());
     return vecteurObject;
@@ -83,17 +90,8 @@ float Gravity::resistanceSol(PhysicActor* pPersonne)
 {
     float accelerationSolX=0;
 
+    accelerationSolX=(pPersonne->getMasse()*GRAVITY*F_TERRE*pPersonne->getMuC());
 
-/*Si l'accélération vers la droite, frottement positive*/
-    if(pPersonne->getCollision() && pPersonne->getAcceleration().x>0)
-    {
-        accelerationSolX=pPersonne->getMasse()*-GRAVITY*F_TERRE;
-    }
-    /*Si l'accélération vers la gauche, frottement négative*/
-    else if(pPersonne->getCollision() && pPersonne->getAcceleration().x<0)
-    {
-        accelerationSolX=-(pPersonne->getMasse()*-GRAVITY*F_TERRE);
-    }
     return accelerationSolX;
 }
 /**Calcul la résistance de l'air sur les X**/
@@ -103,25 +101,13 @@ float Gravity::resistanceAirX(PhysicActor* pPersonne)
 
     float coefficientRes= 0.01;
 
-    float surface= ((imageModel*) pPersonne)->getDimensions().x;
+    float surface = ((imageModel*) pPersonne)->getDimensions().x;
     float accelerationAirX;
 
-
-
-
-    /*Si l'accélération vers la gauche, frottement négative*/
-     if(pPersonne->getAcceleration().x<0)
-     {
-        accelerationAirX=-(coefficientRes*F_AIR*surface*pPersonne->getVitesse().x*pPersonne->getVitesse().x /pPersonne->getMasse());
-     }
-     /*Si l'accélération vers la droite, frottement positive*/
-     else if(pPersonne->getAcceleration().x>0)
-     {
-        accelerationAirX=coefficientRes*F_AIR *surface*pPersonne->getVitesse().x*pPersonne->getVitesse().x /pPersonne->getMasse();
-     }
-
-
-
+    accelerationAirX = coefficientRes * F_AIR * surface
+                                      * pPersonne->getVitesse().x
+                                      * pPersonne->getVitesse().x
+                                      / pPersonne->getMasse();
 
     return accelerationAirX;
 }

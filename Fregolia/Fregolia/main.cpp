@@ -81,6 +81,7 @@ int initResources()
     waterProgram = createProgram("./resources/vertWaterShader.v", "./resources/fragWaterShader.f");
 
     testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(0.0f, 0.0f));
+    testPerso.createActor(5, 5, false);
 
     testSouris.loadFile("./resources/mouse.txt", glm::vec2(0.0f, 0.0f));
 
@@ -102,10 +103,16 @@ int actualiserLogique()
 {
     gererMouvement();
 
+    testPerso.modifierVitesse(0);
     testPerso.gererDeplacement(timeLastFrame);
     actualiserCamera();
 
     testEnv.resoudreCollisions(&testPerso);
+    for(std::vector<groundObject*>::iterator v = testEnv.getListeCollision(); v != testEnv.lastCollisionObj(); v++)
+    {
+        std::cout << (*v)->object->getId() << std::endl;
+    }
+
     if(testPerso.verifierMort()) testPerso.reset(startPos);
 
     return 0;
@@ -148,19 +155,24 @@ void gererMouvement()
 {
     if(listeTouches[SDL_SCANCODE_SPACE]) {
         testPerso.setState(2, glm::vec2(0, 1));
+        //testPerso.modifierVitesse(2);
     }
     if(listeTouches[SDL_SCANCODE_S]) {
     }
     if(listeTouches[SDL_SCANCODE_A]) {
         testPerso.setState(1, glm::vec2(-1, 0));
+        //testPerso.modifierVitesse(1);
     }
     if(listeTouches[SDL_SCANCODE_D]) {
         testPerso.setState(1, glm::vec2(1, 0));
+        //testPerso.modifierVitesse(1);
     }
     if(listeTouches[SDL_SCANCODE_E]) {
         testEnv.splash();
         listeTouches[SDL_SCANCODE_E] = 0;
     }
+
+    //testPerso.modifierVitesse(0);
 }
 
 void deplacerSouris(int pX, int pY, int pRelX, int pRelY)

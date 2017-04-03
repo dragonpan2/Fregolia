@@ -23,7 +23,8 @@ void Personnage::initPersonnage(std::string pFilePath, glm::vec2 pPos)
     {
         if(line.substr(0, 4) == "vit ")
         {
-            mVitesse = atoi(line.substr(3).c_str());
+            mAcceleration = atoi(line.substr(3).c_str());
+
         }
     }
 
@@ -32,14 +33,15 @@ void Personnage::initPersonnage(std::string pFilePath, glm::vec2 pPos)
 
 void Personnage::gererDeplacements(int pDeltaTemps, glm::vec2 pDirection)
 {
-    glm::vec2 deplacement = glm::vec2(pDirection.x * mVitesse * pDeltaTemps / 100, 0.0f);
+    glm::vec2 deplacement = glm::vec2(pDirection.x * mVitesse.x * pDeltaTemps / 100, 0.0f);
     if(pDirection.y == 1)
     {
         mState = 2;
-        deplacement += glm::vec2(0.0f, mVitesse * pDeltaTemps / 100);
+        deplacement += glm::vec2(0.0f, mVitesse.x * pDeltaTemps / 100);
     }
     mPos += deplacement;
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
+
     changeBB(deplacement);
 }
 
@@ -57,33 +59,59 @@ void Personnage::resoudreCollision(glm::vec2 pDeplacement)
 
 }
 
-void Personnage::appliquerGravite(int pDeltaTemps)
+/*void Personnage::appliquerGravite(int pDeltaTemps)
 {
     glm::vec2 deplacement = glm::vec2(0, -pDeltaTemps * 30.0f / 100);
     mPos += deplacement;
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
     changeBB(deplacement);
-}
+}*/
 
 void Personnage::setState(int pState, glm::vec2 pDir)
 {
 
     switch(pState)
     {
-        case 0: /// RIEN
-            break;
-        case 1: /// MARCHE
-            mDirection.x += pDir.x;
-            if(mState != 2) mState = pState;
-            break;
-        case 2: /// SAUT
-            if(mState == 0 || mState == 1)
-            {
-                mState = pState;
-                mVitesseSaut = mImpulsionSaut;
-                mDirection += glm::vec2(0, 1);
-            }
-            break;
+    case 0: /// RIEN
+
+        break;
+    case 1: /// MARCHE
+        mDirection.x += pDir.x;
+
+        mVitesse.x += mAccel.x * signe(mDirection.x);
+        if(mVitesse.x > 40)
+        {
+            mVitesse.x = 40;
+            mAccel.x = 0;
+        }
+        else if(mVitesse.x < -40)
+        {
+            mVitesse.x = -40;
+            mAccel.x = 0;
+        }
+        else
+        {
+            mAccel.x = mAcceleration;
+        }
+
+        if(mState != 2) mState = pState;
+        break;
+    case 2: /// SAUT
+        if(mState == 0 || mState == 1)
+        {
+            mState = pState;
+            mVitesse.y = mImpulsionSaut;
+            mDirection += glm::vec2(0, 1);
+        }
+        break;
+    }
+    if(mVitesse.x < 5 && mVitesse.x > -5 )
+    {
+        mVitesse.x = 0;
+    }
+    else if(mVitesse.x != 0)
+    {
+        mVitesse.x -= (resistanceAirX(this) + resistanceSol(this)) * signe(mVitesse.x);
     }
 }
 
@@ -94,10 +122,10 @@ int Personnage::getState()
 
 void Personnage::gererDeplacement(int pDeltaTemps)
 {
-    if(mVitesseSaut > 0) mVitesseSaut -= pDeltaTemps * 0.003;
-    else mVitesseSaut = 0;
+    if(mVitesse.y > 0) mVitesse.y-= pDeltaTemps * 0.003;
+    else mVitesse.y= 0;
 
-    glm::vec2 deplacement = glm::vec2( (mDirection.x) * mVitesse * pDeltaTemps / 100, pDeltaTemps * (mVitesseSaut - CONSTANTE_GRAVITE) / 10);
+    glm::vec2 deplacement = glm::vec2( mVitesse.x * pDeltaTemps / 100, pDeltaTemps * (mVitesse.y - gravityApplication(this, pDeltaTemps).y));
 
     mPos += deplacement;
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
@@ -123,5 +151,33 @@ void Personnage::reset(glm::vec2 pPos)
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
     changeBB(deplacement);
     mDirection = glm::vec2(0, 0);
-    mVitesseSaut = 0;
+    mVitesse.y = 0;
 }
+
+void Personnage::modifierVitesse(int pState)
+{
+    switch(mState)
+    {
+    case 0: /// Rien, donc... rien!
+        break;
+    case 1: /// MARCHE
+        mVitesse.x += mAccel.x * signe(mDirection.x);
+        if(mVitesse.x > 40) mVitesse.x = 40;
+        if(mVitesse.x < -40) mVitesse.x = -40;
+        break;
+    case 2: /// SAUT
+
+
+        break;
+    }
+    if(mVitesse.x < 5 && mVitesse.x > -5 )
+    {
+        mVitesse.x = 0;
+    }
+    else if(mVitesse.x != 0)
+    {
+        mVitesse.x -= (resistanceAirX(this) + resistanceSol(this)) * signe(mVitesse.x);
+    }
+}
+
+

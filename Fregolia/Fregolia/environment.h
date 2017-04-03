@@ -26,6 +26,7 @@ class Environnement
         virtual void setSky(imageModel* pSky) final;
         virtual void setBackground(imageModel* pBg) final;
         virtual void setForeground(imageModel* pFg) final;
+
         virtual void drawSky(GLuint pShaderProgram, float pTimeElapsed) final;
         virtual void drawBackground(GLuint pShaderProgram, float pTimeElapsed) final;
         virtual void drawForeground(GLuint pShaderProgram, float pTimeElapsed) final;
@@ -33,7 +34,11 @@ class Environnement
 
         virtual void drawWater(GLuint pShaderProgram, float pTimeLastFrame) final;
         virtual void splash() final {mWater->splashWater(0.5f, 1.0f);}
+
         virtual void resoudreCollisions(Personnage* pPerso);
+        virtual std::vector<groundObject*>::iterator getListeCollision();
+        virtual std::vector<groundObject*>::iterator lastCollisionObj() {return mListeCollisions.end();}
+
         virtual imageModel* getClickRef(imageModel* pSouris);
         virtual glm::vec2 getLength() {return mLevelLength;}
     private:
@@ -50,6 +55,7 @@ class Environnement
 
         imageModel* mPorte;
         std::vector<groundObject*> mGround;
+        std::vector<groundObject*> mListeCollisions;
 
         Water* mWater;
 
