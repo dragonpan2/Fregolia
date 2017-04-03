@@ -17,14 +17,14 @@ GLuint shaderProgram, waveProgram, waterProgram;
 
 imageModel testCollision1, testCollision2, testPorte, testCollision3;
 imageModel testSouris;
-<<<<<<< HEAD
+
 imageModel testInv;
 imageModel testEnemy;
 imageModel* currentSelection = nullptr;
-=======
 
-imageModel* currentSelection = 0;
->>>>>>> origin/master
+
+//imageModel* currentSelection = 0;
+
 
 PhysicActor testRoche1, testRoche2;
 Environnement testEnv;
