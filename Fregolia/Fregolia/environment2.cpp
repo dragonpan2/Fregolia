@@ -189,7 +189,7 @@ void Environnement::resoudreCollisions(Personnage* pPerso)
 
     for(int i = 0; i < mGround.size(); ++i)
         if(mGround[i]->canCollide)
-            if(pPerso->isCollision(mGround[i]->object)) pPerso->resoudreCollision(pPerso->getDeplacement(mGround[i]->object));
+            if(pPerso->isCollision(mGround[i]->object)) pPerso->resoudreCollision(pPerso->getDeplacement(mGround[i]->object, 0));
 }
 
 imageModel* Environnement::getClickRef(imageModel* pSouris)

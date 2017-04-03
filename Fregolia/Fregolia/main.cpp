@@ -18,7 +18,7 @@ GLuint shaderProgram, waveProgram, waterProgram;
 imageModel testCollision1, testCollision2, testPorte, testCollision3;
 imageModel testSouris;
 
-imageModel* currentSelection = nullptr;
+imageModel* currentSelection = 0;
 
 PhysicActor testRoche1, testRoche2;
 Environnement testEnv;
@@ -48,6 +48,8 @@ int initResources();
 int renderScreen(SDL_Window* pWindow);
 int renderTriangle();
 void gererMouvement();
+void deplacerSouris(int pX, int pY, int pRelX, int pRelY);
+void actualiserCamera();
 
 
 /** CODE **/
@@ -96,15 +98,25 @@ int initResources()
     return 0;
 }
 
+int actualiserLogique()
+{
+    gererMouvement();
+
+    testPerso.gererDeplacement(timeLastFrame);
+    actualiserCamera();
+
+    testEnv.resoudreCollisions(&testPerso);
+    if(testPerso.verifierMort()) testPerso.reset(startPos);
+
+    return 0;
+}
+
 int renderScreen(SDL_Window* pWindow)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
-
-    testEnv.resoudreCollisions(&testPerso);
-    if(testPerso.verifierMort()) testPerso.reset(startPos);
 
 
 
@@ -166,9 +178,10 @@ void actualiserCamera()
 
     if(abs(distance) > 350)
     {
-        if((cameraPos.x > testEnv.getLength().x + 10 && sgn(distance) == -1) || (cameraPos.x < testEnv.getLength().y - 10 && sgn(distance) == 1))
+        if((cameraPos.x > testEnv.getLength().x + 10 && signe(distance) == -1) || (cameraPos.x < testEnv.getLength().y - 10 && signe(distance) == 1))
         {
-            cameraPos.x += 12 * sgn(distance);
+            cameraPos.x += 12 * signe(distance);
+            if(currentSelection != nullptr) currentSelection->moveImage(glm::vec2(12 * signe(distance), 0));
             view = glm::lookAt(glm::vec3(cameraPos.x, cameraPos.y, 0), glm::vec3(cameraPos.x, cameraPos.y, 1), glm::vec3(0, -1, 0));
             testEnv.setMatrices(view, projection);
         }
@@ -235,7 +248,7 @@ int main(int argc, char* argv[])
                 case SDL_MOUSEWHEEL:
                         if(currentSelection != nullptr)
                         {
-                            currentSelection->setAngle(currentSelection->getAngle() + 1 * sgn(events.wheel.y));
+                            currentSelection->setAngle(currentSelection->getAngle() + 1 * signe(events.wheel.y));
                         }
                     break;
                 default:
@@ -243,9 +256,7 @@ int main(int argc, char* argv[])
             }
         }
 
-        gererMouvement();
-        testPerso.gererDeplacement(timeLastFrame);
-        actualiserCamera();
+        actualiserLogique();
 
         if(renderScreen(mainWindow))
         {

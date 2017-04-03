@@ -215,7 +215,7 @@ float imageModel::setAngle(float pAngle)
         mCoins[i] = glm::vec2(temp.x + mPos.x, temp.y + mPos.y);
     }
 
-    for(int i = 0; i < 2; ++i) {
+    for(int i = 0; i < 4; ++i) {
         glm::vec4 temp = mOBBRotateMat * glm::vec4(mAxes[i].x, mAxes[i].y, 0, 0);
         mAxes[i] = glm::vec2(temp.x, temp.y);
     }
