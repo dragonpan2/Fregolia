@@ -34,12 +34,17 @@
 	"externalIncludes.h"
 	"Collisions.h"
 
-1489076346 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\main.cpp
+1491232977 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\main.cpp
 	"externalIncludes.h"
 	"initOpenGL.h"
 	"shaderUtilities.h"
 	"loadModel.h"
 	"personnage.h"
+	"environment.h"
+	"Water.h"
+	"Gravity.h"
+	"PhysicActor.h"
+	"Weapon.h"
 
 1490200565 source:e:\fregolia\fregolia\fregolia\environment.cpp
 	"environment.h"
@@ -254,11 +259,13 @@
 
 1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\consumable.h
 
-1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.cpp
+1491234594 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.cpp
 	"Enemy.h"
-
-1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.h
 	"externalIncludes.h"
+
+1491234575 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.h
+	"externalIncludes.h"
+	"Ai.h"
 
 1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\meleeweapon.cpp
 	"MeleeWeapon.h"
@@ -853,13 +860,13 @@
 1491075054 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\gravity.cpp
 	"Gravity.h"
 
-1491171100 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.cpp
+1491234390 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.cpp
 	"Ai.h"
 	"externalIncludes.h"
 	<stdlib.h>
 	<iostream>
 
-1491172849 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.h
+1491234390 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.h
 	"glm.hpp"
 	"externalIncludes.h"
 

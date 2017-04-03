@@ -18,12 +18,14 @@ GLuint shaderProgram, waveProgram, waterProgram;
 imageModel testCollision1, testCollision2, testPorte, testCollision3;
 imageModel testSouris;
 imageModel testInv;
+imageModel testEnemy;
 imageModel* currentSelection = nullptr;
 
 PhysicActor testRoche1, testRoche2;
 Environnement testEnv;
 Personnage testPerso;
 Water testWater;
+Enemy enemy;
 
 //Weapon testWeapon;
 //Inventory testInventory;
@@ -83,6 +85,8 @@ int initResources()
     testSouris.loadFile("./resources/mouse.txt", glm::vec2(0.0f, 0.0f));
     //
     testInv.loadFile("./resources/invex.txt", glm::vec2(500.0f, -325.0f));
+    //
+    testEnemy.loadFile("./resources/testPersonnage2.txt", glm::vec2(500.0f, 125.0f));
 
     startPos = testEnv.loadLevel("./resources/level0.txt");
 
@@ -127,6 +131,8 @@ int renderScreen(SDL_Window* pWindow)
 
     //
     testInv.drawImage(shaderProgram, totalTime, view, projection);
+    //
+    testEnemy.drawImage(shaderProgram,totalTime, view, projection);
 
 
     SDL_GL_SwapWindow(pWindow);

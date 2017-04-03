@@ -26,7 +26,7 @@ class Ai
         int yellowState(glm::vec2 thisPos, glm::vec2 playerPos, glm::vec2 thisDirection);
         int redState(glm::vec2 thisPos, glm::vec2 playerPos, glm::vec2 thisDirection);
         int orangeState(glm::vec2 thisPos, glm::vec2 playerPos, glm::vec2 thisDirection);
-        int AiMethode(glm::vec2 thisPos,glm::vec2 playerPos, glm::vec2 thisDirection, bool isPlayerSneak, int previousState);
+        int aiMethode(glm::vec2 thisPos,glm::vec2 playerPos, glm::vec2 thisDirection, bool isPlayerSneak, int previousState);
     protected:
 
     private:

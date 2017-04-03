@@ -202,7 +202,7 @@ return yellowState(thisPos,  playerPos, thisDirection);
 return 1;
 }
 
-int Ai::AiMethode(glm::vec2 thisPos,glm::vec2 playerPos, glm::vec2 thisDirection, bool isPlayerSneak, int previousState)
+int Ai::aiMethode(glm::vec2 thisPos,glm::vec2 playerPos, glm::vec2 thisDirection, bool isPlayerSneak, int previousState)
 {
     //
     std::cout << "next state is " << std::endl;
