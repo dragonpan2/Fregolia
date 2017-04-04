@@ -23,7 +23,7 @@ imageModel testEnemy;
 imageModel* currentSelection = nullptr;
 
 
-//imageModel* currentSelection = 0;
+
 
 
 PhysicActor testRoche1, testRoche2;
@@ -94,7 +94,7 @@ int initResources()
     //
     testInv.loadFile("./resources/invex.txt", glm::vec2(500.0f, -325.0f));
     //
-    testEnemy.loadFile("./resources/testPersonnage2.txt", glm::vec2(500.0f, 125.0f));
+    testEnemy.loadFile("./resources/testPersonnage2.txt", glm::vec2(500.0f, -200.0f));
 
     startPos = testEnv.loadLevel("./resources/level0.txt");
 
@@ -113,6 +113,11 @@ int initResources()
 int actualiserLogique()
 {
     gererMouvement();
+
+    //
+    testEnemy.moveImage(enemy.aiProcess(testPerso.getPos()));
+    std::cout << "Player Position" << std::endl;
+    std::cout << testPerso.getPos().x << std::endl;
 
     testPerso.modifierVitesse(0);
     testPerso.gererDeplacement(timeLastFrame);

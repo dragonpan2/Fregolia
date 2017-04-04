@@ -13,11 +13,11 @@ class Ai
         int previousState; //1 green, 2 yellow, 3 red,4 orange
         int lastAction; //1 wait, 2 go left, 3 go right, 4 change direction,5 attack, 6 jump left, 7 jump right,
         bool aiActive = true;
-        int greenDetectionRange = 40;
+        int greenDetectionRange = 450;
         //int greenDetectionRange;
-        float yellowOrangeDetectionRange = 30;
-        float redDetectionRange = 20;
-        float attackRange = 5;
+        float yellowOrangeDetectionRange = 375;
+        float redDetectionRange = 335;
+        float attackRange = 50;
       //  glm::vec2 thisDirection = glm::vec2(1.0f,0.0f);
 
         //m
