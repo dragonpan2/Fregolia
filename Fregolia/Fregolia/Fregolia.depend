@@ -177,7 +177,7 @@
 	"externalIncludes.h"
 	"Collisions.h"
 
-1491187617 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\main.cpp
+1491347219 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\main.cpp
 	"externalIncludes.h"
 	"initOpenGL.h"
 	"shaderUtilities.h"
@@ -208,11 +208,13 @@
 
 1490826384 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\consumable.h
 
-1490825645 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\enemy.cpp
+1491347219 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\enemy.cpp
 	"Enemy.h"
-
-1490825645 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\enemy.h
 	"externalIncludes.h"
+
+1491347219 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\enemy.h
+	"externalIncludes.h"
+	"Ai.h"
 
 1490828140 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\inventory.cpp
 	"Inventory.h"
@@ -331,13 +333,13 @@
 
 1491104278 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicobject.h
 
-1491182265 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\ai.cpp
+1491347219 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\ai.cpp
 	"Ai.h"
 	"externalIncludes.h"
 	<stdlib.h>
 	<iostream>
 
-1491182265 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\ai.h
+1491347219 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\ai.h
 	"glm.hpp"
 	"externalIncludes.h"
 
@@ -705,7 +707,7 @@
 	"PhysicActor.h"
 	"loadModel.h"
 
-1491088016 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\physicactor.h
+1491350674 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\physicactor.h
 	"externalIncludes.h"
 	"loadModel.h"
 

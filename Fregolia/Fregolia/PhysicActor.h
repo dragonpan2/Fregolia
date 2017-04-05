@@ -28,6 +28,8 @@ class PhysicActor : public imageModel
 
         virtual float getCsteRessort();
 
+        virtual bool enMouvement() {return false;}
+
     private:
         glm::vec2 mAccel, mVitesse;
         float mMuC, mMasse;

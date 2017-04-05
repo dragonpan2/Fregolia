@@ -23,7 +23,7 @@ imageModel testEnemy;
 imageModel* currentSelection = nullptr;
 
 
-
+std::vector<groundObject*> listeMvt;
 
 
 PhysicActor testRoche1, testRoche2;
@@ -123,10 +123,18 @@ int actualiserLogique()
     testPerso.gererDeplacement(timeLastFrame);
     actualiserCamera();
 
+    for(int i = 0; i < listeMvt.size(); ++i)
+    {
+        //if(!((PhysicActor*)listeMvt[i])->enMouvement()) {listeMvt.erase(listeMvt.begin() + i); continue;}
+        /// Whatever avec ceux qui sont en mouvement
+    }
+
     testEnv.resoudreCollisions(&testPerso);
+
     for(std::vector<groundObject*>::iterator v = testEnv.getListeCollision(); v != testEnv.lastCollisionObj(); v++)
     {
         std::cout << (*v)->object->getId() << std::endl;
+        //if(((PhysicActor*)(*v)->object)->enMouvement()) listeMvt.push_back(*v);
     }
 
     if(testPerso.verifierMort()) testPerso.reset(startPos);
