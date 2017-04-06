@@ -30,7 +30,7 @@ void Water::initWater(glm::vec2 pStart, glm::vec2 pEnd, int pResolution, float p
     }
 
     /// Generation de l'array d'elements
-    for(int i = 0; i < mListePoints.size() - 2; i += 2)
+    for(unsigned int i = 0; i < mListePoints.size() - 2; i += 2)
     {
         mElements.push_back(i);
         mElements.push_back(i + 2);
@@ -57,7 +57,7 @@ void Water::actualiser(int pDeltaTemps)
 {
 
     /// Calcul de la loi de Hooke pour chaque "point" et actualisation de la vitesse / position
-    for(int i = 0; i < mListePoints.size(); i += 2)
+    for(unsigned int i = 0; i < mListePoints.size(); i += 2)
     {
         float mAccel = -(mK * (mListePoints[i].y - mHauteurInit)) - mListePoints[i].z * mK / 2;
         mListePoints[i].z += mAccel;
@@ -66,7 +66,7 @@ void Water::actualiser(int pDeltaTemps)
 
     /// Influence de chaque point aux alentours
     for(int j = 0; j < 16; ++j) {
-        for(int i = 0; i < mListePoints.size() - 2; i += 2)
+        for(unsigned int i = 0; i < mListePoints.size() - 2; i += 2)
         {
             float deltaI = (mListePoints[i + 2].y - mListePoints[i].y) * mViscosite * pDeltaTemps;
             float deltaI2 = (mListePoints[i].y - mListePoints[i + 2].y) * mViscosite * pDeltaTemps;

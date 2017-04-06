@@ -1,7 +1,7 @@
 #ifndef WATER_H_INCLUDED
 #define WATER_H_INCLUDED
 
-#include "externalIncludes.h"
+#include "ExternalIncludes.h"
 
 class Water
 {

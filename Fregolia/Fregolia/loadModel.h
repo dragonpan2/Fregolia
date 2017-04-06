@@ -1,6 +1,6 @@
 #pragma once
 
-#include "externalIncludes.h"
+#include "ExternalIncludes.h"
 #include "Collisions.h"
 
 class imageModel : public Collidable
@@ -21,7 +21,7 @@ class imageModel : public Collidable
 
         virtual int getId() {return mImageID;}
 
-        virtual float setAngle(float pAngle) final;
+        virtual void setAngle(float pAngle) final;
         virtual float getAngle() {return mAngle;}
 
         virtual glm::vec2 getDimensions() {return mDimensions;}
@@ -29,6 +29,7 @@ class imageModel : public Collidable
     protected:
         glm::vec2 mPos;
         glm::mat4 mTranslateMat, mRotateMat, mOBBRotateMat, mTotalMat;
+        glm::vec2 mDimensions;
 
         float mAngle;
 
@@ -41,6 +42,4 @@ class imageModel : public Collidable
         GLuint mTexture;
 
         int mImageID;
-
-        glm::vec2 mDimensions;
 };

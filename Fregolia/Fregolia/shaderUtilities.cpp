@@ -1,4 +1,4 @@
-#include "shaderUtilities.h"
+#include "ShaderUtilities.h"
 
 GLuint createShader(std::string pShaderPath, GLenum pShaderType)
 {
@@ -25,7 +25,7 @@ GLuint createShader(std::string pShaderPath, GLenum pShaderType)
     if(!compileCheck)
     {
         glDeleteShader(shader);
-        return -1;
+        return 999999999;
     }
 
     return shader;
@@ -36,9 +36,9 @@ GLuint createProgram(std::string pVertexShaderPath, std::string pFragmentShaderP
     GLuint program = glCreateProgram();
 
     GLuint vertShader = createShader(pVertexShaderPath, GL_VERTEX_SHADER);
-    if(vertShader == -1) return -1;
+    if(vertShader == 999999999) return 999999999;
     GLuint fragShader = createShader(pFragmentShaderPath, GL_FRAGMENT_SHADER);
-    if(fragShader == -1) return -2;
+    if(fragShader == 999999999) return 999999999;
 
     glAttachShader(program, vertShader);
     glAttachShader(program, fragShader);

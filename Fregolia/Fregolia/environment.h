@@ -1,17 +1,20 @@
 #pragma once
 
-#include "externalIncludes.h"
+#include "ExternalIncludes.h"
 
 #include "personnage.h"
 #include "Water.h"
-#include "loadModel.h"
+#include "LoadModel.h"
+#include "Enemy.h"
 
 struct groundObject
 {
     imageModel* object;
+
     int canCollide;
     int canDraw;
     int canInteract;
+    int canDeplacer;
 };
 
 class Environnement
@@ -35,7 +38,9 @@ class Environnement
         virtual void drawWater(GLuint pShaderProgram, float pTimeLastFrame) final;
         virtual void splash() final {mWater->splashWater(0.5f, 1.0f);}
 
-        virtual void resoudreCollisions(Personnage* pPerso);
+        virtual void resoudreCollisionsPerso(Personnage* pPerso);
+        virtual void resoudreCollisionsEnnemi(Enemy* pPerso);
+        virtual void resoudreCollisionsObjets();
         virtual std::vector<groundObject*>::iterator getListeCollision();
         virtual std::vector<groundObject*>::iterator lastCollisionObj() {return mListeCollisions.end();}
 

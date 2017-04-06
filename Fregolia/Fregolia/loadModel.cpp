@@ -1,4 +1,4 @@
-#include "loadModel.h"
+#include "LoadModel.h"
 
 imageModel::imageModel()
 {
@@ -202,7 +202,7 @@ void imageModel::setPos(glm::vec2 pPos)
     changeBB(deplacement);
 }
 
-float imageModel::setAngle(float pAngle)
+void imageModel::setAngle(float pAngle)
 {
 
     mOBBRotateMat = glm::rotate(glm::mat4(1.0f), glm::radians(pAngle - mAngle), glm::vec3(0, 0, 1));

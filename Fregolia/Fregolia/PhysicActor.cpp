@@ -3,7 +3,8 @@
 
 PhysicActor::PhysicActor()
 {
-
+    mAccel = glm::vec2(10, 10);
+    mVitesse = glm::vec2(0, 0);
 }
 
 PhysicActor::~PhysicActor()
@@ -11,11 +12,11 @@ PhysicActor::~PhysicActor()
 
 }
 
-void PhysicActor::createActor(float pMuC, float pMasse,bool pEstCollision)
+void PhysicActor::createActor(float pMuC, float pMasse)
 {
     mMuC = pMuC;
     mMasse = pMasse;
-    mEstCollision=pEstCollision;
+
 
 }
 
@@ -56,16 +57,29 @@ float PhysicActor::getMasse()
 {
     return mMasse;
 }
-bool PhysicActor::getCollision(){
 
-return mEstCollision;
-}
-bool PhysicActor:: setCollision(bool pEstCollision)
-{
-mEstCollision=pEstCollision;
-}
+
 float PhysicActor:: getCsteRessort()
 {
     return mCsteRessort;
 }
+void PhysicActor:: vitesseReduite(){
 
+if(mVitesse.x < 5 && mVitesse.x > -5 )
+    {
+        mVitesse.x = 0;
+    }
+    else if(mVitesse.x != 0)
+    {
+        mVitesse.x -= (testGravity.resistanceAirX(this->getMasse(),this->getVitesse().x,this->getDimensions().y) + testGravity.resistanceSol(this->getMasse(),this->getMuC())) * signe(mVitesse.x);
+    }
+}
+
+bool PhysicActor:: enMouvement() {
+            if(this->getVitesse().x!=0 ||this->getVitesse().y!=0 ){
+                    return true;
+                    }
+         else {
+                return false;}
+
+}

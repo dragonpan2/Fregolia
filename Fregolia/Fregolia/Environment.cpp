@@ -1,5 +1,4 @@
-#include "environment.h"
-
+#include "Environment.h"
 
 Environnement::Environnement()
 {
@@ -84,7 +83,7 @@ glm::vec2 Environnement::loadLevel(std::string pLevelFile)
             std::string modelFile;
             glm::vec2 coord;
             float angle;
-            int canCollide, canDraw, canInteract;
+            int canCollide, canDraw, canInteract, canDeplacer;
 
             std::istringstream streamLine(line.substr(4));
             streamLine >> modelFile;
@@ -94,17 +93,27 @@ glm::vec2 Environnement::loadLevel(std::string pLevelFile)
             streamLine >> canCollide;
             streamLine >> canDraw;
             streamLine >> canInteract;
+            streamLine>> canDeplacer;
 
             imageModel* obj = new imageModel();
+
+            if(canDeplacer==1){
+                    obj = new PhysicActor();
+                    ((PhysicActor*)obj)->createActor(7.0f,15.0f);
+            }else{
+
+            }
+
             obj->loadFile(modelFile, coord);
             obj->setAngle(angle);
+
 
             groundObject* go = new groundObject();
             go->object = obj;
             go->canCollide = canCollide;
             go->canDraw = canDraw;
             go->canInteract = canInteract;
-
+            go->canDeplacer=canDeplacer;
             mGround.push_back(go);
         }
         else if(line.substr(0, 4) == "wtr ")
@@ -170,7 +179,7 @@ void Environnement::drawForeground(GLuint pShaderProgram, float pTimeElapsed)
 
 void Environnement::drawGround(GLuint pShaderProgram, float pTimeElapsed)
 {
-    for(int i = 0; i < mGround.size(); ++i)
+    for(unsigned int i = 0; i < mGround.size(); ++i)
         if(mGround[i]->canDraw)
             mGround[i]->object->drawImage(pShaderProgram, pTimeElapsed, mView, mProj);
 }
@@ -183,24 +192,30 @@ void Environnement::drawWater(GLuint pShaderProgram, float pTimeLastFrame)
     }
 }
 
-void Environnement::resoudreCollisions(Personnage* pPerso)
+void Environnement::resoudreCollisionsPerso(Personnage* pPerso)
 {
     if(pPerso->isCollision(mPorte)) std::cout << "Changement de piece!" << std::endl;
 
     mListeCollisions.clear();
 
-    for(int i = 0; i < mGround.size(); ++i)
+    for(unsigned int i = 0; i < mGround.size(); ++i)
         if(mGround[i]->canCollide)
-            if(pPerso->isCollision(mGround[i]->object)) {mListeCollisions.push_back(mGround[i]); pPerso->resoudreCollision(pPerso->getDeplacement(mGround[i]->object, 0));}
+            if(pPerso->isCollision(mGround[i]->object)) {mListeCollisions.push_back(mGround[i]); pPerso->resoudreCollision(pPerso->getDeplacement(mGround[i]->object));}
+}
+
+void Environnement::resoudreCollisionsEnnemi(Enemy* pPerso)
+{
+    for(unsigned int i = 0; i < mGround.size(); ++i)
+        if(mGround[i]->canCollide)
+            if(pPerso->isCollision(mGround[i]->object)) pPerso->moveImage(pPerso->getDeplacement(mGround[i]->object));
 }
 
 imageModel* Environnement::getClickRef(imageModel* pSouris)
 {
-    for(int i = 0; i < mGround.size(); ++i)
+    for(unsigned int i = 0; i < mGround.size(); ++i)
         if(mGround[i]->canInteract && mGround[i]->canDraw)
             if(pSouris->isCollision(mGround[i]->object))
                 return mGround[i]->object;
-                //std::cout << "Collision: " << mGround[i]->object->getId() << std::endl;
 
     return nullptr;
 }
@@ -209,3 +224,18 @@ std::vector<groundObject*>::iterator Environnement::getListeCollision()
 {
     return mListeCollisions.begin();
 }
+
+void Environnement::resoudreCollisionsObjets()
+{
+    for(unsigned int i = 0; i < mGround.size(); ++i)
+        for(unsigned int j = 0; j < mGround.size(); ++j)
+            if(mGround[i]->canCollide && mGround[j]->canCollide)
+                if(i != j && ((Collidable*)mGround[i]->object)->isCollision(((Collidable*)mGround[j]->object)))
+                    if(mGround[i]->canDeplacer)
+                        mGround[i]->object->moveImage(((Collidable*)mGround[i]->object)->getDeplacement(((Collidable*)mGround[j]->object)));
+                    else if(mGround[j]->canDeplacer)
+                        mGround[j]->object->moveImage(((Collidable*)mGround[j]->object)->getDeplacement(((Collidable*)mGround[i]->object)));
+
+}
+
+

@@ -1,7 +1,7 @@
 #ifndef COLLISIONS_H_INCLUDED
 #define COLLISIONS_H_INCLUDED
 
-#include "externalIncludes.h"
+#include "ExternalIncludes.h"
 
 /// Collisions utilisent le SAT (Separating Axis Theorem).
 

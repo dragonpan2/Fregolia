@@ -1,4 +1,4 @@
-#include "initOpenGL.h"
+#include "InitOpenGL.h"
 
 int initOpenGL(SDL_Window** mainWindow, SDL_GLContext* mainContext)
 {

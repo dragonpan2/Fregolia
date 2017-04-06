@@ -1,7 +1,7 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 #include "Item.h"
-#include "externalIncludes.h"
+#include "ExternalIncludes.h"
 
 class Inventory
 {

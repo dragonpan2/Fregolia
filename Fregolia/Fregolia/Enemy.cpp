@@ -1,55 +1,82 @@
 #include "Enemy.h"
-#include "externalIncludes.h"
 
-Enemy::Enemy() {
-  //  glm::vec2 thisPos = glm::vec2(0.0f,0.0f); // default ai Position
-    //glm::vec2 thisD = glm::vec2(-1.0f,0.0f); //default direction
-    //thisState = 1; //defaut state Green
+
+Enemy::Enemy()
+{
 
 }
 
-Enemy::~Enemy() {}
+Enemy::~Enemy()
+{
+
+}
+
+void Enemy::aiProcess(glm::vec2 pPlayerPos)
+{
+    mAction = ai.actionSetter(mPos, pPlayerPos, mDirection, false, mAction, 0);
+
+    switch (ai.aiMethode(mPos, pPlayerPos, mDirection, false, mAction))
+    {
+        case 1:
+            mAction = 0;
+            break;
+        case 2:
+            mAction = 1;
+            mDirection = glm::vec2(-1.0f, 0.0f);
+            break;
+        case 3:
+            mAction = 1;
+            mDirection = glm::vec2(1.0f, 0.0f);
+            break;
+        case 4:
+            mDirection.x = mDirection.x * -1;
+            mVitesse.x = 0;
+            break;
+        case 5:
+            /// Attaque
+            break;
+    }
+}
+
+void Enemy::gererDeplacement(int pDeltaTemps)
+{
+    if(mVitesse.x > 30)
+    {
+        mVitesse.x = 30;
+        mAccel.x = 0;
+    }
+    else if(mVitesse.x < -30)
+    {
+        mVitesse.x = -30;
+        mAccel.x = 0;
+    }
+    else
+    {
+        mAccel.x = mAcceleration;
+    }
+
+    mVitesse.x += mAccel.x * mDirection.x;
+
+    vitesseReduite(pDeltaTemps);
+
+    glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100, 0);
+
+    mPos += deplacement;
+    mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
+    changeBB(deplacement);
+}
+
+void Enemy::vitesseReduite(int pDeltaTemps)
+{
+    if(mVitesse.x < 3 && mVitesse.x > -3) mVitesse.x = 0;
+    else if(mVitesse.x != 0) mVitesse.x -= (testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + testGravity.resistanceSol(mMasse, mMuC)) * signe(mVitesse.x);
+
+}
 
 int Enemy::damageEnnemi()
 {
-
-return 0;
+    return 0;
 }
-
-glm::vec2 Enemy::aiProcess(glm::vec2 playerPos) {
-
-
- thisState = ai.stateSetter(thisPos,playerPos,thisDirection , false, thisState, 0);
-    switch (ai.aiMethode(thisPos,playerPos, thisDirection,false, thisState)) {
-
-case 1:
-    std::cout << "action is wait"<< std::endl;
-    return glm::vec2(0.0f,0.0f);
-    break;
-case 2:
-    std::cout << "action is go left"<< std::endl;
-    thisPos.x = thisPos.x -1;
-    return glm::vec2(-1.0f,0.0f);
-    break;
-case 3:
-    std::cout << "action is go right" <<std::endl;
-    thisPos.x = thisPos.x +1;
-    return glm::vec2(1.0f,0.0f);
-    break;
-    case 4:
-    std::cout << "action is change direction" <<std::endl;
-    thisDirection.x = thisDirection.x * -1;
-    return glm::vec2(0.0f,0.0f);
-    break;
-    case 5:
-    std::cout << "action is attack" <<std::endl;
-    break;
-
-    }
-return glm::vec2(0.0f,0.0f);
-}
-
-
 
 void Enemy::ennemiTouche(int damageTaken)
 {
@@ -58,12 +85,7 @@ void Enemy::ennemiTouche(int damageTaken)
 
 bool Enemy::isMortEnnemi()
 {
-    if(healthEnnemi<=0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    if(healthEnnemi <= 0) return true;
+    else return false;
 }
+

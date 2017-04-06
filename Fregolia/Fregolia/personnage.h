@@ -1,7 +1,7 @@
 #ifndef PERSONNAGE_H_INCLUDED
 #define PERSONNAGE_H_INCLUDED
 
-#include "externalIncludes.h"
+#include "ExternalIncludes.h"
 
 #include "PhysicActor.h"
 #include "Gravity.h"
@@ -27,18 +27,22 @@ class Personnage : public PhysicActor, public Gravity
         virtual bool verifierMort();
         virtual void reset(glm::vec2 pPos);
 
-        virtual void modifierVitesse(int pState);
+        virtual float getAngle(){return mAngle;}
+        virtual void  pousserObjet(PhysicActor* pImage);
+        virtual void vitesseReduite(int pDeltaTemps);
 
-
+    protected:
+        Gravity testGravity;
 
 
     private:
 
-        float mImpulsionSaut = 2.4, mAcceleration;
+        float mImpulsionSaut = 5, mAcceleration;
 
         /// 0 = Rien, 1 = Marche, 2 = Saut (incl. Chute)...
         int mState = 0;
-        glm::vec2 mAccel, mVitesse;
+        float mAngle;
+
 
         glm::vec2 mDirection = glm::vec2(0, 0);
 

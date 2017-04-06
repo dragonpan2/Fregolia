@@ -14,7 +14,7 @@ MeleeWeapon::~MeleeWeapon()
 bool MeleeWeapon ::  peutTirer()
 {
 
-Weapon::estProjectile=false;
-return estProjectile;
+Weapon::mEstProjectile=false;
+return mEstProjectile;
 
 }

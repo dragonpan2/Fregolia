@@ -1,13 +1,14 @@
-#include "externalIncludes.h"
-#include "initOpenGL.h"
-#include "shaderUtilities.h"
-#include "loadModel.h"
-#include "personnage.h"
-#include "environment.h"
+#include "ExternalIncludes.h"
+#include "InitOpenGL.h"
+#include "ShaderUtilities.h"
+#include "LoadModel.h"
+#include "Personnage.h"
+#include "Environment.h"
 #include "Water.h"
 #include "Gravity.h"
 #include "PhysicActor.h"
 #include "Weapon.h"
+#include "SpiderWeb.h"
 
 using namespace std;
 
@@ -19,7 +20,6 @@ imageModel testCollision1, testCollision2, testPorte, testCollision3;
 imageModel testSouris;
 
 imageModel testInv;
-imageModel testEnemy;
 imageModel* currentSelection = nullptr;
 
 
@@ -30,13 +30,11 @@ PhysicActor testRoche1, testRoche2;
 Environnement testEnv;
 Personnage testPerso;
 Water testWater;
-Enemy enemy;
+Enemy testEnemy;
+SpiderWeb spiderWeb;
 
-//Weapon testWeapon;
-//Inventory testInventory;
-//Enemy testEnemy;
+Weapon testWeapon;
 
-//Gravity testGrav;
 
 glm::mat4 projection, view;
 glm::vec2 cameraPos;
@@ -48,53 +46,52 @@ int listeTouches[1000] = {0};
 int timeLastFrame = 1;
 float totalTime = 0.0f;
 
+int timeWeapon = 0;
+int timeWeaponUse = 0;
+float angleAttaque = -45.0;
+int compteurAngle = 1;
+int compteurToile = 0;
+
+
 /** DÉCLARATIONS DE FONCTIONS **/
 
-void gererWeapon();
 int initResources();
 int renderScreen(SDL_Window* pWindow);
-int renderTriangle();
+
 void gererMouvement();
 void deplacerSouris(int pX, int pY, int pRelX, int pRelY);
+
 void actualiserCamera();
+
+void gererWeapon();
+void collisionToile(int compteurToile);
 
 
 /** CODE **/
 
-/*void gererWeapon()
-{
-    if(listeTouches[SDL_SCANCODE_TAB])
-    {
-        if(testWeapon.siEquipped())
-        {
-            testWeapon.unequipWeapon(testWeapon, testInventory);
-        }
-        else
-        {
-            testWeapon.equipWeapon(testWeapon, testInventory);
-        }
-    }
-
-    if(listeTouches[SDL_SCANCODE_F])
-    {
-        testWeapon.use(testEnemy);
-    }
-}*/
 
 int initResources()
 {
     shaderProgram = createProgram("./resources/vertShader.v", "./resources/fragShader.f");
+    if(shaderProgram == 999999999) return -1;
     waveProgram = createProgram("./resources/vertShader.v", "./resources/fragWaveShader.f");
+    if(waveProgram == 999999999) return -2;
     waterProgram = createProgram("./resources/vertWaterShader.v", "./resources/fragWaterShader.f");
+    if(waterProgram == 999999999) return -3;
 
     testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(0.0f, 0.0f));
-    testPerso.createActor(5, 5, false);
+    testPerso.createActor(15, 5);
+
+    testWeapon.loadWeapon("./resources/testWeapon.txt", glm::vec2(0.0f, 0.0f));
+
+    spiderWeb.loadFile("./resources/testSpiderWeb.txt", glm::vec2(500.0f, 0.0f));
 
     testSouris.loadFile("./resources/mouse.txt", glm::vec2(0.0f, 0.0f));
-    //
-    testInv.loadFile("./resources/invex.txt", glm::vec2(500.0f, -325.0f));
-    //
+
+    testInv.loadFile("./resources/invex.txt", glm::vec2(-0.0f, -0.85f));
+
     testEnemy.loadFile("./resources/testPersonnage2.txt", glm::vec2(500.0f, -200.0f));
+    testEnemy.createActor(15, 5);
 
     startPos = testEnv.loadLevel("./resources/level0.txt");
 
@@ -110,34 +107,92 @@ int initResources()
     return 0;
 }
 
+void freeResources()
+{
+    for(unsigned int i = 0; i < listeMvt.size(); ++i)
+        delete listeMvt[i];
+
+    delete currentSelection;
+
+
+}
+
 int actualiserLogique()
 {
     gererMouvement();
+    gererWeapon();
 
-    //
-    testEnemy.moveImage(enemy.aiProcess(testPerso.getPos()));
-    std::cout << "Player Position" << std::endl;
-    std::cout << testPerso.getPos().x << std::endl;
 
-    testPerso.modifierVitesse(0);
+    testEnemy.aiProcess(testPerso.getPos());
+    testEnemy.gererDeplacement(timeLastFrame);
+
     testPerso.gererDeplacement(timeLastFrame);
-    actualiserCamera();
 
-    for(int i = 0; i < listeMvt.size(); ++i)
+    testEnv.resoudreCollisionsPerso(&testPerso);
+    testEnv.resoudreCollisionsEnnemi(&testEnemy);
+    testEnv.resoudreCollisionsObjets();
+
+    for(unsigned int i = 0; i < listeMvt.size(); ++i)
     {
-        //if(!((PhysicActor*)listeMvt[i])->enMouvement()) {listeMvt.erase(listeMvt.begin() + i); continue;}
-        /// Whatever avec ceux qui sont en mouvement
-    }
 
-    testEnv.resoudreCollisions(&testPerso);
+        if(!(((PhysicActor*)listeMvt[i]->object)->enMouvement())) listeMvt.erase(listeMvt.begin() + i);
+        else
+        {
+            ((PhysicActor*)listeMvt[i]->object)->vitesseReduite();
+            ((PhysicActor*)listeMvt[i]->object)->moveImage(((PhysicActor*)listeMvt[i]->object)->getVitesse());
+        }
+    }
 
     for(std::vector<groundObject*>::iterator v = testEnv.getListeCollision(); v != testEnv.lastCollisionObj(); v++)
     {
-        std::cout << (*v)->object->getId() << std::endl;
-        //if(((PhysicActor*)(*v)->object)->enMouvement()) listeMvt.push_back(*v);
+        if((*v)->canDeplacer == 1)
+        {
+            if(listeMvt.size() == 0)
+            {
+                listeMvt.push_back(*v);
+                testPerso.pousserObjet((PhysicActor*)(*v)->object);
+                continue;
+            }
+
+            for(unsigned int i = 0; i < listeMvt.size(); i++)
+            {
+                if((listeMvt[i]) == (*v)) break;
+
+                if(i == listeMvt.size() - 1)
+                {
+                    listeMvt.push_back(*v);
+                    testPerso.pousserObjet((PhysicActor*)(*v)->object);
+                }
+            }
+
+        }
+
+        testPerso.setAngle((*v)->object->getAngle());
     }
 
     if(testPerso.verifierMort()) testPerso.reset(startPos);
+
+    actualiserCamera();
+
+    if (testWeapon.siBeingUsed() && testWeapon.isCollision(&testEnemy))
+    {
+        testWeapon.setBeingUsed(false);
+        testEnemy.ennemiTouche(10);
+        if (testEnemy.isMortEnnemi())
+        {
+            /// ENNEMI TUE
+        }
+    }
+
+    /*collisionToile(compteurToile);
+
+    if (testPerso.siImmobile())
+    {
+        compteurToile++;
+    }*/
+
+    testWeapon.moveImage(glm::vec2((testPerso.getPos() - testWeapon.getPos()).x + 40, (testPerso.getPos() - testWeapon.getPos()).y + 20));
+
 
     return 0;
 }
@@ -161,46 +216,98 @@ int renderScreen(SDL_Window* pWindow)
 
     testPerso.drawImage(shaderProgram, totalTime, view, projection);
 
+    if(testWeapon.siEquipped()) testWeapon.drawImage(shaderProgram, totalTime, view, projection);
+
+    testEnemy.drawImage(shaderProgram, totalTime, view, projection);
+    //spiderWeb.drawImage(shaderProgram, totalTime, view, projection);
+
     testEnv.drawWater(waterProgram, timeLastFrame);
     testEnv.drawForeground(shaderProgram, totalTime);
 
     glDisable(GL_BLEND);
 
-    //
-    testInv.drawImage(shaderProgram, totalTime, view, projection);
-    //
-    testEnemy.drawImage(shaderProgram,totalTime, view, projection);
-
+    testInv.drawImage(shaderProgram, totalTime, glm::mat4(1.0f), glm::mat4(1.0f));
 
     SDL_GL_SwapWindow(pWindow);
 
-    //std::cout << timeLastFrame << std::endl;
+    std::cout << timeLastFrame << std::endl;
 
     return 0;
 }
 
+
+
+void gererWeapon()
+{
+    if(listeTouches[SDL_SCANCODE_F] && timeWeaponUse == 0)
+    {
+        angleAttaque = -45.0;
+        compteurAngle = 0;
+        timeWeaponUse++;
+        testWeapon.setBeingUsed(true);
+        testWeapon.setAngle(angleAttaque);
+    }
+
+    if(listeTouches[SDL_SCANCODE_TAB] && timeWeapon == 0)
+    {
+        timeWeapon++;
+        if(testWeapon.siEquipped())
+        {
+            testWeapon.setEquipped(false);
+        }
+        else
+        {
+            testWeapon.setEquipped(true);
+        }
+    }
+
+    if(timeWeaponUse >= 1)
+    {
+        timeWeaponUse++;
+        testWeapon.setAngle(angleAttaque+compteurAngle);
+        compteurAngle++;
+    }
+    if (timeWeaponUse > 45)
+    {
+        timeWeaponUse = 0;
+        testWeapon.setBeingUsed(false);
+    }
+
+    if (timeWeapon > 50) timeWeapon = 0;
+    else if(timeWeapon >= 1) timeWeapon++;
+}
+
+
+
+void collisionToile(int compteurToile)
+{
+
+}
+
+
+
 void gererMouvement()
 {
-    if(listeTouches[SDL_SCANCODE_SPACE]) {
+    if(listeTouches[SDL_SCANCODE_SPACE])
+    {
         testPerso.setState(2, glm::vec2(0, 1));
-        //testPerso.modifierVitesse(2);
     }
-    if(listeTouches[SDL_SCANCODE_S]) {
+    if(listeTouches[SDL_SCANCODE_S])
+    {
     }
-    if(listeTouches[SDL_SCANCODE_A]) {
+    if(listeTouches[SDL_SCANCODE_A])
+    {
         testPerso.setState(1, glm::vec2(-1, 0));
-        //testPerso.modifierVitesse(1);
     }
-    if(listeTouches[SDL_SCANCODE_D]) {
+    if(listeTouches[SDL_SCANCODE_D])
+    {
         testPerso.setState(1, glm::vec2(1, 0));
-        //testPerso.modifierVitesse(1);
     }
-    if(listeTouches[SDL_SCANCODE_E]) {
+    if(listeTouches[SDL_SCANCODE_E])
+    {
         testEnv.splash();
         listeTouches[SDL_SCANCODE_E] = 0;
     }
-
-    //testPerso.modifierVitesse(0);
 }
 
 void deplacerSouris(int pX, int pY, int pRelX, int pRelY)
@@ -216,7 +323,7 @@ void actualiserCamera()
 {
     float distance = testPerso.getPos().x - (cameraPos.x + 512);
 
-    if(abs(distance) > 350)
+    if(abs(distance) > 150)
     {
         if((cameraPos.x > testEnv.getLength().x + 10 && signe(distance) == -1) || (cameraPos.x < testEnv.getLength().y - 10 && signe(distance) == 1))
         {
@@ -235,7 +342,8 @@ int main(int argc, char* argv[])
     bool loopEnd = false;
     SDL_Event events;
 
-    if(initOpenGL(&mainWindow, &mainContext) != 0) {
+    if(initOpenGL(&mainWindow, &mainContext) != 0)
+    {
         std::cout << "Impossible d'initaliser OpenGL!" << std::endl;
         return -3;
     }
@@ -263,36 +371,36 @@ int main(int argc, char* argv[])
             }
             switch(events.type)
             {
-                case SDL_KEYUP:
-                    listeTouches[events.key.keysym.scancode] = 0;
-                    break;
-                case SDL_KEYDOWN:
-                    listeTouches[events.key.keysym.scancode] = 1;
-                    break;
-                case SDL_MOUSEMOTION:
-                    deplacerSouris(events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
-                    break;
-                case SDL_MOUSEBUTTONDOWN:
-                    if(events.button.button == SDL_BUTTON_LEFT)
-                    {
-                        currentSelection = testEnv.getClickRef(&testSouris);
-                    }
-                    else if(events.button.button == SDL_BUTTON_RIGHT && currentSelection != nullptr)
-                    {
-                        std::cout << "Position: " << currentSelection->getPos().x << " " << currentSelection->getPos().y << "; Angle: " << currentSelection->getAngle() << std::endl;
-                        currentSelection = nullptr;
-                    }
-                    break;
-                case SDL_MOUSEBUTTONUP:
-                    break;
-                case SDL_MOUSEWHEEL:
-                        if(currentSelection != nullptr)
-                        {
-                            currentSelection->setAngle(currentSelection->getAngle() + 1 * signe(events.wheel.y));
-                        }
-                    break;
-                default:
-                    break;
+            case SDL_KEYUP:
+                listeTouches[events.key.keysym.scancode] = 0;
+                break;
+            case SDL_KEYDOWN:
+                listeTouches[events.key.keysym.scancode] = 1;
+                break;
+            case SDL_MOUSEMOTION:
+                deplacerSouris(events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                if(events.button.button == SDL_BUTTON_LEFT)
+                {
+                    currentSelection = testEnv.getClickRef(&testSouris);
+                }
+                else if(events.button.button == SDL_BUTTON_RIGHT && currentSelection != nullptr)
+                {
+                    std::cout << "Position: " << currentSelection->getPos().x << " " << currentSelection->getPos().y << "; Angle: " << currentSelection->getAngle() << std::endl;
+                    currentSelection = nullptr;
+                }
+                break;
+            case SDL_MOUSEBUTTONUP:
+                break;
+            case SDL_MOUSEWHEEL:
+                if(currentSelection != nullptr)
+                {
+                    currentSelection->setAngle(currentSelection->getAngle() + 1 * signe(events.wheel.y));
+                }
+                break;
+            default:
+                break;
             }
         }
 
@@ -311,6 +419,7 @@ int main(int argc, char* argv[])
         totalTime += timeLastFrame;
     }
 
+    freeResources();
     SDL_GL_DeleteContext(mainContext);
     SDL_DestroyWindow(mainWindow);
     SDL_Quit();

@@ -24,7 +24,7 @@ glm::vec2 Collidable::getCoin(int index)
 
 bool Collidable::checkOverlap(Collidable* pOther)
 {
-    mMinDistance = 1000;
+    mMinDistance = 1000000;
 
     /// Pour chaque axe
     for(int i = 0; i < 2; ++i)
@@ -49,10 +49,19 @@ bool Collidable::checkOverlap(Collidable* pOther)
         //std::cout << i << "LENGTH: " << glm::length(mAxes[i]) << std::endl;
 
         if(glm::dot(mCoins[0], mAxes[i]) > maxAutre || glm::dot(mCoins[0], mAxes[i]) + mAxesLongueur[i] < minAutre) return false;
-        else if(maxAutre - glm::dot(mCoins[0], mAxes[i]) < mMinDistance)
+        else
         {
-            mMinDistance = maxAutre - glm::dot(mCoins[0], mAxes[i]);
-            mMinAxe = mAxes[i];
+            if(abs(maxAutre - glm::dot(mCoins[0], mAxes[i])) < abs(mMinDistance))
+            {
+                mMinDistance = abs(maxAutre - glm::dot(mCoins[0], mAxes[i]));
+                mMinAxe = mAxes[i];
+            }
+
+            if(abs(glm::dot(mCoins[0], mAxes[i]) + mAxesLongueur[i] - minAutre) < abs(mMinDistance))
+            {
+                mMinDistance = abs(glm::dot(mCoins[0], mAxes[i]) + mAxesLongueur[i] - minAutre) * -1.000000001f;
+                mMinAxe = mAxes[i];
+            }
         }
     }
 
@@ -62,11 +71,35 @@ bool Collidable::checkOverlap(Collidable* pOther)
 
 glm::vec2 Collidable::getDeplacement(Collidable* pOther)
 {
-    if(mMinDistance <= pOther->getMinDistance()) {
-        //std::cout << mMinDistance << "; " << mMinAxe.x << " " << mMinAxe.y << std::endl;
+    if(abs(mMinDistance) <= abs(pOther->getMinDistance())) {
         return mMinDistance * mMinAxe;
     }
-    else return pOther->getDeplacement(this) * -1.0f;
+    else
+    {
+        return pOther->getDeplacement(this) * -1.0f;
+    }
+
+    /*if(abs(mMinDistance) <= abs(pOther->getMinDistance())) {
+        std::cout << "PLAYER: " << mMinDistance << "; " << mMinAxe.x << " " << mMinAxe.y << std::endl;
+        return mMinDistance * mMinAxe;
+    }
+    else
+    {
+        glm::vec2 d = pOther->getDeplacement(this) * -1.0f;
+        std::cout << "OTHER: " << sqrt(pow(d.x, 2) + pow(d.y, 2)) << "; " << glm::normalize(d).x << " " << glm::normalize(d).y << std::endl;
+        return pOther->getDeplacement(this) * -1.0f;
+    }*/
+
+    /*if(abs(mMinDistance) < abs(pOther->getMinDistance())) {
+        std::cout << "PLAYER: " << mMinDistance << "; " << mMinAxe.x << " " << mMinAxe.y << std::endl;
+        return mMinDistance * mMinAxe;
+    }
+    else
+    {
+        glm::vec2 d = pOther->getDeplacement(this, 1) * -1.0f;
+        std::cout << "OTHER: " << glm::length(d) << "; " << glm::normalize(d).x << " " << glm::normalize(d).y << std::endl;
+        return pOther->getDeplacement(this, 1) * -1.0f;
+    }*/
 }
 
 glm::vec2 Collidable::getDeplacement(Collidable* pOther, int b)

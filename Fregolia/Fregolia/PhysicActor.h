@@ -1,8 +1,9 @@
 #ifndef PHYSICACTOR_H_INCLUDED
 #define PHYSICACTOR_H_INCLUDED
 
-#include "externalIncludes.h"
-#include "loadModel.h"
+#include "ExternalIncludes.h"
+#include "LoadModel.h"
+#include "Gravity.h"
 
 
 class PhysicActor : public imageModel
@@ -11,7 +12,7 @@ class PhysicActor : public imageModel
         PhysicActor();
         virtual ~PhysicActor();
 
-        virtual void createActor(float pMuC, float pMasse,bool pEstCollision);
+        virtual void createActor(float pMuC, float pMasse);
         virtual void updateActor(float pDeltaTemps);
 
         virtual void setAcceleration(glm::vec2 pAccel);
@@ -23,18 +24,20 @@ class PhysicActor : public imageModel
         virtual float getMuC();
         virtual float getMasse();
 
-        virtual bool getCollision();
-        virtual bool setCollision(bool pEstCollision);
+
 
         virtual float getCsteRessort();
 
-        virtual bool enMouvement() {return false;}
-
-    private:
+        virtual bool enMouvement( );
+        virtual void vitesseReduite();
+    protected:
+        Gravity testGravity;
         glm::vec2 mAccel, mVitesse;
+
         float mMuC, mMasse;
-        bool mEstCollision;
+
         float mCsteRessort;
+
 };
 
 #endif // PHYSICACTOR_H_INCLUDED

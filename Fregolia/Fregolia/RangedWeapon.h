@@ -1,7 +1,7 @@
 #ifndef RANGEDWEAPON_H
 #define RANGEDWEAPON_H
 #include "Weapon.h"
-#include "externalIncludes.h"
+#include "ExternalIncludes.h"
 
 class RangedWeapon: public Weapon
 {

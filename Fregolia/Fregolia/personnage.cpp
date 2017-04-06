@@ -1,4 +1,4 @@
-#include "personnage.h"
+#include "Personnage.h"
 
 Personnage::Personnage()
 {
@@ -79,6 +79,7 @@ void Personnage::setState(int pState, glm::vec2 pDir)
         mDirection.x += pDir.x;
 
         mVitesse.x += mAccel.x * signe(mDirection.x);
+
         if(mVitesse.x > 40)
         {
             mVitesse.x = 40;
@@ -95,6 +96,7 @@ void Personnage::setState(int pState, glm::vec2 pDir)
         }
 
         if(mState != 2) mState = pState;
+
         break;
     case 2: /// SAUT
         if(mState == 0 || mState == 1)
@@ -105,14 +107,6 @@ void Personnage::setState(int pState, glm::vec2 pDir)
         }
         break;
     }
-    if(mVitesse.x < 5 && mVitesse.x > -5 )
-    {
-        mVitesse.x = 0;
-    }
-    else if(mVitesse.x != 0)
-    {
-        mVitesse.x -= (resistanceAirX(this) + resistanceSol(this)) * signe(mVitesse.x);
-    }
 }
 
 int Personnage::getState()
@@ -122,10 +116,11 @@ int Personnage::getState()
 
 void Personnage::gererDeplacement(int pDeltaTemps)
 {
-    if(mVitesse.y > 0) mVitesse.y-= pDeltaTemps * 0.003;
-    else mVitesse.y= 0;
+    if(mVitesse.y > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
+    else mVitesse.y = 0;
+    vitesseReduite(pDeltaTemps);
 
-    glm::vec2 deplacement = glm::vec2( mVitesse.x * pDeltaTemps / 100, pDeltaTemps * (mVitesse.y - gravityApplication(this, pDeltaTemps).y));
+    glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100, pDeltaTemps * (mVitesse.y - testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y));
 
     mPos += deplacement;
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
@@ -151,33 +146,22 @@ void Personnage::reset(glm::vec2 pPos)
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
     changeBB(deplacement);
     mDirection = glm::vec2(0, 0);
-    mVitesse.y = 0;
+    mVitesse = glm::vec2(0, 0);
+    mAccel = glm::vec2(0, 0);
 }
 
-void Personnage::modifierVitesse(int pState)
+void Personnage::pousserObjet(PhysicActor* pImage)
 {
-    switch(mState)
-    {
-    case 0: /// Rien, donc... rien!
-        break;
-    case 1: /// MARCHE
-        mVitesse.x += mAccel.x * signe(mDirection.x);
-        if(mVitesse.x > 40) mVitesse.x = 40;
-        if(mVitesse.x < -40) mVitesse.x = -40;
-        break;
-    case 2: /// SAUT
+    mVitesse = glm::vec2(testGravity.rentrerCollision(mVitesse.x, pImage->getMasse(), pImage->getMuC(), mMasse), mVitesse.y);
+    pImage->setVitesse(mVitesse);
 
+    ((imageModel*)pImage)->moveImage(pImage->getVitesse());
+}
 
-        break;
-    }
-    if(mVitesse.x < 5 && mVitesse.x > -5 )
-    {
-        mVitesse.x = 0;
-    }
-    else if(mVitesse.x != 0)
-    {
-        mVitesse.x -= (resistanceAirX(this) + resistanceSol(this)) * signe(mVitesse.x);
-    }
+void Personnage::vitesseReduite(int pDeltaTemps)
+{
+    if(mVitesse.x < 3 && mVitesse.x > -3) mVitesse.x = 0;
+    else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + testGravity.resistanceSol(mMasse, mMuC))) * signe(mVitesse.x);
 }
 
 
