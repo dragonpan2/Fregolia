@@ -82,7 +82,7 @@ glm::vec2 Environnement::loadLevel(std::string pLevelFile)
         {
             std::string modelFile;
             glm::vec2 coord;
-            float angle;
+            float angle, uC,masse,constanteRappel;
             int canCollide, canDraw, canInteract, canDeplacer;
 
             std::istringstream streamLine(line.substr(4));
@@ -93,13 +93,16 @@ glm::vec2 Environnement::loadLevel(std::string pLevelFile)
             streamLine >> canCollide;
             streamLine >> canDraw;
             streamLine >> canInteract;
-            streamLine>> canDeplacer;
+            streamLine >> canDeplacer;
+            streamLine >> uC;
+            streamLine >> masse;
+            streamLine >> constanteRappel;
 
             imageModel* obj = new imageModel();
 
             if(canDeplacer==1){
                     obj = new PhysicActor();
-                    ((PhysicActor*)obj)->createActor(7.0f,15.0f);
+                    ((PhysicActor*)obj)->createActor(uC, masse, constanteRappel);
             }else{
 
             }
@@ -198,9 +201,17 @@ void Environnement::resoudreCollisionsPerso(Personnage* pPerso)
 
     mListeCollisions.clear();
 
+    bool collisionSol = false;
+
     for(unsigned int i = 0; i < mGround.size(); ++i)
         if(mGround[i]->canCollide)
-            if(pPerso->isCollision(mGround[i]->object)) {mListeCollisions.push_back(mGround[i]); pPerso->resoudreCollision(pPerso->getDeplacement(mGround[i]->object));}
+            if(pPerso->isCollision(mGround[i]->object)) {mListeCollisions.push_back(mGround[i]);
+            glm::vec2 deplacement = pPerso->getDeplacement(mGround[i]->object);
+            pPerso->resoudreCollision(deplacement);
+
+            if(deplacement.y > 0) collisionSol = true;}
+
+    pPerso->mCollisionSol = collisionSol;
 }
 
 void Environnement::resoudreCollisionsEnnemi(Enemy* pPerso)
@@ -227,13 +238,17 @@ std::vector<groundObject*>::iterator Environnement::getListeCollision()
 
 void Environnement::resoudreCollisionsObjets()
 {
+        bool collisionSol = false;
+
+
     for(unsigned int i = 0; i < mGround.size(); ++i)
         for(unsigned int j = 0; j < mGround.size(); ++j)
             if(mGround[i]->canCollide && mGround[j]->canCollide)
                 if(i != j && ((Collidable*)mGround[i]->object)->isCollision(((Collidable*)mGround[j]->object)))
-                    if(mGround[i]->canDeplacer)
+                    if(mGround[i]->canDeplacer){
                         mGround[i]->object->moveImage(((Collidable*)mGround[i]->object)->getDeplacement(((Collidable*)mGround[j]->object)));
-                    else if(mGround[j]->canDeplacer)
+
+                    }else if(mGround[j]->canDeplacer)
                         mGround[j]->object->moveImage(((Collidable*)mGround[j]->object)->getDeplacement(((Collidable*)mGround[i]->object)));
 
 }

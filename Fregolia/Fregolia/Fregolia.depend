@@ -714,17 +714,13 @@
 1491182264 source:c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\physicactor.cpp
 	"PhysicActor.h"
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\ai.cpp
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\ai.cpp
 	"Ai.h"
-	"externalIncludes.h"
-	<stdlib.h>
-	<iostream>
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\ai.h
-	"glm.hpp"
-	"externalIncludes.h"
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\ai.h
+	"ExternalIncludes.h"
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\externalincludes.h
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\externalincludes.h
 	<glm.hpp>
 	<gtc/matrix_transform.hpp>
 	<gtc/type_ptr.hpp>
@@ -736,116 +732,123 @@
 	<iterator>
 	<fstream>
 	<sstream>
+	<stdlib.h>
 	<vector>
 	<math.h>
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\collisions.cpp
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\collisions.cpp
 	"Collisions.h"
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\collisions.h
-	"externalIncludes.h"
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\collisions.h
+	"ExternalIncludes.h"
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\consumable.cpp
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\consumable.cpp
 	"Consumable.h"
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\consumable.h
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\consumable.h
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\enemy.cpp
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\enemy.cpp
 	"Enemy.h"
-	"externalIncludes.h"
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\enemy.h
-	"externalIncludes.h"
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\enemy.h
+	"ExternalIncludes.h"
 	"Ai.h"
+	"PhysicActor.h"
+	"Gravity.h"
 
 1491442524 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\environment2.cpp
 	"environment.h"
 
-1491360416 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\environment.h
-	"externalIncludes.h"
+1491593050 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\environment.h
+	"ExternalIncludes.h"
 	"personnage.h"
 	"Water.h"
-	"loadModel.h"
+	"LoadModel.h"
+	"Enemy.h"
 
-1491445793 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\personnage.h
-	"externalIncludes.h"
+1491670250 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\personnage.h
+	"ExternalIncludes.h"
 	"PhysicActor.h"
 	"Gravity.h"
 
-1491365698 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\loadmodel.h
-	"externalIncludes.h"
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\loadmodel.h
+	"ExternalIncludes.h"
 	"Collisions.h"
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\water.h
-	"externalIncludes.h"
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\water.h
+	"ExternalIncludes.h"
 
 1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\gravitymanager.cpp
 	"GravityManager.h"
 
 1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\gravitymanager.h
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\initopengl.cpp
-	"initOpenGL.h"
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\initopengl.cpp
+	"InitOpenGL.h"
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\initopengl.h
-	"externalIncludes.h"
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\initopengl.h
+	"ExternalIncludes.h"
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\inventory.cpp
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\inventory.cpp
 	"Inventory.h"
 	<algorithm>
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\inventory.h
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\inventory.h
 	"Item.h"
-	"externalIncludes.h"
+	"ExternalIncludes.h"
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\item.h
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\item.h
+	"LoadModel.h"
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\item.cpp
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\item.cpp
 	"Item.h"
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\loadmodel.cpp
-	"loadModel.h"
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\loadmodel.cpp
+	"LoadModel.h"
 
-1491445897 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\main.cpp
-	"externalIncludes.h"
-	"initOpenGL.h"
-	"shaderUtilities.h"
-	"loadModel.h"
-	"personnage.h"
-	"environment.h"
+1491704976 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\main.cpp
+	"ExternalIncludes.h"
+	"InitOpenGL.h"
+	"ShaderUtilities.h"
+	"LoadModel.h"
+	"Personnage.h"
+	"Environment.h"
 	"Water.h"
 	"Gravity.h"
 	"PhysicActor.h"
 	"Weapon.h"
+	"SpiderWeb.h"
 
-1491354788 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\shaderutilities.h
-	"externalIncludes.h"
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\shaderutilities.h
+	"ExternalIncludes.h"
 
-1491448953 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\gravity.h
-	"externalIncludes.h"
-	"loadModel.h"
+1491707306 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\gravity.h
+	"ExternalIncludes.h"
+	"LoadModel.h"
 
-1491444950 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\physicactor.h
-	"externalIncludes.h"
-	"loadModel.h"
+1491598404 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\physicactor.h
+	"ExternalIncludes.h"
+	"LoadModel.h"
 	"Gravity.h"
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\weapon.h
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\weapon.h
 	"Item.h"
 	"Inventory.h"
 	"Enemy.h"
+	"LoadModel.h"
+	"ExternalIncludes.h"
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\meleeweapon.cpp
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\meleeweapon.cpp
 	"MeleeWeapon.h"
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\meleeweapon.h
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\meleeweapon.h
 	"Weapon.h"
-	"externalIncludes.h"
+	"ExternalIncludes.h"
 
-1491449014 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\personnage.cpp
-	"personnage.h"
+1491670656 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\personnage.cpp
+	"Personnage.h"
 
-1491440931 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\physicactor.cpp
+1491599430 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\physicactor.cpp
 	"PhysicActor.h"
 
 1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\physicobject.cpp
@@ -853,25 +856,25 @@
 
 1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\physicobject.h
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\rangedweapon.cpp
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\rangedweapon.cpp
 	"RangedWeapon.h"
 
-1491354786 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\rangedweapon.h
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\rangedweapon.h
 	"Weapon.h"
-	"externalIncludes.h"
+	"ExternalIncludes.h"
 
-1491354788 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\shaderutilities.cpp
-	"shaderUtilities.h"
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\shaderutilities.cpp
+	"ShaderUtilities.h"
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\water.cpp
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\water.cpp
 	"Water.h"
 
-1491354786 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\weapon.cpp
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\weapon.cpp
 	"Weapon.h"
 	"Inventory.h"
 	"Enemy.h"
 
-1491448953 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\gravity.cpp
+1491707306 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\gravity.cpp
 	"Gravity.h"
 
 1491234950 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.cpp
@@ -1881,4 +1884,172 @@
 
 1491517952 source:h:\fregolia ahmad moi\environment.cpp
 	"Environment.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\ai.cpp
+	"Ai.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\ai.h
+	"ExternalIncludes.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\externalincludes.h
+	<glm.hpp>
+	<gtc/matrix_transform.hpp>
+	<gtc/type_ptr.hpp>
+	<glew.h>
+	<SDL.h>
+	<SDL_mixer.h>
+	<SOIL.h>
+	<iostream>
+	<iterator>
+	<fstream>
+	<sstream>
+	<stdlib.h>
+	<vector>
+	<math.h>
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\collisions.cpp
+	"Collisions.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\collisions.h
+	"ExternalIncludes.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\consumable.cpp
+	"Consumable.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\consumable.h
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\enemy.cpp
+	"Enemy.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\enemy.h
+	"ExternalIncludes.h"
+	"Ai.h"
+	"PhysicActor.h"
+	"Gravity.h"
+
+1491598402 c:\users\ahmad\documents\github\project\fregolia\fregolia\physicactor.h
+	"ExternalIncludes.h"
+	"LoadModel.h"
+	"Gravity.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\loadmodel.h
+	"ExternalIncludes.h"
+	"Collisions.h"
+
+1491583454 c:\users\ahmad\documents\github\project\fregolia\fregolia\gravity.h
+	"ExternalIncludes.h"
+	"LoadModel.h"
+
+1491598216 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\environment.cpp
+	"Environment.h"
+
+1491593048 c:\users\ahmad\documents\github\project\fregolia\fregolia\environment.h
+	"ExternalIncludes.h"
+	"personnage.h"
+	"Water.h"
+	"LoadModel.h"
+	"Enemy.h"
+
+1491670249 c:\users\ahmad\documents\github\project\fregolia\fregolia\personnage.h
+	"ExternalIncludes.h"
+	"PhysicActor.h"
+	"Gravity.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\water.h
+	"ExternalIncludes.h"
+
+1491635148 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\gravity.cpp
+	"Gravity.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\initopengl.cpp
+	"InitOpenGL.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\initopengl.h
+	"ExternalIncludes.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\inventory.cpp
+	"Inventory.h"
+	<algorithm>
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\inventory.h
+	"Item.h"
+	"ExternalIncludes.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\item.h
+	"LoadModel.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\item.cpp
+	"Item.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\loadmodel.cpp
+	"LoadModel.h"
+
+1491678077 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\main.cpp
+	"ExternalIncludes.h"
+	"InitOpenGL.h"
+	"ShaderUtilities.h"
+	"LoadModel.h"
+	"Personnage.h"
+	"Environment.h"
+	"Water.h"
+	"Gravity.h"
+	"PhysicActor.h"
+	"Weapon.h"
+	"SpiderWeb.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\shaderutilities.h
+	"ExternalIncludes.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\weapon.h
+	"Item.h"
+	"Inventory.h"
+	"Enemy.h"
+	"LoadModel.h"
+	"ExternalIncludes.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\spiderweb.h
+	"PhysicActor.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\meleeweapon.cpp
+	"MeleeWeapon.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\meleeweapon.h
+	"Weapon.h"
+	"ExternalIncludes.h"
+
+1491670655 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\personnage.cpp
+	"Personnage.h"
+
+1491599428 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\physicactor.cpp
+	"PhysicActor.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\rangedweapon.cpp
+	"RangedWeapon.h"
+
+1491542098 c:\users\ahmad\documents\github\project\fregolia\fregolia\rangedweapon.h
+	"Weapon.h"
+	"ExternalIncludes.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\shaderutilities.cpp
+	"ShaderUtilities.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\water.cpp
+	"Water.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\weapon.cpp
+	"Weapon.h"
+	"Inventory.h"
+	"Enemy.h"
+
+1491542098 source:c:\users\ahmad\documents\github\project\fregolia\fregolia\spiderweb.cpp
+	"SpiderWeb.h"
+
+1491598218 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\environment.cpp
+	"Environment.h"
+
+1491542098 c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\spiderweb.h
+	"PhysicActor.h"
+
+1491542098 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\spiderweb.cpp
+	"SpiderWeb.h"
 

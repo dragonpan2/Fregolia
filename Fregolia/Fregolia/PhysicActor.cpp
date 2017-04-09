@@ -12,11 +12,11 @@ PhysicActor::~PhysicActor()
 
 }
 
-void PhysicActor::createActor(float pMuC, float pMasse)
+void PhysicActor::createActor(float pMuC, float pMasse,float pConstantRappel)
 {
     mMuC = pMuC;
     mMasse = pMasse;
-
+    mConstantRappel=pConstantRappel;
 
 }
 
@@ -59,20 +59,18 @@ float PhysicActor::getMasse()
 }
 
 
-float PhysicActor:: getCsteRessort()
+float PhysicActor:: getConstantRappel()
 {
-    return mCsteRessort;
+    return mConstantRappel;
 }
-void PhysicActor:: vitesseReduite(){
+void PhysicActor::vitesseReduite(int pDeltaTemps)
+{
+    std::cout <<"---------------------------------------------------------------------------"<< mVitesse.x<<std::endl;
+    if(mVitesse.x < 5 && mVitesse.x > -5) mVitesse.x = 0;
+    else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + (mCollisionSol ? testGravity.resistanceSol(mMasse, mMuC) : 0))) * signe(mVitesse.x);
 
-if(mVitesse.x < 5 && mVitesse.x > -5 )
-    {
-        mVitesse.x = 0;
-    }
-    else if(mVitesse.x != 0)
-    {
-        mVitesse.x -= (testGravity.resistanceAirX(this->getMasse(),this->getVitesse().x,this->getDimensions().y) + testGravity.resistanceSol(this->getMasse(),this->getMuC())) * signe(mVitesse.x);
-    }
+      if(mVitesse.y > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
+      else mVitesse.y = 0;
 }
 
 bool PhysicActor:: enMouvement() {
@@ -83,3 +81,17 @@ bool PhysicActor:: enMouvement() {
                 return false;}
 
 }
+void PhysicActor::gererDeplacement(int pDeltaTemps)
+{
+
+vitesseReduite(pDeltaTemps);
+    glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100, pDeltaTemps * (mVitesse.y - testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y));
+
+    mPos += deplacement;
+    mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
+    changeBB(deplacement);
+
+   // mDirection = glm::vec2(0, 0);
+}
+
+

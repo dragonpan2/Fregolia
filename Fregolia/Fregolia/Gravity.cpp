@@ -18,7 +18,7 @@ glm::vec2 Gravity::gravityApplication(float pMasse, int pTempsEcoule, float pAng
     accelerationX = GRAVITY * pMasse * cos(pAngle);
 
     if((int)pAngle % 90 != 0) accelerationY = GRAVITY * pMasse *  sin(pAngle);
-    else accelerationY = GRAVITY * pMasse;
+    else accelerationY = GRAVITY * pMasse*pTempsEcoule/100;
 
     if(accelerationY < 0){
         accelerationY =- accelerationY;
@@ -38,7 +38,6 @@ float Gravity::resistanceSol(float pMasse, float pMuc)
 /**Calcul la résistance de l'air sur les X**/
 float Gravity::resistanceAirX(float pMasse, float pVitesseX, float pSurface)
 {
-    float coefficientRes = 0.01;
 
     return coefficientRes * F_AIR * pSurface
                                   * pVitesseX
@@ -50,7 +49,6 @@ float Gravity::resistanceAirX(float pMasse, float pVitesseX, float pSurface)
 /**Calcul la résistance de l'air sur les Y**/
 float Gravity::resistanceAirY(float pMasse, float pVitesseY, float pSurface)
 {
-    float coefficientRes = 0.007777777799;
 
     return coefficientRes * F_AIR * pSurface * pVitesseY * pVitesseY / pMasse;
 }
@@ -59,12 +57,15 @@ float Gravity::resistanceAirY(float pMasse, float pVitesseY, float pSurface)
 /**Rebondir les objets**/
 glm::vec2 Gravity::rebondGravity(glm::vec2 pVitesse, float pCsteRessort, int pTempsEcoule)
 {
-       return glm::vec2(pVitesse.x, -pVitesse.y) * pCsteRessort;
+       return glm::vec2(pVitesse.x, -pVitesse.y*pCsteRessort*0.75)  ;
 }
 
 
 float Gravity::rentrerCollision(float pVitesse, float pMasseObjet, float pMuc, float pMassePerso)
 {
+    //if(choixCollision==0) collision elastique
     return pMassePerso / pMasseObjet * pVitesse;
+    //if(choixCollision==1) collision parfaitement inélastique
+    //return pVitesse*pMassePerso/( pMasseObjet+pMassePerso);
 }
 

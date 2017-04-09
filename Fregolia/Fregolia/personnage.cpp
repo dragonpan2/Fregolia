@@ -103,6 +103,7 @@ void Personnage::setState(int pState, glm::vec2 pDir)
         {
             mState = pState;
             mVitesse.y = mImpulsionSaut;
+    // mAccel.y=mImpulsionSaut;
             mDirection += glm::vec2(0, 1);
         }
         break;
@@ -116,10 +117,8 @@ int Personnage::getState()
 
 void Personnage::gererDeplacement(int pDeltaTemps)
 {
-    if(mVitesse.y > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
-    else mVitesse.y = 0;
-    vitesseReduite(pDeltaTemps);
 
+    vitesseReduite(pDeltaTemps);
     glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100, pDeltaTemps * (mVitesse.y - testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y));
 
     mPos += deplacement;
@@ -160,8 +159,30 @@ void Personnage::pousserObjet(PhysicActor* pImage)
 
 void Personnage::vitesseReduite(int pDeltaTemps)
 {
-    if(mVitesse.x < 3 && mVitesse.x > -3) mVitesse.x = 0;
-    else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + testGravity.resistanceSol(mMasse, mMuC))) * signe(mVitesse.x);
-}
+    std::cout <<"----------------------------------------------------------------------SALUT"<< mVitesse.x<<std::endl;
+    if(mVitesse.x < 2.2 && mVitesse.x > -2.2) mVitesse.x = 0;
+    else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + (mCollisionSol ? testGravity.resistanceSol(mMasse, mMuC) : 0))) * signe(mVitesse.x);
 
+      if(mVitesse.y > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
+  ///    else if(mVitesse.y<3 && mVitesse.y >-3){
+
+     //   mVitesse.y=0;
+   //   }
+
+
+
+
+        /*mVitesse.y = 0;*/
+}
+void Personnage:: rebondPerso(int pDeltaTemps)
+{
+
+if(mCollisionSol){
+        std::cout<<"---------------------------------------------------------------0>>   "<<mVitesse.y<<std::endl;
+ mVitesse=  testGravity.rebondGravity(mVitesse, mConstantRappel,pDeltaTemps);
+            std::cout<<"---------------------------------------------------------------1>>   "<<mVitesse.y<<std::endl;
+
+
+}
+}
 

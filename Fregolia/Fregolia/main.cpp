@@ -23,7 +23,7 @@ imageModel testInv;
 imageModel* currentSelection = nullptr;
 
 
-std::vector<groundObject*> listeMvt;
+
 
 
 PhysicActor testRoche1, testRoche2;
@@ -34,6 +34,8 @@ Enemy testEnemy;
 SpiderWeb spiderWeb;
 
 Weapon testWeapon;
+
+std::vector<groundObject*> listeMvt;
 
 
 glm::mat4 projection, view;
@@ -80,7 +82,7 @@ int initResources()
     if(waterProgram == 999999999) return -3;
 
     testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(0.0f, 0.0f));
-    testPerso.createActor(15, 5);
+    testPerso.createActor(15, 5, 0.01f);
 
     testWeapon.loadWeapon("./resources/testWeapon.txt", glm::vec2(0.0f, 0.0f));
 
@@ -91,7 +93,7 @@ int initResources()
     testInv.loadFile("./resources/invex.txt", glm::vec2(-0.0f, -0.85f));
 
     testEnemy.loadFile("./resources/testPersonnage2.txt", glm::vec2(500.0f, -200.0f));
-    testEnemy.createActor(15, 5);
+    testEnemy.createActor(15, 5,0.05f);
 
     startPos = testEnv.loadLevel("./resources/level0.txt");
 
@@ -103,7 +105,6 @@ int initResources()
     view = glm::lookAt(glm::vec3(cameraPos.x, cameraPos.y, 0), glm::vec3(cameraPos.x, cameraPos.y, 1), glm::vec3(0, -1, 0));
 
     testEnv.setMatrices(view, projection);
-
     return 0;
 }
 
@@ -128,9 +129,23 @@ int actualiserLogique()
 
     testPerso.gererDeplacement(timeLastFrame);
 
+
     testEnv.resoudreCollisionsPerso(&testPerso);
     testEnv.resoudreCollisionsEnnemi(&testEnemy);
     testEnv.resoudreCollisionsObjets();
+
+    testPerso.rebondPerso(timeLastFrame);
+ /*   for(std::vector<groundObject*>::iterator v = testEnv.getGroundObject(); v != testEnv.lastGroundObj(); v++)
+    {
+              if((*v)->canDeplacer == 1)
+                {
+((PhysicActor*)(*v)->object)->gererDeplacement(timeLastFrame);
+
+                                    }
+
+
+    }
+*/
 
     for(unsigned int i = 0; i < listeMvt.size(); ++i)
     {
@@ -138,7 +153,7 @@ int actualiserLogique()
         if(!(((PhysicActor*)listeMvt[i]->object)->enMouvement())) listeMvt.erase(listeMvt.begin() + i);
         else
         {
-            ((PhysicActor*)listeMvt[i]->object)->vitesseReduite();
+            ((PhysicActor*)listeMvt[i]->object)->vitesseReduite(timeLastFrame);
             ((PhysicActor*)listeMvt[i]->object)->moveImage(((PhysicActor*)listeMvt[i]->object)->getVitesse());
         }
     }

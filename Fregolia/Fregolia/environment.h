@@ -44,6 +44,10 @@ class Environnement
         virtual std::vector<groundObject*>::iterator getListeCollision();
         virtual std::vector<groundObject*>::iterator lastCollisionObj() {return mListeCollisions.end();}
 
+        virtual std::vector<groundObject*>::iterator getGroundObject(){return mGround.begin();}
+        virtual std::vector<groundObject*>::iterator lastGroundObj() {return mGround.end();}
+
+
         virtual imageModel* getClickRef(imageModel* pSouris);
         virtual glm::vec2 getLength() {return mLevelLength;}
     private:

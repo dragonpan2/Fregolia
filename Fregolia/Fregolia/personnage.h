@@ -31,13 +31,15 @@ class Personnage : public PhysicActor, public Gravity
         virtual void  pousserObjet(PhysicActor* pImage);
         virtual void vitesseReduite(int pDeltaTemps);
 
+        virtual void rebondPerso(int pDeltaTemps);
+
     protected:
         Gravity testGravity;
 
 
     private:
 
-        float mImpulsionSaut = 5, mAcceleration;
+        float mImpulsionSaut = 3, mAcceleration;
 
         /// 0 = Rien, 1 = Marche, 2 = Saut (incl. Chute)...
         int mState = 0;

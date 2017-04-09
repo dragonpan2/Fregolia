@@ -20,10 +20,11 @@ class Gravity
         virtual float rentrerCollision(float pVitesse,float pMasseObjet, float pMuc, float pMassePerso);
 
     private:
-        const float GRAVITY = 0.1782;
+        const float GRAVITY = 0.35;
         const float F_AIR = 0.00005;
         const float F_EAU = 998;
         const float F_TERRE = 0.15;
+        const float coefficientRes=0.1;
 };
 
 

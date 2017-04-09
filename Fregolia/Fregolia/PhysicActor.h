@@ -12,7 +12,7 @@ class PhysicActor : public imageModel
         PhysicActor();
         virtual ~PhysicActor();
 
-        virtual void createActor(float pMuC, float pMasse);
+        virtual void createActor(float pMuC, float pMasse,float pConstantRappel);
         virtual void updateActor(float pDeltaTemps);
 
         virtual void setAcceleration(glm::vec2 pAccel);
@@ -24,19 +24,23 @@ class PhysicActor : public imageModel
         virtual float getMuC();
         virtual float getMasse();
 
+        virtual void gererDeplacement(int pDeltaTemps);
 
 
-        virtual float getCsteRessort();
+        virtual float getConstantRappel();
 
         virtual bool enMouvement( );
-        virtual void vitesseReduite();
+        virtual void vitesseReduite(int pDeltaTemps);
+
+
+         bool mCollisionSol = false;
     protected:
         Gravity testGravity;
         glm::vec2 mAccel, mVitesse;
 
         float mMuC, mMasse;
 
-        float mCsteRessort;
+        float mConstantRappel;
 
 };
 
