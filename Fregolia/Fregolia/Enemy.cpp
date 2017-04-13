@@ -11,7 +11,7 @@ Enemy::~Enemy()
 
 }
 
-void Enemy::aiProcess(glm::vec2 pPlayerPos)
+int Enemy::aiProcess(glm::vec2 pPlayerPos)
 {
     mAction = ai.actionSetter(mPos, pPlayerPos, mDirection, false, mAction, 0);
 
@@ -34,8 +34,10 @@ void Enemy::aiProcess(glm::vec2 pPlayerPos)
             break;
         case 5:
             /// Attaque
+            return 5;
             break;
     }
+    return 0;
 }
 
 void Enemy::gererDeplacement(int pDeltaTemps)

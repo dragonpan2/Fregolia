@@ -21,7 +21,8 @@ imageModel testSouris;
 
 imageModel testInv;
 imageModel* currentSelection = nullptr;
-
+imageModel healthModel;
+imageModel healthBarModel;
 
 
 
@@ -47,6 +48,7 @@ int listeTouches[1000] = {0};
 
 int timeLastFrame = 1;
 float totalTime = 0.0f;
+float healthBarScale;
 
 int timeWeapon = 0;
 int timeWeaponUse = 0;
@@ -94,6 +96,8 @@ int initResources()
 
     testEnemy.loadFile("./resources/testPersonnage2.txt", glm::vec2(500.0f, -200.0f));
     testEnemy.createActor(15, 5,0.05f);
+    healthModel.loadFile("./resources/health.txt", glm::vec2(0.0f,0.0f));
+    healthBarModel.loadFile("./resources/healthBar.txt", glm::vec2(0.0f,0.0f));
 
     startPos = testEnv.loadLevel("./resources/level0.txt");
 
@@ -122,9 +126,14 @@ int actualiserLogique()
 {
     gererMouvement();
     gererWeapon();
+    healthBarScale = (float)testPerso.getHealth()/(float)testPerso.getMaxHealth();
+    std::cout << "YO VIE |!!!!" << healthBarScale << std::endl;
+    healthModel.setTaille(glm::vec2(healthBarScale, 1.0f));
 
 
-    testEnemy.aiProcess(testPerso.getPos());
+    if(testEnemy.aiProcess(testPerso.getPos()) == 5) {
+        testPerso.setHealth(testPerso.getHealth()-1);
+    }
     testEnemy.gererDeplacement(timeLastFrame);
 
     testPerso.gererDeplacement(timeLastFrame);
@@ -236,10 +245,17 @@ int renderScreen(SDL_Window* pWindow)
     testEnemy.drawImage(shaderProgram, totalTime, view, projection);
     //spiderWeb.drawImage(shaderProgram, totalTime, view, projection);
 
+
     testEnv.drawWater(waterProgram, timeLastFrame);
     testEnv.drawForeground(shaderProgram, totalTime);
 
+    healthModel.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
+    healthBarModel.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
+
+
     glDisable(GL_BLEND);
+
+
 
     testInv.drawImage(shaderProgram, totalTime, glm::mat4(1.0f), glm::mat4(1.0f));
 

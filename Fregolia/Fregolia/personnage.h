@@ -30,7 +30,9 @@ class Personnage : public PhysicActor, public Gravity
         virtual float getAngle(){return mAngle;}
         virtual void  pousserObjet(PhysicActor* pImage);
         virtual void vitesseReduite(int pDeltaTemps);
-
+        virtual int getHealth();
+        virtual int setHealth(int healthSet);
+        virtual int getMaxHealth();
         virtual void rebondPerso(int pDeltaTemps);
 
     protected:
@@ -43,6 +45,8 @@ class Personnage : public PhysicActor, public Gravity
 
         /// 0 = Rien, 1 = Marche, 2 = Saut (incl. Chute)...
         int mState = 0;
+        int health = 100;
+        int maxHealth = 100;
         float mAngle;
 
 

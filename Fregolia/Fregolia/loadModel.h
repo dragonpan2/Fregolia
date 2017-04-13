@@ -26,9 +26,11 @@ class imageModel : public Collidable
 
         virtual glm::vec2 getDimensions() {return mDimensions;}
 
+        virtual void setTaille(glm::vec2 pPourcentage);
+
     protected:
         glm::vec2 mPos;
-        glm::mat4 mTranslateMat, mRotateMat, mOBBRotateMat, mTotalMat;
+        glm::mat4 mTranslateMat, mRotateMat, mOBBRotateMat, mTotalMat, mScaleMat;
         glm::vec2 mDimensions;
 
         float mAngle;

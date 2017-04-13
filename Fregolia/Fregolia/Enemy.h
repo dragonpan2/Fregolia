@@ -15,7 +15,7 @@ public:
     Enemy();
     virtual ~Enemy();
 
-    virtual void aiProcess(glm::vec2 pPlayerPos);
+    virtual int aiProcess(glm::vec2 pPlayerPos);
     virtual void gererDeplacement(int pDeltaTemps);
     virtual void vitesseReduite(int pDeltaTemps);
 

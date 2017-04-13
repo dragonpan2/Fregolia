@@ -28,10 +28,11 @@
 				<Option output="bin/Release/Fregolia" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
-				<Option compiler="copy_of_copy_of_mingw_posix_sjlj_471_test_2" />
+				<Option compiler="pic" />
 				<Option projectCompilerOptionsRelation="-1" />
 				<Option projectLinkerOptionsRelation="-1" />
 				<Option projectIncludeDirsRelation="-1" />
+				<Option projectResourceIncludeDirsRelation="-1" />
 				<Option projectLibDirsRelation="-1" />
 				<MakeCommands>
 					<Build command="" />
@@ -47,7 +48,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Ai.cpp" />
+		<Unit filename="AI.cpp" />
 		<Unit filename="Ai.h" />
 		<Unit filename="Collisions.cpp" />
 		<Unit filename="Collisions.h" />

@@ -130,14 +130,19 @@ void Personnage::gererDeplacement(int pDeltaTemps)
 
 bool Personnage::verifierMort()
 {
-    if(mPos.y < -SCREEN_HEIGHT)
+    if(mPos.y < -SCREEN_HEIGHT) {
         mMort = true;
+    }
+    else if (health <1) {
+        mMort = true;
+    }
 
     return mMort;
 }
 
 void Personnage::reset(glm::vec2 pPos)
 {
+    health = 100;
     mState = 1;
     mMort = false;
     glm::vec2 deplacement = pPos - mPos;
@@ -155,6 +160,16 @@ void Personnage::pousserObjet(PhysicActor* pImage)
     pImage->setVitesse(mVitesse);
 
     ((imageModel*)pImage)->moveImage(pImage->getVitesse());
+}
+
+int Personnage::getHealth() {
+return health;
+}
+int Personnage::getMaxHealth() {
+return maxHealth;
+}
+int Personnage::setHealth(int healthSet) {
+health = healthSet;
 }
 
 void Personnage::vitesseReduite(int pDeltaTemps)
