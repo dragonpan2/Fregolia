@@ -55,17 +55,20 @@ float Gravity::resistanceAirY(float pMasse, float pVitesseY, float pSurface)
 
 
 /**Rebondir les objets**/
-glm::vec2 Gravity::rebondGravity(glm::vec2 pVitesse, float pCsteRessort, int pTempsEcoule)
+glm::vec2 Gravity::rebondGravity(glm::vec2 pVitesse, float pCsteRessort)
 {
-       return glm::vec2(pVitesse.x, -pVitesse.y*pCsteRessort*0.75)  ;
+  //  std:: cout<< pVitesse.x
+       return glm::vec2(pVitesse.x, -pVitesse.y*pCsteRessort);
 }
 
 
 float Gravity::rentrerCollision(float pVitesse, float pMasseObjet, float pMuc, float pMassePerso)
 {
     //if(choixCollision==0) collision elastique
-    return pMassePerso / pMasseObjet * pVitesse;
+
+    return pMassePerso / pMasseObjet * pVitesse/5;
     //if(choixCollision==1) collision parfaitement inélastique
     //return pVitesse*pMassePerso/( pMasseObjet+pMassePerso);
+
 }
 

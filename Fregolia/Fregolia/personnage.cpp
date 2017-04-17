@@ -130,19 +130,14 @@ void Personnage::gererDeplacement(int pDeltaTemps)
 
 bool Personnage::verifierMort()
 {
-    if(mPos.y < -SCREEN_HEIGHT) {
+    if(mPos.y < -SCREEN_HEIGHT)
         mMort = true;
-    }
-    else if (health <1) {
-        mMort = true;
-    }
 
     return mMort;
 }
 
 void Personnage::reset(glm::vec2 pPos)
 {
-    health = 100;
     mState = 1;
     mMort = false;
     glm::vec2 deplacement = pPos - mPos;
@@ -162,42 +157,33 @@ void Personnage::pousserObjet(PhysicActor* pImage)
     ((imageModel*)pImage)->moveImage(pImage->getVitesse());
 }
 
-int Personnage::getHealth() {
-return health;
-}
-int Personnage::getMaxHealth() {
-return maxHealth;
-}
-int Personnage::setHealth(int healthSet) {
-health = healthSet;
-}
-
 void Personnage::vitesseReduite(int pDeltaTemps)
 {
-    std::cout <<"----------------------------------------------------------------------SALUT"<< mVitesse.x<<std::endl;
-    if(mVitesse.x < 2.2 && mVitesse.x > -2.2) mVitesse.x = 0;
+    if(mVitesse.x < 2 && mVitesse.x > -2) mVitesse.x = 0;
     else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + (mCollisionSol ? testGravity.resistanceSol(mMasse, mMuC) : 0))) * signe(mVitesse.x);
 
-      if(mVitesse.y > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
-  ///    else if(mVitesse.y<3 && mVitesse.y >-3){
 
-     //   mVitesse.y=0;
-   //   }
+   if(mVitesse.y<0.0005 && mVitesse.y >-0.0005){
+
+        mVitesse.y=0;
+      }
+      else if(mVitesse.y  > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
+       else if(mVitesse.y<0)mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
 
 
 
 
         /*mVitesse.y = 0;*/
 }
-void Personnage:: rebondPerso(int pDeltaTemps)
+void Personnage:: rebondPerso()
 {
 
+
 if(mCollisionSol){
-        std::cout<<"---------------------------------------------------------------0>>   "<<mVitesse.y<<std::endl;
- mVitesse=  testGravity.rebondGravity(mVitesse, mConstantRappel,pDeltaTemps);
-            std::cout<<"---------------------------------------------------------------1>>   "<<mVitesse.y<<std::endl;
+ mVitesse=  testGravity.rebondGravity(mVitesse, mConstantRappel);
 
 
 }
+
 }
 

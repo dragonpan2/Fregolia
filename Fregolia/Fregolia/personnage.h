@@ -24,17 +24,14 @@ class Personnage : public PhysicActor, public Gravity
         virtual void setState(int pState, glm::vec2 pDir);
         virtual int getState();
 
-
         virtual bool verifierMort();
         virtual void reset(glm::vec2 pPos);
 
         virtual float getAngle(){return mAngle;}
         virtual void  pousserObjet(PhysicActor* pImage);
         virtual void vitesseReduite(int pDeltaTemps);
-        virtual int getHealth();
-        virtual int setHealth(int healthSet);
-        virtual int getMaxHealth();
-        virtual void rebondPerso(int pDeltaTemps);
+
+        virtual void rebondPerso();
 
     protected:
         Gravity testGravity;
@@ -42,13 +39,10 @@ class Personnage : public PhysicActor, public Gravity
 
     private:
 
-        float mImpulsionSaut = 3, mAcceleration;
+        float mImpulsionSaut = 4, mAcceleration;
 
         /// 0 = Rien, 1 = Marche, 2 = Saut (incl. Chute)...
         int mState = 0;
-        int health = 100;
-        int maxHealth = 100;
-        int invSelection = 0;
         float mAngle;
 
 

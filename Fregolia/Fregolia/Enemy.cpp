@@ -11,7 +11,7 @@ Enemy::~Enemy()
 
 }
 
-int Enemy::aiProcess(glm::vec2 pPlayerPos)
+void Enemy::aiProcess(glm::vec2 pPlayerPos)
 {
     mAction = ai.actionSetter(mPos, pPlayerPos, mDirection, false, mAction, 0);
 
@@ -34,10 +34,8 @@ int Enemy::aiProcess(glm::vec2 pPlayerPos)
             break;
         case 5:
             /// Attaque
-            return 5;
             break;
     }
-    return 0;
 }
 
 void Enemy::gererDeplacement(int pDeltaTemps)
@@ -61,7 +59,7 @@ void Enemy::gererDeplacement(int pDeltaTemps)
 
     vitesseReduite(pDeltaTemps);
 
-    glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100, 0);
+    glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100, pDeltaTemps * (mVitesse.y - testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y));
 
     mPos += deplacement;
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));

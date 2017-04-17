@@ -3,7 +3,6 @@
 imageModel::imageModel()
 {
     mRotateMat = glm::mat4(1.0f);
-    mScaleMat = glm::mat4(1.0f);
     mAngle = 0;
     mOBBRotateMat = glm::mat4(1.0f);
 }
@@ -162,7 +161,7 @@ void imageModel::drawImage(GLuint shaderProgram, float pTimeElapsed, glm::mat4 p
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(glGetUniformLocation(shaderProgram, "Texture"), GL_TEXTURE0);
 
-    mTotalMat = mTranslateMat * mRotateMat * mScaleMat;
+    mTotalMat = mTranslateMat * mRotateMat;
 
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "MMat"), 1, GL_FALSE, glm::value_ptr(mTotalMat));
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "VMat"), 1, GL_FALSE, glm::value_ptr(pView));
@@ -221,9 +220,3 @@ void imageModel::setAngle(float pAngle)
         mAxes[i] = glm::vec2(temp.x, temp.y);
     }
 }
-
-void imageModel::setTaille(glm::vec2 pPourcentage)
-{
-    mScaleMat = glm::scale(glm::mat4(1.0f), glm::vec3(pPourcentage.x, pPourcentage.y, 1));
-}
-

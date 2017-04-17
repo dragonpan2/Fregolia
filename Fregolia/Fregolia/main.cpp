@@ -21,10 +21,7 @@ imageModel testSouris;
 
 imageModel testInv;
 imageModel* currentSelection = nullptr;
-imageModel healthModel;
-imageModel healthBarModel;
-imageModel arcOne;
-imageModel swordOne;
+
 
 
 
@@ -38,8 +35,6 @@ SpiderWeb spiderWeb;
 
 Weapon testWeapon;
 
-std::vector<groundObject*> listeMvt;
-
 
 glm::mat4 projection, view;
 glm::vec2 cameraPos;
@@ -50,7 +45,6 @@ int listeTouches[1000] = {0};
 
 int timeLastFrame = 1;
 float totalTime = 0.0f;
-float healthBarScale;
 
 int timeWeapon = 0;
 int timeWeaponUse = 0;
@@ -98,10 +92,6 @@ int initResources()
 
     testEnemy.loadFile("./resources/testPersonnage2.txt", glm::vec2(500.0f, -200.0f));
     testEnemy.createActor(15, 5,0.05f);
-    healthModel.loadFile("./resources/health.txt", glm::vec2(0.0f,0.0f));
-    healthBarModel.loadFile("./resources/healthBar.txt", glm::vec2(0.0f,0.0f));
-    arcOne.loadFile("./resources/arcOne.txt", glm::vec2(-0.15f,-0.85f));
-    swordOne.loadFile("./resources/swordOne.txt", glm::vec2(-0.45f,-0.85f));
 
     startPos = testEnv.loadLevel("./resources/level0.txt");
 
@@ -118,11 +108,8 @@ int initResources()
 
 void freeResources()
 {
-    for(unsigned int i = 0; i < listeMvt.size(); ++i)
-        delete listeMvt[i];
 
     delete currentSelection;
-
 
 }
 
@@ -130,72 +117,85 @@ int actualiserLogique()
 {
     gererMouvement();
     gererWeapon();
-    healthBarScale = (float)testPerso.getHealth()/(float)testPerso.getMaxHealth();
-    std::cout << "YO VIE |!!!!" << healthBarScale << std::endl;
-    healthModel.setTaille(glm::vec2(healthBarScale, 1.0f));
 
 
-    if(testEnemy.aiProcess(testPerso.getPos()) == 5) {
-        testPerso.setHealth(testPerso.getHealth()-1);
-    }
+    testEnemy.aiProcess(testPerso.getPos());
     testEnemy.gererDeplacement(timeLastFrame);
 
     testPerso.gererDeplacement(timeLastFrame);
 
-
+    testEnv.appliquerGraviterEnvironnement(timeLastFrame);
     testEnv.resoudreCollisionsPerso(&testPerso);
+
     testEnv.resoudreCollisionsEnnemi(&testEnemy);
+
     testEnv.resoudreCollisionsObjets();
 
-    testPerso.rebondPerso(timeLastFrame);
- /*   for(std::vector<groundObject*>::iterator v = testEnv.getGroundObject(); v != testEnv.lastGroundObj(); v++)
-    {
-              if((*v)->canDeplacer == 1)
-                {
-((PhysicActor*)(*v)->object)->gererDeplacement(timeLastFrame);
-
-                                    }
+    testPerso.rebondPerso();
 
 
-    }
-*/
 
-    for(unsigned int i = 0; i < listeMvt.size(); ++i)
-    {
 
-        if(!(((PhysicActor*)listeMvt[i]->object)->enMouvement())) listeMvt.erase(listeMvt.begin() + i);
-        else
-        {
-            ((PhysicActor*)listeMvt[i]->object)->vitesseReduite(timeLastFrame);
-            ((PhysicActor*)listeMvt[i]->object)->moveImage(((PhysicActor*)listeMvt[i]->object)->getVitesse());
-        }
-    }
+
+
+
 
     for(std::vector<groundObject*>::iterator v = testEnv.getListeCollision(); v != testEnv.lastCollisionObj(); v++)
     {
         if((*v)->canDeplacer == 1)
         {
-            if(listeMvt.size() == 0)
+            if(testEnv.lastMvtObj() - testEnv.getListeMvt() == 0)
             {
-                listeMvt.push_back(*v);
-                testPerso.pousserObjet((PhysicActor*)(*v)->object);
-                continue;
+                if(testPerso.mCollisionCoter)
+                {
+                    testEnv.addMvtObject(*v);
+
+                    testPerso.pousserObjet((PhysicActor*)(*v)->object);
+
+                    continue;
+                }
             }
 
-            for(unsigned int i = 0; i < listeMvt.size(); i++)
+            for(std::vector<groundObject*>::iterator w = testEnv.getListeMvt(); w != testEnv.lastMvtObj(); w++)
             {
-                if((listeMvt[i]) == (*v)) break;
+                if((*w) == (*v)) break;
 
-                if(i == listeMvt.size() - 1)
+                if(w - testEnv.getListeMvt() == (testEnv.lastMvtObj() - testEnv.getListeMvt()))
                 {
-                    listeMvt.push_back(*v);
+                    testEnv.addMvtObject(*v);
                     testPerso.pousserObjet((PhysicActor*)(*v)->object);
                 }
             }
 
         }
 
-        testPerso.setAngle((*v)->object->getAngle());
+        if(testPerso.mCollisionSol)
+        {
+            testPerso.setAngle((*v)->object->getAngle());
+        }
+    }
+
+    for(std::vector<groundObject*>::iterator v = testEnv.getListeMvt(); v < testEnv.lastMvtObj(); v++)
+    {
+
+        std::cout<< (v - testEnv.getListeMvt()) << " " << (testEnv.lastMvtObj() - testEnv.getListeMvt()) <<std::endl;
+
+        if(!(((PhysicActor*)(*v)->object)->enMouvement()))
+        {
+            testEnv.removeMvtObject(v - testEnv.getListeMvt());
+        }
+        else
+        {
+
+
+
+            ((PhysicActor*)(*v)->object)->vitesseReduite(timeLastFrame);
+            ((PhysicActor*)(*v)->object)->moveImage(((PhysicActor*)(*v)->object)->getVitesse());
+
+            ((PhysicActor*)(*v)->object)->rebondPerso();
+
+        }
+
     }
 
     if(testPerso.verifierMort()) testPerso.reset(startPos);
@@ -249,20 +249,12 @@ int renderScreen(SDL_Window* pWindow)
     testEnemy.drawImage(shaderProgram, totalTime, view, projection);
     //spiderWeb.drawImage(shaderProgram, totalTime, view, projection);
 
-
     testEnv.drawWater(waterProgram, timeLastFrame);
     testEnv.drawForeground(shaderProgram, totalTime);
 
-    healthModel.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
-    healthBarModel.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
-
-
-    testInv.drawImage(shaderProgram, totalTime, glm::mat4(1.0f), glm::mat4(1.0f));
-    arcOne.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
-    swordOne.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
-
     glDisable(GL_BLEND);
 
+    testInv.drawImage(shaderProgram, totalTime, glm::mat4(1.0f), glm::mat4(1.0f));
 
     SDL_GL_SwapWindow(pWindow);
 
