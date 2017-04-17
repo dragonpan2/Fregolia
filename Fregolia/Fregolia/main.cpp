@@ -23,6 +23,8 @@ imageModel testInv;
 imageModel* currentSelection = nullptr;
 imageModel healthModel;
 imageModel healthBarModel;
+imageModel arcOne;
+imageModel swordOne;
 
 
 
@@ -98,6 +100,8 @@ int initResources()
     testEnemy.createActor(15, 5,0.05f);
     healthModel.loadFile("./resources/health.txt", glm::vec2(0.0f,0.0f));
     healthBarModel.loadFile("./resources/healthBar.txt", glm::vec2(0.0f,0.0f));
+    arcOne.loadFile("./resources/arcOne.txt", glm::vec2(-0.15f,-0.85f));
+    swordOne.loadFile("./resources/swordOne.txt", glm::vec2(-0.45f,-0.85f));
 
     startPos = testEnv.loadLevel("./resources/level0.txt");
 
@@ -253,11 +257,12 @@ int renderScreen(SDL_Window* pWindow)
     healthBarModel.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
 
 
+    testInv.drawImage(shaderProgram, totalTime, glm::mat4(1.0f), glm::mat4(1.0f));
+    arcOne.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
+    swordOne.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
+
     glDisable(GL_BLEND);
 
-
-
-    testInv.drawImage(shaderProgram, totalTime, glm::mat4(1.0f), glm::mat4(1.0f));
 
     SDL_GL_SwapWindow(pWindow);
 

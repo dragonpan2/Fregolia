@@ -24,6 +24,7 @@ class Personnage : public PhysicActor, public Gravity
         virtual void setState(int pState, glm::vec2 pDir);
         virtual int getState();
 
+
         virtual bool verifierMort();
         virtual void reset(glm::vec2 pPos);
 
@@ -47,6 +48,7 @@ class Personnage : public PhysicActor, public Gravity
         int mState = 0;
         int health = 100;
         int maxHealth = 100;
+        int invSelection = 0;
         float mAngle;
 
 
