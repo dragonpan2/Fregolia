@@ -11,7 +11,7 @@ class Gravity
         ~Gravity();
 
         virtual glm::vec2 gravityApplication(float pMasse,int pTempsEcoule,float pAngle);
-        virtual glm::vec2 rebondGravity(glm::vec2 pVitesse,float pCsteRessort,int pTempsEcoule);
+        virtual glm::vec2 rebondGravity(glm::vec2 pVitesse,float pCsteRessort);
 
         virtual float resistanceAirX(float pMasse,float pVitesseX,float pSurface);
         virtual float resistanceAirY(float pMasse,float pVitesseY,float pSurface);

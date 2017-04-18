@@ -61,7 +61,7 @@ void Enemy::gererDeplacement(int pDeltaTemps)
 
     vitesseReduite(pDeltaTemps);
 
-    glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100, 0);
+    glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100,  pDeltaTemps * (mVitesse.y - testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y));
 
     mPos += deplacement;
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
@@ -72,6 +72,14 @@ void Enemy::vitesseReduite(int pDeltaTemps)
 {
     if(mVitesse.x < 3 && mVitesse.x > -3) mVitesse.x = 0;
     else if(mVitesse.x != 0) mVitesse.x -= (testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + testGravity.resistanceSol(mMasse, mMuC)) * signe(mVitesse.x);
+
+    if(mVitesse.y<0.0005 && mVitesse.y >-0.0005){
+
+        mVitesse.y=0;
+      }
+      else if(mVitesse.y  > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
+       else if(mVitesse.y<0)mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
+
 
 }
 

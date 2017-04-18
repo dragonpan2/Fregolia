@@ -34,7 +34,7 @@ class Personnage : public PhysicActor, public Gravity
         virtual int getHealth();
         virtual int setHealth(int healthSet);
         virtual int getMaxHealth();
-        virtual void rebondPerso(int pDeltaTemps);
+        virtual void rebondPerso();
 
     protected:
         Gravity testGravity;

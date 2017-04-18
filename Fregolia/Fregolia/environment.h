@@ -47,6 +47,13 @@ class Environnement
         virtual std::vector<groundObject*>::iterator getGroundObject(){return mGround.begin();}
         virtual std::vector<groundObject*>::iterator lastGroundObj() {return mGround.end();}
 
+        virtual void appliquerGraviterEnvironnement(int pTempsEcoule);
+
+        virtual void addMvtObject(groundObject* pObj) {mListeMvt.push_back(pObj);}
+        virtual void removeMvtObject(int pIndex) {mListeMvt.erase(mListeMvt.begin() + pIndex);}
+        virtual std::vector<groundObject*>::iterator getListeMvt(){return mListeMvt.begin();}
+        virtual std::vector<groundObject*>::iterator lastMvtObj() {return mListeMvt.end();}
+
 
         virtual imageModel* getClickRef(imageModel* pSouris);
         virtual glm::vec2 getLength() {return mLevelLength;}
@@ -61,10 +68,12 @@ class Environnement
         imageModel* mBackground;
         imageModel* mForeground;
         imageModel* mSky;
-
         imageModel* mPorte;
+
         std::vector<groundObject*> mGround;
+        std::vector<groundObject*> mListePhysic;
         std::vector<groundObject*> mListeCollisions;
+        std::vector<groundObject*> mListeMvt;
 
         Water* mWater;
 

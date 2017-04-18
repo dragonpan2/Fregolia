@@ -55,9 +55,9 @@ float Gravity::resistanceAirY(float pMasse, float pVitesseY, float pSurface)
 
 
 /**Rebondir les objets**/
-glm::vec2 Gravity::rebondGravity(glm::vec2 pVitesse, float pCsteRessort, int pTempsEcoule)
+glm::vec2 Gravity::rebondGravity(glm::vec2 pVitesse, float pCsteRessort)
 {
-       return glm::vec2(pVitesse.x, -pVitesse.y*pCsteRessort*0.75)  ;
+       return glm::vec2(pVitesse.x, -pVitesse.y*pCsteRessort)  ;
 }
 
 

@@ -33,7 +33,15 @@ class PhysicActor : public imageModel
         virtual void vitesseReduite(int pDeltaTemps);
 
 
+         virtual void rebondPerso();
+
+        virtual void mouvementRotation();
+
+
          bool mCollisionSol = false;
+         bool mCollisionCoter=false;
+      //   bool mCollisionGauche=false;
+        // bool mCollisionDroite=false;
     protected:
         Gravity testGravity;
         glm::vec2 mAccel, mVitesse;
