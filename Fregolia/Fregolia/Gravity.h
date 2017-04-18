@@ -11,7 +11,7 @@ class Gravity
         ~Gravity();
 
         virtual glm::vec2 gravityApplication(float pMasse,int pTempsEcoule,float pAngle);
-        virtual glm::vec2 rebondGravity(glm::vec2 pVitesse,float pCsteRessort);
+        virtual glm::vec2 rebondGravity(glm::vec2 pVitesse,float pCsteRessort,int pTempsEcoule);
 
         virtual float resistanceAirX(float pMasse,float pVitesseX,float pSurface);
         virtual float resistanceAirY(float pMasse,float pVitesseY,float pSurface);
@@ -19,7 +19,6 @@ class Gravity
 
         virtual float rentrerCollision(float pVitesse,float pMasseObjet, float pMuc, float pMassePerso);
 
-    //  virtual float centreMasse(float pMasse, float pMuc);
     private:
         const float GRAVITY = 0.35;
         const float F_AIR = 0.00005;

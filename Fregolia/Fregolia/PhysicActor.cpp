@@ -65,67 +65,33 @@ float PhysicActor:: getConstantRappel()
 }
 void PhysicActor::vitesseReduite(int pDeltaTemps)
 {
-    if(mVitesse.x < 1 && mVitesse.x > -1) mVitesse.x = 0;
+    std::cout <<"---------------------------------------------------------------------------"<< mVitesse.x<<std::endl;
+    if(mVitesse.x < 5 && mVitesse.x > -5) mVitesse.x = 0;
     else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + (mCollisionSol ? testGravity.resistanceSol(mMasse, mMuC) : 0))) * signe(mVitesse.x);
 
-    if(mVitesse.y > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
-    else mVitesse.y = 0;
-
-
-    if(mVitesse.y<0.0005 && mVitesse.y >-0.0005)
-    {
-
-        mVitesse.y=0;
-    }
-    else if(mVitesse.y  > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
-    else if(mVitesse.y<0)mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
-
-
+      if(mVitesse.y > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
+      else mVitesse.y = 0;
 }
 
-bool PhysicActor:: enMouvement()
-{
-    if(this->getVitesse().x!=0 || this->getVitesse().y!=0 )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+bool PhysicActor:: enMouvement() {
+            if(this->getVitesse().x!=0 ||this->getVitesse().y!=0 ){
+                    return true;
+                    }
+         else {
+                return false;}
 
 }
 void PhysicActor::gererDeplacement(int pDeltaTemps)
 {
 
-    vitesseReduite(pDeltaTemps);
-
+vitesseReduite(pDeltaTemps);
     glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100, pDeltaTemps * (mVitesse.y - testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y));
 
     mPos += deplacement;
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
-
     changeBB(deplacement);
 
+   // mDirection = glm::vec2(0, 0);
 }
-void PhysicActor:: rebondPerso()
-{
 
-
-    if(mCollisionSol)
-    {
-        mVitesse=  testGravity.rebondGravity(mVitesse, mConstantRappel);
-
-
-
-    }
-
-}
-void PhysicActor:: mouvementRotation()
-{
-
-this->setAngle(0);
-
-
-}
 

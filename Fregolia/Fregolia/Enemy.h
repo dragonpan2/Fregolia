@@ -15,7 +15,7 @@ public:
     Enemy();
     virtual ~Enemy();
 
-    virtual void aiProcess(glm::vec2 pPlayerPos);
+    virtual int aiProcess(glm::vec2 pPlayerPos);
     virtual void gererDeplacement(int pDeltaTemps);
     virtual void vitesseReduite(int pDeltaTemps);
 
@@ -26,7 +26,8 @@ protected:
     Gravity testGravity;
 private:
     float mImpulsionSaut = 2.4;
-    int healthEnnemi = 15;
+    int healthEnnemi = 100;
+    int maxHealtEnnemi = 100;
     glm::vec2 mDirection = glm::vec2(-1.0f,0.0f);
     int mAction = 1;
     float mAcceleration = 5.0f;
