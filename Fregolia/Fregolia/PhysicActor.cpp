@@ -66,15 +66,10 @@ float PhysicActor:: getConstantRappel()
 }
 void PhysicActor::vitesseReduite(int pDeltaTemps)
 {
-<<<<<<< HEAD
-    //std::cout <<"---------------------------------------------------------------------------"<< mVitesse.x<<std::endl;
-    if(mVitesse.x < 5 && mVitesse.x > -5) mVitesse.x = 0;
-=======
-    std::cout<< "---------------------------------------------VitesseCube1:"<<mVitesse.x<<std::endl;
+
     if(mVitesse.x < 0.8 && mVitesse.x > -0.8) mVitesse.x = 0;
->>>>>>> origin/master
     else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + (mCollisionSol ? testGravity.resistanceSol(mMasse, mMuC) : 0))) * signe(mVitesse.x);
-std::cout<< "---------------------------------------------VitesseCube2: "<<mVitesse.x<<std::endl;
+
 
 
 

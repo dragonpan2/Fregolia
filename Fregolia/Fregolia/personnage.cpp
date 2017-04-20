@@ -164,15 +164,10 @@ void Personnage::pousserObjet(PhysicActor* pImage)
 
 void Personnage::vitesseReduite(int pDeltaTemps)
 {
-<<<<<<< HEAD
-    //std::cout <<"----------------------------------------------------------------------SALUT"<< mVitesse.x<<std::endl;
     if(mVitesse.x < 2.2 && mVitesse.x > -2.2) mVitesse.x = 0;
-=======
-    if(mVitesse.x < 2 && mVitesse.x > -2) mVitesse.x = 0;
->>>>>>> origin/master
+
     else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + (mCollisionSol ? testGravity.resistanceSol(mMasse, mMuC) : 0))) * signe(mVitesse.x);
 
-std::cout<<"-------------------------------------MERDEEEEE/"<< mVitesse.y<<std::endl;
    if(mVitesse.y<0.0005 && mVitesse.y >-0.0005){
 
         mVitesse.y=0;
@@ -190,13 +185,9 @@ void Personnage:: rebondPerso()
 
 
 if(mCollisionSol){
-<<<<<<< HEAD
-        //std::cout<<"---------------------------------------------------------------0>>   "<<mVitesse.y<<std::endl;
- mVitesse=  testGravity.rebondGravity(mVitesse, mConstantRappel,pDeltaTemps);
-            //std::cout<<"---------------------------------------------------------------1>>   "<<mVitesse.y<<std::endl;
-=======
+
  mVitesse=  testGravity.rebondGravity(mVitesse, mConstantRappel);
->>>>>>> origin/master
+
 
 
 }

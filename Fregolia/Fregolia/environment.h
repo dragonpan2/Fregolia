@@ -48,12 +48,8 @@ class Environnement
         virtual std::vector<groundObject*>::iterator getGroundObject(){return mGround.begin();}
         virtual std::vector<groundObject*>::iterator lastGroundObj() {return mGround.end();}
 
-<<<<<<< HEAD
-        virtual void deplacerObjetsMouvement();
-=======
         virtual void appliquerGraviterEnvironnement(int pTempsEcoule);
 
->>>>>>> origin/master
         virtual void addMvtObject(groundObject* pObj) {mListeMvt.push_back(pObj);}
         virtual void removeMvtObject(int pIndex) {mListeMvt.erase(mListeMvt.begin() + pIndex);}
         virtual std::vector<groundObject*>::iterator getListeMvt(){return mListeMvt.begin();}

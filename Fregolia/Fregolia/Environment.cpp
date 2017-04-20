@@ -263,13 +263,7 @@ void Environnement::resoudreCollisionsObjets()
                     if(mGround[i]->canDeplacer)
                     {
                         mGround[i]->object->moveImage(((Collidable*)mGround[i]->object)->getDeplacement(((Collidable*)mGround[j]->object)));
-<<<<<<< HEAD
-    /// L'OBJET mGround[i] A EU UNE COLLISION
-                    }else if(mGround[j]->canDeplacer)
-                        mGround[j]->object->moveImage(((Collidable*)mGround[j]->object)->getDeplacement(((Collidable*)mGround[i]->object)));
-    /// L'OBJET mGround[j] A EU UNE COLLISION
-}
-=======
+
                         /// L'OBJET mGround[i] A EU UNE COLLISION
                         glm::vec2 deplacement =((Collidable*)mGround[i]->object)->getDeplacement(((Collidable*)mGround[j]->object));
                         if(deplacement.y > 0) collisionSol = true;
@@ -294,33 +288,13 @@ void Environnement::resoudreCollisionsObjets()
 
 }
 void Environnement:: appliquerGraviterEnvironnement(int pTempsEcoule){
-
-for(unsigned int i = 0; i < mListePhysic.size(); ++i)
+    for(unsigned int i = 0; i < mListePhysic.size(); ++i)
     {
 
-((PhysicActor*)mListePhysic[i]->object)->gererDeplacement(pTempsEcoule);
-((PhysicActor*)mListePhysic[i]->object)->rebondPerso();
+        ((PhysicActor*)mListePhysic[i]->object)->gererDeplacement(pTempsEcoule);
+        ((PhysicActor*)mListePhysic[i]->object)->rebondPerso();
 
-if(((PhysicActor*)mListePhysic[i]->object)->mCollisionSol){
-
-((PhysicActor*)mListePhysic[i]->object)->mouvementRotation();
->>>>>>> origin/master
-
-void Environnement::deplacerObjetsMouvement()
-{
-    for(unsigned int i = 0; i < mListeMvt.size(); ++i)
-    {
-        /// SHITS À FAIRE POUR LES OBJETS EN MOUVEMENT
+        if(((PhysicActor*)mListePhysic[i]->object)->mCollisionSol)
+            ((PhysicActor*)mListePhysic[i]->object)->mouvementRotation();
     }
 }
-    }
-
-
-
-
-
-<<<<<<< HEAD
-=======
-}
-
->>>>>>> origin/master
