@@ -49,6 +49,8 @@
 		</Compiler>
 		<Unit filename="AI.cpp" />
 		<Unit filename="Ai.h" />
+		<Unit filename="AnimationManager.cpp" />
+		<Unit filename="AnimationManager.h" />
 		<Unit filename="Collisions.cpp" />
 		<Unit filename="Collisions.h" />
 		<Unit filename="Consumable.cpp" />
@@ -80,6 +82,8 @@
 		<Unit filename="ShaderUtilities.h" />
 		<Unit filename="SpiderWeb.cpp" />
 		<Unit filename="SpiderWeb.h" />
+		<Unit filename="TextManager.cpp" />
+		<Unit filename="TextManager.h" />
 		<Unit filename="Water.cpp" />
 		<Unit filename="Water.h" />
 		<Unit filename="Weapon.cpp" />

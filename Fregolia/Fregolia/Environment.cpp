@@ -7,7 +7,18 @@ Environnement::Environnement()
 
     mLevelLength = glm::vec2(0, 1024);
 }
-Environnement::~Environnement() {}
+Environnement::~Environnement()
+{
+    for(unsigned int i = 0; i < mListeMvt.size(); ++i)
+        delete mListeMvt[i];
+
+    for(unsigned int i = 0; i < mGround.size(); ++i)
+        delete mGround[i];
+
+    for(unsigned int i = 0; i < mListeCollisions.size(); ++i)
+        delete mListeCollisions[i];
+
+}
 
 void Environnement::setMatrices(glm::mat4 pView, glm::mat4 pProj)
 {
@@ -252,6 +263,13 @@ void Environnement::resoudreCollisionsObjets()
                     if(mGround[i]->canDeplacer)
                     {
                         mGround[i]->object->moveImage(((Collidable*)mGround[i]->object)->getDeplacement(((Collidable*)mGround[j]->object)));
+<<<<<<< HEAD
+    /// L'OBJET mGround[i] A EU UNE COLLISION
+                    }else if(mGround[j]->canDeplacer)
+                        mGround[j]->object->moveImage(((Collidable*)mGround[j]->object)->getDeplacement(((Collidable*)mGround[i]->object)));
+    /// L'OBJET mGround[j] A EU UNE COLLISION
+}
+=======
                         /// L'OBJET mGround[i] A EU UNE COLLISION
                         glm::vec2 deplacement =((Collidable*)mGround[i]->object)->getDeplacement(((Collidable*)mGround[j]->object));
                         if(deplacement.y > 0) collisionSol = true;
@@ -286,7 +304,14 @@ for(unsigned int i = 0; i < mListePhysic.size(); ++i)
 if(((PhysicActor*)mListePhysic[i]->object)->mCollisionSol){
 
 ((PhysicActor*)mListePhysic[i]->object)->mouvementRotation();
+>>>>>>> origin/master
 
+void Environnement::deplacerObjetsMouvement()
+{
+    for(unsigned int i = 0; i < mListeMvt.size(); ++i)
+    {
+        /// SHITS À FAIRE POUR LES OBJETS EN MOUVEMENT
+    }
 }
     }
 
@@ -294,5 +319,8 @@ if(((PhysicActor*)mListePhysic[i]->object)->mCollisionSol){
 
 
 
+<<<<<<< HEAD
+=======
 }
 
+>>>>>>> origin/master

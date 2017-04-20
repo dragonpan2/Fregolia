@@ -9,12 +9,13 @@
 #include "PhysicActor.h"
 #include "Weapon.h"
 #include "SpiderWeb.h"
+#include "TextManager.h"
 
 using namespace std;
 
 /** VARIABLES GLOBALES **/
 
-GLuint shaderProgram, waveProgram, waterProgram;
+GLuint shaderProgram, waveProgram, waterProgram, textProgram;
 
 imageModel testCollision1, testCollision2, testPorte, testCollision3;
 imageModel testSouris;
@@ -27,18 +28,20 @@ imageModel arcOne;
 imageModel swordOne;
 
 
-
-
 PhysicActor testRoche1, testRoche2;
 Environnement testEnv;
 Personnage testPerso;
 Water testWater;
 Enemy testEnemy;
 SpiderWeb spiderWeb;
+TextLine testLigne;
 
 Weapon testWeapon;
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/master
 
 glm::mat4 projection, view;
 glm::vec2 cameraPos;
@@ -83,9 +86,16 @@ int initResources()
     if(waveProgram == 999999999) return -2;
     waterProgram = createProgram("./resources/vertWaterShader.v", "./resources/fragWaterShader.f");
     if(waterProgram == 999999999) return -3;
+    textProgram = createProgram("./resources/vertTextShader.v", "./resources/fragTextShader.f");
+    if(waterProgram == 999999999) return -4;
 
+<<<<<<< HEAD
+    testPerso.initPersonnage("./resources/persoPrincipal.txt", glm::vec2(0.0f, 0.0f));
+    testPerso.createActor(15, 5, 0.01f);
+=======
     testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(0.0f, 0.0f));
     testPerso.createActor(15, 5, 0,0);
+>>>>>>> origin/master
 
     testWeapon.loadWeapon("./resources/testWeapon.txt", glm::vec2(0.0f, 0.0f));
 
@@ -102,6 +112,10 @@ int initResources()
     arcOne.loadFile("./resources/arcOne.txt", glm::vec2(-0.15f,-0.85f));
     swordOne.loadFile("./resources/swordOne.txt", glm::vec2(-0.45f,-0.85f));
 
+    testLigne.loadFont("./resources/Anke.ttf", 24);
+    testLigne.setText("Je suis une patate.");
+    testLigne.setLocation(glm::vec2(-0.9, 0.7));
+
     startPos = testEnv.loadLevel("./resources/level0.txt");
 
     testPerso.moveImage(startPos);
@@ -117,12 +131,7 @@ int initResources()
 /*
 void freeResources()
 {
-    for(unsigned int i = 0; i < listeMvt.size(); ++i)
-        delete listeMvt[i];
-
     delete currentSelection;
-
-
 }
 */
 int actualiserLogique()
@@ -147,6 +156,22 @@ int actualiserLogique()
     testEnv.resoudreCollisionsEnnemi(&testEnemy);
     testEnv.resoudreCollisionsObjets();
 
+<<<<<<< HEAD
+    testPerso.rebondPerso(timeLastFrame);
+
+    for(std::vector<groundObject*>::iterator v = testEnv.getListeMvt(); v != testEnv.lastMvtObj(); v++)
+    {
+
+        if(!(((PhysicActor*)(*v)->object)->enMouvement())) testEnv.removeMvtObject(v - testEnv.getListeMvt());
+        else
+        {
+            ((PhysicActor*)(*v)->object)->vitesseReduite(timeLastFrame);
+            ((PhysicActor*)(*v)->object)->moveImage(((PhysicActor*)(*v)->object)->getVitesse());
+        }
+    }
+
+    for(std::vector<groundObject*>::iterator v = testEnv.getListeCollision(); v != testEnv.lastCollisionObj(); v++)
+=======
     testPerso.rebondPerso();
  /*   for(std::vector<groundObject*>::iterator v = testEnv.getGroundObject(); v != testEnv.lastGroundObj(); v++)
     {
@@ -161,11 +186,17 @@ int actualiserLogique()
 */
 
       for(std::vector<groundObject*>::iterator v = testEnv.getListeCollision(); v != testEnv.lastCollisionObj(); v++)
+>>>>>>> origin/master
     {
         if((*v)->canDeplacer == 1)
         {
             if(testEnv.lastMvtObj() - testEnv.getListeMvt() == 0)
             {
+<<<<<<< HEAD
+                testEnv.addMvtObject(*v);
+                testPerso.pousserObjet((PhysicActor*)(*v)->object);
+                continue;
+=======
                 if(testPerso.mCollisionCoter)
                 {
                     testEnv.addMvtObject(*v);
@@ -174,13 +205,18 @@ int actualiserLogique()
 
                     continue;
                 }
+>>>>>>> origin/master
             }
 
             for(std::vector<groundObject*>::iterator w = testEnv.getListeMvt(); w != testEnv.lastMvtObj(); w++)
             {
                 if((*w) == (*v)) break;
 
+<<<<<<< HEAD
+                if(w - testEnv.getListeMvt() == (testEnv.lastMvtObj() - testEnv.getListeMvt()) - 1)
+=======
                 if(w - testEnv.getListeMvt() == (testEnv.lastMvtObj() - testEnv.getListeMvt()))
+>>>>>>> origin/master
                 {
                     testEnv.addMvtObject(*v);
                     testPerso.pousserObjet((PhysicActor*)(*v)->object);
@@ -241,6 +277,7 @@ int actualiserLogique()
 
     testWeapon.moveImage(glm::vec2((testPerso.getPos() - testWeapon.getPos()).x + 40, (testPerso.getPos() - testWeapon.getPos()).y + 20));
 
+    testPerso.boucleAnimations();
 
     return 0;
 }
@@ -266,23 +303,30 @@ int renderScreen(SDL_Window* pWindow)
 
     if(testWeapon.siEquipped()) testWeapon.drawImage(shaderProgram, totalTime, view, projection);
 
-    testEnemy.drawImage(shaderProgram, totalTime, view, projection);
-    //spiderWeb.drawImage(shaderProgram, totalTime, view, projection);
+    //testEnemy.drawImage(shaderProgram, totalTime, view, projection);
+    spiderWeb.drawImage(shaderProgram, totalTime, view, projection);
 
 
     testEnv.drawWater(waterProgram, timeLastFrame);
     testEnv.drawForeground(shaderProgram, totalTime);
 
+<<<<<<< HEAD
+=======
     healthModel.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
     healthBarModel.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
 
 
+>>>>>>> origin/master
     testInv.drawImage(shaderProgram, totalTime, glm::mat4(1.0f), glm::mat4(1.0f));
     arcOne.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
     swordOne.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
 
     glDisable(GL_BLEND);
 
+
+    testLigne.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
+
+    glDisable(GL_BLEND);
 
     SDL_GL_SwapWindow(pWindow);
 

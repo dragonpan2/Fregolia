@@ -36,6 +36,8 @@ class Personnage : public PhysicActor, public Gravity
         virtual int getMaxHealth();
         virtual void rebondPerso();
 
+        virtual void boucleAnimations();
+
     protected:
         Gravity testGravity;
 

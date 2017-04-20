@@ -73,7 +73,6 @@ void Personnage::setState(int pState, glm::vec2 pDir)
     switch(pState)
     {
     case 0: /// RIEN
-
         break;
     case 1: /// MARCHE
         mDirection.x += pDir.x;
@@ -165,7 +164,12 @@ void Personnage::pousserObjet(PhysicActor* pImage)
 
 void Personnage::vitesseReduite(int pDeltaTemps)
 {
+<<<<<<< HEAD
+    //std::cout <<"----------------------------------------------------------------------SALUT"<< mVitesse.x<<std::endl;
+    if(mVitesse.x < 2.2 && mVitesse.x > -2.2) mVitesse.x = 0;
+=======
     if(mVitesse.x < 2 && mVitesse.x > -2) mVitesse.x = 0;
+>>>>>>> origin/master
     else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + (mCollisionSol ? testGravity.resistanceSol(mMasse, mMuC) : 0))) * signe(mVitesse.x);
 
 std::cout<<"-------------------------------------MERDEEEEE/"<< mVitesse.y<<std::endl;
@@ -186,7 +190,13 @@ void Personnage:: rebondPerso()
 
 
 if(mCollisionSol){
+<<<<<<< HEAD
+        //std::cout<<"---------------------------------------------------------------0>>   "<<mVitesse.y<<std::endl;
+ mVitesse=  testGravity.rebondGravity(mVitesse, mConstantRappel,pDeltaTemps);
+            //std::cout<<"---------------------------------------------------------------1>>   "<<mVitesse.y<<std::endl;
+=======
  mVitesse=  testGravity.rebondGravity(mVitesse, mConstantRappel);
+>>>>>>> origin/master
 
 
 }
@@ -200,5 +210,14 @@ return mMaxHealth;
 }
 void Personnage::setHealth(int pHealthSet) {
 mHealth = pHealthSet;
+}
+
+void Personnage::boucleAnimations()
+{
+    if(abs(mVitesse.y) < 0.1) mVitesse.y = 0;
+    if(mVitesse.y != 0) mAnimations.setCurrentAnimation(3);
+    else if(mVitesse.x > 0) mAnimations.setCurrentAnimation(2);
+    else if(mVitesse.x < 0) mAnimations.setCurrentAnimation(1);
+    else mAnimations.setCurrentAnimation(0);
 }
 

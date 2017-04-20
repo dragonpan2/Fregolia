@@ -12,6 +12,9 @@
 
 #include <SOIL.h>
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 #include <iostream>
 #include <iterator>
 #include <fstream>
@@ -21,16 +24,12 @@
 #include <math.h>
 
 #define CONSTANTE_GRAVITE 9.8f
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 768
+#define SCREEN_WIDTH 1024.0f
+#define SCREEN_HEIGHT 768.0f
 
 /// Obtenir le signe d'un nombre; TEMPORAIRE
 template <typename T> int signe(T nb) {
     return ((T)0 < nb) - (nb < (T)0);
 }
-
-#define CONSTANTE_GRAVITE 9.8f
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 768
 
 #endif // EXTERNALINCLUDES_H_INCLUDED

@@ -11,7 +11,6 @@ imageModel::imageModel()
 imageModel::~imageModel()
 {
     glDeleteBuffers(1, &mVerticesVBO);
-    glDeleteBuffers(1, &mTextureVBO);
     glDeleteTextures(1, &mTexture);
 }
 
@@ -23,38 +22,33 @@ void imageModel::loadFile(std::string pFilePath, glm::vec2 pPos)
     std::vector<glm::vec2> listePoints;
     std::vector<glm::vec2> listeTexture;
 
+    glm::vec2 dimensionsImage;
+    std::string imageFile;
+    int intervalleAnim = 0;
+
     std::ifstream fichier;
     fichier.open(pFilePath.c_str());
 
     std::string line;
     while(std::getline(fichier, line))
     {
-        if(line.substr(0, 2) == "v ")
+        if(line.substr(0, 3) == "di ")
         {
-            std::istringstream streamLine(line.substr(2));
-            glm::vec2 coord;
-            while(streamLine >> coord.x)
-            {
-                streamLine >> coord.y;
-                listePoints.push_back(coord);
-            }
-        }
-        if(line.substr(0, 2) == "t ")
-        {
-            std::istringstream streamLine(line.substr(2));
-            glm::vec2 coord;
-            while(streamLine >> coord.x)
-            {
-                streamLine >> coord.y;
-                listeTexture.push_back(coord);
-            }
-        }
-        else if(line.substr(0, 2) == "d ")
-        {
-            std::istringstream streamLine(line.substr(2));
+            std::istringstream streamLine(line.substr(3));
             glm::vec2 coord;
             streamLine >> mDimensions.x;
             streamLine >> mDimensions.y;
+        }
+        else if(line.substr(0, 3) == "dt ")
+        {
+            std::istringstream streamLine(line.substr(3));
+            glm::vec2 coord;
+            streamLine >> dimensionsImage.x;
+            streamLine >> dimensionsImage.y;
+        }
+        else if(line.substr(0, 4) == "int ")
+        {
+            intervalleAnim = atoi(line.substr(3).c_str());
         }
         else if(line.substr(0, 3) == "id ")
         {
@@ -62,32 +56,36 @@ void imageModel::loadFile(std::string pFilePath, glm::vec2 pPos)
         }
         else if(line.substr(0, 2) == "i ")
         {
-            mTexture = SOIL_load_OGL_texture(line.substr(2).c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+            imageFile = line.substr(2);
 
-            if(mTexture == 0)
-            {
-                std::cout << "Erreur de chargement SOIL: '" << SOIL_last_result() << "'" << std::endl;
-            }
-
-            glBindTexture(GL_TEXTURE_2D, mTexture);
-
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,  GL_LINEAR);
-
-            glBindTexture(GL_TEXTURE_2D, 0);
         }
     }
 
     fichier.close();
+
+
+    /// Chargement des animations
+    mAnimations.loadFile(intervalleAnim, mDimensions, dimensionsImage, imageFile);
+
+
+    /// NOUVEAU: Génération des coorcdonnées dans l'espace à partir des dimensions
+    listePoints.push_back(glm::vec2(-(mDimensions.x / 2), -(mDimensions.y / 2)));
+    listePoints.push_back(glm::vec2((mDimensions.x / 2), -(mDimensions.y / 2)));
+    listePoints.push_back(glm::vec2(-(mDimensions.x / 2), (mDimensions.y / 2)));
+
+    listePoints.push_back(glm::vec2((mDimensions.x / 2), -(mDimensions.y / 2)));
+    listePoints.push_back(glm::vec2(-(mDimensions.x / 2), (mDimensions.y / 2)));
+    listePoints.push_back(glm::vec2((mDimensions.x / 2), (mDimensions.y / 2)));
+
+
 
     /// Génération des points du OBB
     mCoins[0] = glm::vec2((-mDimensions.x / 2) + mPos.x, (mDimensions.y / 2) + mPos.y);
     mCoins[1] = glm::vec2((mDimensions.x / 2) + mPos.x, (mDimensions.y / 2) + mPos.y);
     mCoins[2] = glm::vec2((mDimensions.x / 2) + mPos.x, (-mDimensions.y / 2) + mPos.y);
     mCoins[3] = glm::vec2((-mDimensions.x / 2) + mPos.x, (-mDimensions.y / 2) + mPos.y);
+
+
 
     /// Génération des bords du OBB
     mAxes[0] = mCoins[1] - mCoins[0];
@@ -100,27 +98,22 @@ void imageModel::loadFile(std::string pFilePath, glm::vec2 pPos)
     mAxes[1] = glm::normalize(mAxes[1]);
 
     glGenBuffers(1, &mVerticesVBO);
-    glGenBuffers(1, &mTextureVBO);
 
 
+
+    /// Génération du buffer de points
     glBindBuffer(GL_ARRAY_BUFFER, mVerticesVBO);
 
     glBufferData(GL_ARRAY_BUFFER,
                  listePoints.size() * sizeof(glm::vec2),
                  listePoints.data(),
                  GL_DYNAMIC_DRAW);
-
-
-    glBindBuffer(GL_ARRAY_BUFFER, mTextureVBO);
-
-    glBufferData(GL_ARRAY_BUFFER,
-                 listeTexture.size() * sizeof(glm::vec2),
-                 listeTexture.data(),
-                 GL_DYNAMIC_DRAW);
 }
 
 void imageModel::drawImage(GLuint shaderProgram, float pTimeElapsed, glm::mat4 pView, glm::mat4 pProj)
 {
+    mAnimations.updateAnimation(pTimeElapsed);
+
     glUseProgram(shaderProgram);
 
     GLint vertAttribute = glGetAttribLocation(shaderProgram, "Coord2D");
@@ -149,7 +142,7 @@ void imageModel::drawImage(GLuint shaderProgram, float pTimeElapsed, glm::mat4 p
                           0);
 
     glEnableVertexAttribArray(texAttribute);
-    glBindBuffer(GL_ARRAY_BUFFER, mTextureVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, mAnimations.getCurrentImageBuffer());
 
     glVertexAttribPointer(texAttribute,
                           2,
@@ -158,7 +151,7 @@ void imageModel::drawImage(GLuint shaderProgram, float pTimeElapsed, glm::mat4 p
                           0,
                           0);
 
-    glBindTexture(GL_TEXTURE_2D, mTexture);
+    glBindTexture(GL_TEXTURE_2D, mAnimations.getTexture());
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(glGetUniformLocation(shaderProgram, "Texture"), GL_TEXTURE0);
 

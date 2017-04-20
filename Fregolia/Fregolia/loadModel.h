@@ -2,6 +2,7 @@
 
 #include "ExternalIncludes.h"
 #include "Collisions.h"
+#include "AnimationManager.h"
 
 class imageModel : public Collidable
 {
@@ -37,10 +38,12 @@ class imageModel : public Collidable
 
         bool mCanCollide = false;
 
+        AnimationManager mAnimations;
+
         virtual void changeBB(glm::vec2 pDeplacement) final;
 
     private:
-        GLuint mTextureVBO, mVerticesVBO;
+        GLuint mVerticesVBO;
         GLuint mTexture;
 
         int mImageID;

@@ -1,0 +1,6 @@
+id 0
+vit 10
+di 50 150
+dt 200 600
+int 80
+i ./resources/testAnim.png
