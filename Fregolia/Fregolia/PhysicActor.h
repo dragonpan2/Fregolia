@@ -12,7 +12,7 @@ class PhysicActor : public imageModel
         PhysicActor();
         virtual ~PhysicActor();
 
-        virtual void createActor(float pMuC, float pMasse,float pConstantRappel);
+        virtual void createActor(float pMuC, float pMasse,float pConstantRappel,float pMuS);
         virtual void updateActor(float pDeltaTemps);
 
         virtual void setAcceleration(glm::vec2 pAccel);
@@ -46,7 +46,7 @@ class PhysicActor : public imageModel
         Gravity testGravity;
         glm::vec2 mAccel, mVitesse;
 
-        float mMuC, mMasse;
+        float mMuC, mMasse,mMuS;
 
         float mConstantRappel;
 

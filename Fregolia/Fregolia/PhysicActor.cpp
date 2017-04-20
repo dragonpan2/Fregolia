@@ -12,11 +12,12 @@ PhysicActor::~PhysicActor()
 
 }
 
-void PhysicActor::createActor(float pMuC, float pMasse,float pConstantRappel)
+void PhysicActor::createActor(float pMuC, float pMasse,float pConstantRappel,float pMuS)
 {
     mMuC = pMuC;
     mMasse = pMasse;
     mConstantRappel=pConstantRappel;
+    mMuS=pMuS;
 
 }
 
@@ -65,11 +66,12 @@ float PhysicActor:: getConstantRappel()
 }
 void PhysicActor::vitesseReduite(int pDeltaTemps)
 {
+    std::cout<< "---------------------------------------------MERde"<<mVitesse.x<<std::endl;
     if(mVitesse.x < 1 && mVitesse.x > -1) mVitesse.x = 0;
     else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + (mCollisionSol ? testGravity.resistanceSol(mMasse, mMuC) : 0))) * signe(mVitesse.x);
 
-    if(mVitesse.y > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
-    else mVitesse.y = 0;
+   // if(mVitesse.y > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
+   // else mVitesse.y = 0;
 
 
     if(mVitesse.y<0.0005 && mVitesse.y >-0.0005)

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="Enemy.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Consumable.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="680" topLine="0" />
+			<Cursor1 position="220" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Item.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -12,39 +11,9 @@
 			<Cursor1 position="42" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Collisions.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="PhysicActor.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1469" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Collisions.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="75" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="ExternalIncludes.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="351" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="LoadModel.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6838" topLine="171" />
-		</Cursor>
-	</File>
-	<File name="Environment.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1281" topLine="30" />
-		</Cursor>
-	</File>
-	<File name="Gravity.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="911" topLine="20" />
-		</Cursor>
-	</File>
-	<File name="Inventory.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="244" topLine="0" />
+			<Cursor1 position="327" topLine="5" />
 		</Cursor>
 	</File>
 	<File name="RangedWeapon.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -52,27 +21,32 @@
 			<Cursor1 position="77" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Personnage.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ShaderUtilities.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3216" topLine="0" />
+			<Cursor1 position="11" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="PhysicActor.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Gravity.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="215" topLine="6" />
+			<Cursor1 position="1617" topLine="52" />
 		</Cursor>
 	</File>
-	<File name="ShaderUtilities.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Inventory.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="85" topLine="0" />
+			<Cursor1 position="244" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Item.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="AI.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="127" topLine="0" />
+			<Cursor1 position="3023" topLine="3" />
 		</Cursor>
 	</File>
-	<File name="MeleeWeapon.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Ai.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="662" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Collisions.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="75" topLine="0" />
 		</Cursor>
@@ -82,49 +56,17 @@
 			<Cursor1 position="446" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="LoadModel.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Environment.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="964" topLine="0" />
+			<Cursor1 position="1281" topLine="1" />
 		</Cursor>
+		<Folding>
+			<Collapse line="20" />
+		</Folding>
 	</File>
-	<File name="Enemy.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="InitOpenGL.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="751" topLine="15" />
-		</Cursor>
-	</File>
-	<File name="AI.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3023" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="Gravity.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="629" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Weapon.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="110" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Personnage.h" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1436" topLine="28" />
-		</Cursor>
-	</File>
-	<File name="InitOpenGL.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="11" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Inventory.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="69" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="ShaderUtilities.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="11" topLine="0" />
+			<Cursor1 position="75" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Water.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -132,22 +74,47 @@
 			<Cursor1 position="65" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="PhysicActor.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="LoadModel.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="695" topLine="0" />
+			<Cursor1 position="5984" topLine="65" />
 		</Cursor>
 	</File>
-	<File name="Consumable.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Enemy.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="220" topLine="0" />
+			<Cursor1 position="751" topLine="15" />
+		</Cursor>
+	</File>
+	<File name="Weapon.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="110" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Environment.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3050" topLine="90" />
 		</Cursor>
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2788" topLine="81" />
+			<Cursor1 position="2353" topLine="80" />
 		</Cursor>
 	</File>
-	<File name="InitOpenGL.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="LoadModel.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="964" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="ExternalIncludes.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="351" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Enemy.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="680" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="MeleeWeapon.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="75" topLine="0" />
 		</Cursor>
@@ -157,14 +124,49 @@
 			<Cursor1 position="33" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Ai.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Personnage.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="662" topLine="0" />
+			<Cursor1 position="5139" topLine="170" />
 		</Cursor>
 	</File>
-	<File name="Environment.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Personnage.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6240" topLine="192" />
+			<Cursor1 position="1021" topLine="15" />
+		</Cursor>
+	</File>
+	<File name="PhysicActor.cpp" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1191" topLine="65" />
+		</Cursor>
+	</File>
+	<File name="ShaderUtilities.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="85" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="InitOpenGL.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Collisions.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2192" topLine="12" />
+		</Cursor>
+	</File>
+	<File name="Inventory.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="69" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Gravity.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="584" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Item.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="127" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

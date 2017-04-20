@@ -119,7 +119,7 @@ void Personnage::gererDeplacement(int pDeltaTemps)
 {
 
     vitesseReduite(pDeltaTemps);
-    glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100, pDeltaTemps * (mVitesse.y - testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y));
+    glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100, (!mCollisionSol ?  pDeltaTemps * (mVitesse.y - testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y):0));
 
     mPos += deplacement;
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
@@ -133,12 +133,17 @@ bool Personnage::verifierMort()
     if(mPos.y < -SCREEN_HEIGHT)
         mMort = true;
 
+        if(mHealth<0){
+
+            mMort=true;
+        }
+
     return mMort;
 }
 
 void Personnage::reset(glm::vec2 pPos)
 {
-    health = 100;
+    mHealth = 100;
     mState = 1;
     mMort = false;
     glm::vec2 deplacement = pPos - mPos;
@@ -153,7 +158,7 @@ void Personnage::reset(glm::vec2 pPos)
 void Personnage::pousserObjet(PhysicActor* pImage)
 {
     mVitesse = glm::vec2(testGravity.rentrerCollision(mVitesse.x, pImage->getMasse(), pImage->getMuC(), mMasse), mVitesse.y);
-    pImage->setVitesse(mVitesse);
+    pImage->setVitesse(glm::vec2(mVitesse.x,pImage->getVitesse().y));
 
     ((imageModel*)pImage)->moveImage(pImage->getVitesse());
 }
@@ -163,7 +168,7 @@ void Personnage::vitesseReduite(int pDeltaTemps)
     if(mVitesse.x < 2 && mVitesse.x > -2) mVitesse.x = 0;
     else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + (mCollisionSol ? testGravity.resistanceSol(mMasse, mMuC) : 0))) * signe(mVitesse.x);
 
-
+std::cout<<"-------------------------------------MERDEEEEE/"<< mVitesse.y<<std::endl;
    if(mVitesse.y<0.0005 && mVitesse.y >-0.0005){
 
         mVitesse.y=0;
@@ -188,12 +193,12 @@ if(mCollisionSol){
 
 }
 int Personnage::getHealth() {
-return health;
+return mHealth;
 }
 int Personnage::getMaxHealth() {
-return maxHealth;
+return mMaxHealth;
 }
-int Personnage::setHealth(int healthSet) {
-health = healthSet;
+void Personnage::setHealth(int pHealthSet) {
+mHealth = pHealthSet;
 }
 

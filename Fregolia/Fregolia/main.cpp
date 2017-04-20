@@ -85,7 +85,7 @@ int initResources()
     if(waterProgram == 999999999) return -3;
 
     testPerso.initPersonnage("./resources/testPersonnage.txt", glm::vec2(0.0f, 0.0f));
-    testPerso.createActor(15, 5, 0.01f);
+    testPerso.createActor(15, 5, 0,0);
 
     testWeapon.loadWeapon("./resources/testWeapon.txt", glm::vec2(0.0f, 0.0f));
 
@@ -96,7 +96,7 @@ int initResources()
     testInv.loadFile("./resources/invex.txt", glm::vec2(-0.0f, -0.85f));
 
     testEnemy.loadFile("./resources/testPersonnage2.txt", glm::vec2(500.0f, -200.0f));
-    testEnemy.createActor(15, 5,0.05f);
+    testEnemy.createActor(15, 5,0.05f,0);
     healthModel.loadFile("./resources/health.txt", glm::vec2(0.0f,0.0f));
     healthBarModel.loadFile("./resources/healthBar.txt", glm::vec2(0.0f,0.0f));
     arcOne.loadFile("./resources/arcOne.txt", glm::vec2(-0.15f,-0.85f));
@@ -212,7 +212,7 @@ int actualiserLogique()
             ((PhysicActor*)(*v)->object)->vitesseReduite(timeLastFrame);
             ((PhysicActor*)(*v)->object)->moveImage(((PhysicActor*)(*v)->object)->getVitesse());
 
-            ((PhysicActor*)(*v)->object)->rebondPerso();
+           // ((PhysicActor*)(*v)->object)->rebondPerso();
 
         }
 
@@ -346,7 +346,9 @@ void gererMouvement()
 {
     if(listeTouches[SDL_SCANCODE_SPACE])
     {
-        testPerso.setState(2, glm::vec2(0, 1));
+             if(!testPerso.mCollisionCoter){
+   testPerso.setState(2, glm::vec2(0, 1));
+             }
     }
     if(listeTouches[SDL_SCANCODE_S])
     {
@@ -361,8 +363,12 @@ void gererMouvement()
     }
     if(listeTouches[SDL_SCANCODE_E])
     {
-        testEnv.splash();
-        listeTouches[SDL_SCANCODE_E] = 0;
+
+        if(testPerso.mCollisionCoter)testPerso.mCollisionCoter=false;
+        else if(!testPerso.mCollisionCoter) testPerso.mCollisionCoter=true;
+
+      /*  testEnv.splash();
+        listeTouches[SDL_SCANCODE_E] = 0;*/
     }
 }
 

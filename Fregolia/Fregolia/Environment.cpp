@@ -82,7 +82,7 @@ glm::vec2 Environnement::loadLevel(std::string pLevelFile)
         {
             std::string modelFile;
             glm::vec2 coord;
-            float angle, uC,masse,constanteRappel;
+            float angle, uC,masse,constanteRappel,uS;
             int canCollide, canDraw, canInteract, canDeplacer;
 
             std::istringstream streamLine(line.substr(4));
@@ -97,12 +97,13 @@ glm::vec2 Environnement::loadLevel(std::string pLevelFile)
             streamLine >> uC;
             streamLine >> masse;
             streamLine >> constanteRappel;
+            streamLine >> uS;
 
             imageModel* obj = new imageModel();
 
             if(canDeplacer==1){
                     obj = new PhysicActor();
-                    ((PhysicActor*)obj)->createActor(uC, masse, constanteRappel);
+                    ((PhysicActor*)obj)->createActor(uC, masse, constanteRappel,uS);
             }else{
 
             }
@@ -203,7 +204,6 @@ void Environnement::resoudreCollisionsPerso(Personnage* pPerso)
     mListeCollisions.clear();
 
     bool collisionSol = false;
-    bool collisionCoter=false;
 
      for(unsigned int i = 0; i < mGround.size(); ++i)
         if(mGround[i]->canCollide)
@@ -214,11 +214,9 @@ void Environnement::resoudreCollisionsPerso(Personnage* pPerso)
                 pPerso->resoudreCollision(deplacement);
 
                 if(deplacement.y > 0) collisionSol = true;
-                if( deplacement.x!=0 && deplacement.x<13 && deplacement.x>-13  ) collisionCoter=true; std::cout<<"------------------------------/" <<deplacement.x<<std::endl;
             }
 
     pPerso->mCollisionSol = collisionSol;
-    pPerso->mCollisionCoter=collisionCoter;
 }
 
 void Environnement::resoudreCollisionsEnnemi(Enemy* pPerso)
@@ -273,7 +271,7 @@ void Environnement::resoudreCollisionsObjets()
 
                         if(deplacement.y > 0) collisionSol = true;
                         ((PhysicActor*)mGround[j]->object)->mCollisionSol = collisionSol;
-                    }
+                    }else;
 
 
 }
