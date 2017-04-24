@@ -12,6 +12,7 @@
 #include "TextManager.h"
 #include "RangedWeapon.h"
 #include "Arrow.h"
+#include "HealthBar.h"
 
 
 using namespace std;
@@ -25,8 +26,6 @@ imageModel testSouris;
 
 imageModel testInv;
 imageModel* currentSelection = nullptr;
-imageModel healthModel;
-imageModel healthBarModel;
 imageModel arcOne;
 imageModel swordOne;
 imageModel selection;
@@ -34,6 +33,8 @@ imageModel selection;
 Environnement testEnv;
 Personnage testPerso;
 TextLine testLigne;
+
+HealthBar HPPerso;
 
 Weapon testWeapon;
 RangedWeapon testBow;
@@ -98,8 +99,8 @@ int initResources()
 
     testInv.loadFile("./resources/invex.txt", glm::vec2(-0.0f, -0.85f));
 
-    healthModel.loadFile("./resources/health.txt", glm::vec2(0.0f,-0.70f));
-    healthBarModel.loadFile("./resources/healthBar.txt", glm::vec2(0.0f,-0.70f));
+    HPPerso.loadBar();
+
     arcOne.loadFile("./resources/arcOne.txt", glm::vec2(-0.15f,-0.85f));
     swordOne.loadFile("./resources/swordOne.txt", glm::vec2(-0.45f,-0.85f));
     selection.loadFile("./resources/selection.txt", glm::vec2(-0.45f,-0.85f));
@@ -174,8 +175,7 @@ int actualiserLogique()
     actualiserCamera();
 
     /// MAJ INTERFACE
-    healthBarScale = (float)testPerso.getHealth()/(float)testPerso.getMaxHealth();
-    healthModel.setTaille(glm::vec2(healthBarScale, 1.0f));
+    HPPerso.updateHealth((float)testPerso.getHealth() / (float)testPerso.getMaxHealth());
 
 
 
@@ -217,8 +217,7 @@ int renderScreen(SDL_Window* pWindow)
     testEnv.drawForeground(shaderProgram, totalTime);
 
     /// AFFICHAGE DE L'INTERFACE
-    healthModel.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
-    healthBarModel.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
+    HPPerso.drawBar(shaderProgram, totalTime);
 
     testInv.drawImage(shaderProgram, totalTime, glm::mat4(1.0f), glm::mat4(1.0f));
     arcOne.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
