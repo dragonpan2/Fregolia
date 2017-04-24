@@ -27,6 +27,7 @@ class Environnement
         virtual void setMatrices(glm::mat4 pView, glm::mat4 pProj) final;
 
         virtual glm::vec2 loadLevel(std::string pLevelFile) final;
+        virtual std::string getId() final {std::stringstream ss; ss << mNextId; std::cout << mNextId << " " << ss.str() << std::endl; return ss.str();}
 
         virtual void setSky(imageModel* pSky) final;
         virtual void setBackground(imageModel* pBg) final;
@@ -47,7 +48,7 @@ class Environnement
         virtual void resoudreCollisionsArme(Weapon* pWeapon);
         virtual void resoudreCollisionsObjets();
 
-        virtual glm::vec2* resoudreCollisionPorte(Personnage* pPerso);
+        virtual void* resoudreCollisionPorte(Personnage* pPerso);
 
         virtual void appliquerGravite(int pTempsEcoule);
 

@@ -8,44 +8,44 @@ Environnement::Environnement()
     mLevelLength = glm::vec2(0, 1024);
 }
 Environnement::~Environnement()
-{
+{std::cout << "EZ" << std::endl;
     for(unsigned int i = 0; i < mListeMvt.size(); ++i) {
         //delete mListeMvt[i]->object;
         delete mListeMvt[i];
     }
-
+std::cout << "EZ" << std::endl;
     for(unsigned int i = 0; i < mGround.size(); ++i) {
         delete mGround[i]->object;
         delete mGround[i];
     }
-
+std::cout << "EZ" << std::endl;
     for(unsigned int i = 0; i < mListeCollisions.size(); ++i) {
         //delete mListeCollisions[i]->object;
         delete mListeCollisions[i];
     }
-
+std::cout << "EZ" << std::endl;
     for(unsigned int i = 0; i < mListePhysique.size(); ++i) {
         //delete mListePhysique[i]->object;
         delete mListePhysique[i];
     }
-
+std::cout << "EZ" << std::endl;
     for(unsigned int i = 0; i < mListeInteractif.size(); ++i) {
         //delete mListeInteractif[i]->object;
         delete mListeInteractif[i];
     }
-
+std::cout << "EZ" << std::endl;
     mListeMvt.clear();
     mGround.clear();
     mListeCollisions.clear();
     mListePhysique.clear();
     mListeInteractif.clear();
-
+std::cout << "EZ" << std::endl;
     delete mSky;
     delete mBackground;
     delete mForeground;
     delete mPorte;
     delete mWater;
-
+std::cout << "EZ" << std::endl;
 }
 
 void Environnement::setMatrices(glm::mat4 pView, glm::mat4 pProj)
@@ -192,8 +192,8 @@ glm::vec2 Environnement::loadLevel(std::string pLevelFile)
         }
         else if(line.substr(0, 4) == "cnn ")
         {
-            std::istringstream streamLine(line.substr(4));
-            streamLine >> mNextId;
+            std::string id = line.substr(4);
+            mNextId = atoi(id.c_str());
         }
         else if(line.substr(0, 4) == "spw ")
         {
@@ -500,12 +500,12 @@ void Environnement::resoudreCollisionsArme(Weapon* pWeapon)
             }
 }
 
-glm::vec2* Environnement::resoudreCollisionPorte(Personnage* pPerso)
+void* Environnement::resoudreCollisionPorte(Personnage* pPerso)
 {
     if(pPerso->isCollision(mPorte))
     {
         /// ON EFFACE TOUT!
-        for(unsigned int i = 0; i < mListeMvt.size(); ++i) {
+        /*for(unsigned int i = 0; i < mListeMvt.size(); ++i) {
             delete mListeMvt[i];
         }
 
@@ -546,7 +546,9 @@ glm::vec2* Environnement::resoudreCollisionPorte(Personnage* pPerso)
         glm::vec2 newStartPos = this->loadLevel((std::string)"./resources/level" + ss.str() + (std::string)".txt");
         pPerso->moveImage(newStartPos);
         pPerso->reset(newStartPos);
-        return &newStartPos;
+        return &newStartPos;*/
+        return (void*)1;
+
     }
 
     return nullptr;

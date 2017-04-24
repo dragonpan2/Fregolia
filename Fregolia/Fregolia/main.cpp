@@ -30,7 +30,7 @@ imageModel arcOne;
 imageModel swordOne;
 imageModel selection;
 
-Environnement testEnv;
+Environnement* testEnv;
 Personnage testPerso;
 TextLine testLigne;
 
@@ -109,7 +109,8 @@ int initResources()
     testLigne.setText("Je suis une patate.");
     testLigne.setLocation(glm::vec2(-0.9, 0.7));
 
-    startPos = testEnv.loadLevel("./resources/level0.txt");
+    testEnv = new Environnement;
+    startPos = testEnv->loadLevel("./resources/level0.txt");
 
     testPerso.moveImage(startPos);
 
@@ -118,7 +119,7 @@ int initResources()
     projection = glm::ortho(0.0f, (float) SCREEN_WIDTH, (float) SCREEN_HEIGHT, 0.0f, 1.0f, 1000.0f);
     view = glm::lookAt(glm::vec3(cameraPos.x, cameraPos.y, 0), glm::vec3(cameraPos.x, cameraPos.y, 1), glm::vec3(0, -1, 0));
 
-    testEnv.setMatrices(view, projection);
+    testEnv->setMatrices(view, projection);
     return 0;
 }
 
@@ -137,34 +138,40 @@ int actualiserLogique()
 
     /// VERIFICATIONS DE FIN DE PARTIE OU DE CHANGEMENTS
     if(testPerso.verifierMort()) testPerso.reset(startPos);
-    glm::vec2* newPos = testEnv.resoudreCollisionPorte(&testPerso);
+    void* newPos = testEnv->resoudreCollisionPorte(&testPerso);
     if(newPos != nullptr)
     {
-        timeLastFrame = 0;
-        startPos = *newPos;
+        std:;string id = testEnv->getId();
+        delete testEnv;
+        std::cout << "LOL " << ((std::string)"./resources/level" + id + (std::string)".txt") << std::endl;
+        testEnv = new Environnement;
+        std::cout << "LOL " << std::endl;
+        startPos = testEnv->loadLevel((std::string)"./resources/level" + id + (std::string)".txt");
+        std::cout << "LOL " << std::endl;
+        testPerso.moveImage(startPos);
         return 0;
     }
 
     /// MAJ LISTES ET ACTIONS
-    testEnv.updateListeMvt();
-    testEnv.updateInteractifs(&testPerso, timeLastFrame);
+    testEnv->updateListeMvt();
+    testEnv->updateInteractifs(&testPerso, timeLastFrame);
 
     /// MAJ DES DEPLACEMENTS
-    testEnv.appliquerGravite(timeLastFrame);
-    testEnv.updateDeplacements(timeLastFrame);
+    testEnv->appliquerGravite(timeLastFrame);
+    testEnv->updateDeplacements(timeLastFrame);
     testPerso.gererDeplacement(timeLastFrame);
     //testPerso.rebondPerso();
 
     /// MAJ DES COLLISIONS
-    testEnv.resoudreCollisionsInteractifs();
-    testEnv.resoudreCollisionsObjets();
-    testEnv.resoudreCollisionsPerso(&testPerso);
-    if(testWeapon.siBeingUsed()) testEnv.resoudreCollisionsArme(&testWeapon);
-    else if(testBow.siBeingUsed()) testEnv.resoudreCollisionsArme(&testArrow);
+    testEnv->resoudreCollisionsInteractifs();
+    testEnv->resoudreCollisionsObjets();
+    testEnv->resoudreCollisionsPerso(&testPerso);
+    if(testWeapon.siBeingUsed()) testEnv->resoudreCollisionsArme(&testWeapon);
+    else if(testBow.siBeingUsed()) testEnv->resoudreCollisionsArme(&testArrow);
 
     /// MAJ ANIMATIONS
     testPerso.boucleAnimations();
-    testEnv.updateAnimations();
+    testEnv->updateAnimations();
 
     /// MAJ ARMES
     testWeapon.moveImage(glm::vec2((testPerso.getPos() - testWeapon.getPos()).x + 40, (testPerso.getPos() - testWeapon.getPos()).y + 20));
@@ -191,15 +198,15 @@ int renderScreen(SDL_Window* pWindow)
     glClear(GL_COLOR_BUFFER_BIT);
 
     /// AFFICHAGE DU CIEL
-    testEnv.drawSky(waveProgram, totalTime);
+    testEnv->drawSky(waveProgram, totalTime);
 
     /// BLENDING
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     /// AFFICHAGE DU BACKGROUND
-    testEnv.drawBackground(shaderProgram, totalTime);
-    testEnv.drawGround(shaderProgram, totalTime);
+    testEnv->drawBackground(shaderProgram, totalTime);
+    testEnv->drawGround(shaderProgram, totalTime);
 
     /// AFFICHAGE DU PERSONNAGE
     testPerso.drawImage(shaderProgram, totalTime, view, projection);
@@ -213,8 +220,8 @@ int renderScreen(SDL_Window* pWindow)
 
 
     /// AFFICHAGE DU FOREGROUND
-    testEnv.drawWater(waterProgram, timeLastFrame);
-    testEnv.drawForeground(shaderProgram, totalTime);
+    testEnv->drawWater(waterProgram, timeLastFrame);
+    testEnv->drawForeground(shaderProgram, totalTime);
 
     /// AFFICHAGE DE L'INTERFACE
     HPPerso.drawBar(shaderProgram, totalTime);
@@ -342,12 +349,12 @@ void actualiserCamera()
 
     if(abs(distance) > 150)
     {
-        if((cameraPos.x > testEnv.getLength().x + 10 && signe(distance) == -1) || (cameraPos.x < testEnv.getLength().y - 10 && signe(distance) == 1))
+        if((cameraPos.x > testEnv->getLength().x + 10 && signe(distance) == -1) || (cameraPos.x < testEnv->getLength().y - 10 && signe(distance) == 1))
         {
             cameraPos.x += 12 * signe(distance);
             if(currentSelection != nullptr) currentSelection->moveImage(glm::vec2(12 * signe(distance), 0));
             view = glm::lookAt(glm::vec3(cameraPos.x, cameraPos.y, 0), glm::vec3(cameraPos.x, cameraPos.y, 1), glm::vec3(0, -1, 0));
-            testEnv.setMatrices(view, projection);
+            testEnv->setMatrices(view, projection);
         }
     }
 }
@@ -399,7 +406,7 @@ int main(int argc, char* argv[])
                 deplacerSouris(events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                if(events.button.button == SDL_BUTTON_LEFT) currentSelection = testEnv.getClickRef(&testSouris);
+                if(events.button.button == SDL_BUTTON_LEFT) currentSelection = testEnv->getClickRef(&testSouris);
                 else if(events.button.button == SDL_BUTTON_RIGHT && currentSelection != nullptr)
                 {
                     std::cout << "Position: " << currentSelection->getPos().x << " " << currentSelection->getPos().y << "; Angle: " << currentSelection->getAngle() << std::endl;
