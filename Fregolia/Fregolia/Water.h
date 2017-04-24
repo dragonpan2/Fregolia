@@ -2,6 +2,7 @@
 #define WATER_H_INCLUDED
 
 #include "ExternalIncludes.h"
+#include "LoadModel.h"
 
 class Water
 {
@@ -13,6 +14,7 @@ class Water
         virtual void actualiser(int pDeltaTemps) final;
         virtual void drawWater(GLuint pShaderProgram, glm::mat4 pView, glm::mat4 pProj) final;
         virtual void splashWater(float pRatio, float pIntensite) final; /// Intensite et ratio ENTRE 0 ET 1
+        virtual void isCollision(imageModel* pOther) final;
     private:
         void genererGeometrie();
 
@@ -22,6 +24,8 @@ class Water
         glm::mat4 mTranslateMat;
         std::vector<glm::vec3> mListePoints; /// X, Y, Vitesse;
         std::vector<int> mElements;
+
+        glm::vec2 pDeplacement;
 };
 
 #endif // WATER_H_INCLUDED

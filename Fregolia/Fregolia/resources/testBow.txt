@@ -1,0 +1,6 @@
+id 08
+
+di 45 90
+
+dt 45 90
+i ./resources/Bow.png

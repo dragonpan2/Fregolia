@@ -69,3 +69,9 @@ float Gravity::rentrerCollision(float pVitesse, float pMasseObjet, float pMuc, f
     //return pVitesse*pMassePerso/( pMasseObjet+pMassePerso);
 }
 
+glm::vec2 Gravity::propulsionToileGrav(float pAngle)
+{
+    return glm::vec2(cos(glm::radians(pAngle))*20,sin(glm::radians(pAngle))*20);
+}
+
+

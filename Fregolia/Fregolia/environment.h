@@ -6,6 +6,8 @@
 #include "Water.h"
 #include "LoadModel.h"
 #include "Enemy.h"
+#include "SpiderWeb.h"
+#include "Weapon.h"
 
 struct groundObject
 {
@@ -33,31 +35,32 @@ class Environnement
         virtual void drawSky(GLuint pShaderProgram, float pTimeElapsed) final;
         virtual void drawBackground(GLuint pShaderProgram, float pTimeElapsed) final;
         virtual void drawForeground(GLuint pShaderProgram, float pTimeElapsed) final;
-        virtual void drawGround(GLuint pShaderProgram, float pTimeElapsed) final;
+        virtual void drawGround(GLuint pShaderProgram, float pTimeElapsed) final; /// INCLUT INTERACTIFS
+
+        //virtual void drawInteractifs(GLuint pShaderProgram, float pTimeElapsed) final;
 
         virtual void drawWater(GLuint pShaderProgram, float pTimeLastFrame) final;
-        virtual void splash() final {mWater->splashWater(0.5f, 1.0f);}
+        virtual void splash(float pLoc, float pMasse) final {mWater->splashWater(pLoc, 1.0f / pMasse);}
 
         virtual void resoudreCollisionsPerso(Personnage* pPerso);
-        virtual void resoudreCollisionsEnnemi(Enemy* pPerso);
+        virtual void resoudreCollisionsInteractifs();
+        virtual void resoudreCollisionsArme(Weapon* pWeapon);
         virtual void resoudreCollisionsObjets();
 
-        virtual std::vector<groundObject*>::iterator getListeCollision();
-        virtual std::vector<groundObject*>::iterator lastCollisionObj() {return mListeCollisions.end();}
+        virtual glm::vec2* resoudreCollisionPorte(Personnage* pPerso);
 
-        virtual std::vector<groundObject*>::iterator getGroundObject(){return mGround.begin();}
-        virtual std::vector<groundObject*>::iterator lastGroundObj() {return mGround.end();}
+        virtual void appliquerGravite(int pTempsEcoule);
 
-        virtual void appliquerGraviterEnvironnement(int pTempsEcoule);
+        virtual void updateListeMvt();
+        virtual void updateDeplacements(int timeLastFrame);
 
-        virtual void addMvtObject(groundObject* pObj) {mListeMvt.push_back(pObj);}
-        virtual void removeMvtObject(int pIndex) {mListeMvt.erase(mListeMvt.begin() + pIndex);}
-        virtual std::vector<groundObject*>::iterator getListeMvt(){return mListeMvt.begin();}
-        virtual std::vector<groundObject*>::iterator lastMvtObj() {return mListeMvt.end();}
+        virtual void updateInteractifs(Personnage* pPerso, int timeLastFrame);
 
+        virtual void updateAnimations();
 
         virtual imageModel* getClickRef(imageModel* pSouris);
         virtual glm::vec2 getLength() {return mLevelLength;}
+
     private:
 
         glm::vec2 mPlayerPos;
@@ -72,9 +75,10 @@ class Environnement
         imageModel* mPorte;
 
         std::vector<groundObject*> mGround;
-        std::vector<groundObject*> mListePhysic;
+        std::vector<groundObject*> mListePhysique;
         std::vector<groundObject*> mListeCollisions;
         std::vector<groundObject*> mListeMvt;
+        std::vector<groundObject*> mListeInteractif;
 
         Water* mWater;
 

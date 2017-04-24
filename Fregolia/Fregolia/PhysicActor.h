@@ -26,20 +26,19 @@ class PhysicActor : public imageModel
 
         virtual void gererDeplacement(int pDeltaTemps);
 
-
         virtual float getConstantRappel();
 
-        virtual bool enMouvement( );
+        virtual bool enMouvement();
         virtual void vitesseReduite(int pDeltaTemps);
 
 
-         virtual void rebondPerso();
+        virtual void rebondPerso();
 
         virtual void mouvementRotation();
 
 
-         bool mCollisionSol = false;
-         bool mCollisionCoter=false;
+        bool mCollisionSol = false;
+        bool mCollisionCoter=false;
       //   bool mCollisionGauche=false;
         // bool mCollisionDroite=false;
     protected:

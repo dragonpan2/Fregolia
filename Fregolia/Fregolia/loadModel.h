@@ -23,7 +23,7 @@ class imageModel : public Collidable
         virtual int getId() {return mImageID;}
 
         virtual void setAngle(float pAngle) final;
-        virtual float getAngle() {return mAngle;}
+        virtual float getAngle();
 
         virtual glm::vec2 getDimensions() {return mDimensions;}
 

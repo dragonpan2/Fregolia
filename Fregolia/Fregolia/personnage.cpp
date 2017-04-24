@@ -118,11 +118,14 @@ void Personnage::gererDeplacement(int pDeltaTemps)
 {
 
     vitesseReduite(pDeltaTemps);
+//std::cout<<"--------------------Y"<< mVitesse.y<<std::endl;
     glm::vec2 deplacement = glm::vec2(mVitesse.x * pDeltaTemps / 100, (!mCollisionSol ?  pDeltaTemps * (mVitesse.y - testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y):0));
 
     mPos += deplacement;
     mTranslateMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPos.x, mPos.y, 0.0f));
     changeBB(deplacement);
+
+    std::cout << mVitesse.x << " " << mVitesse.y << "\t" << mAccel.x << " " << mAccel.y << std::endl;
 
     mDirection = glm::vec2(0, 0);
 }
@@ -156,10 +159,12 @@ void Personnage::reset(glm::vec2 pPos)
 
 void Personnage::pousserObjet(PhysicActor* pImage)
 {
+   if(mCollisionCoter){
     mVitesse = glm::vec2(testGravity.rentrerCollision(mVitesse.x, pImage->getMasse(), pImage->getMuC(), mMasse), mVitesse.y);
     pImage->setVitesse(glm::vec2(mVitesse.x,pImage->getVitesse().y));
 
     ((imageModel*)pImage)->moveImage(pImage->getVitesse());
+   }
 }
 
 void Personnage::vitesseReduite(int pDeltaTemps)
@@ -168,17 +173,7 @@ void Personnage::vitesseReduite(int pDeltaTemps)
 
     else if(mVitesse.x != 0) mVitesse.x -= ((testGravity.resistanceAirX(mMasse, mVitesse.x, mDimensions.y) + (mCollisionSol ? testGravity.resistanceSol(mMasse, mMuC) : 0))) * signe(mVitesse.x);
 
-   if(mVitesse.y<0.0005 && mVitesse.y >-0.0005){
-
-        mVitesse.y=0;
-      }
-      else if(mVitesse.y  > 0) mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
-       else if(mVitesse.y<0)mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
-
-
-
-
-        /*mVitesse.y = 0;*/
+    mVitesse.y -= ((testGravity.resistanceAirY(this->getMasse(), this->getVitesse().x, this->getDimensions().x)) * signe(mVitesse.y) + testGravity.gravityApplication(this->getMasse(), pDeltaTemps, this->getAngle()).y);
 }
 void Personnage:: rebondPerso()
 {
@@ -186,7 +181,7 @@ void Personnage:: rebondPerso()
 
 if(mCollisionSol){
 
- mVitesse=  testGravity.rebondGravity(mVitesse, mConstantRappel);
+ mVitesse = testGravity.rebondGravity(mVitesse, mConstantRappel);
 
 
 
@@ -210,5 +205,20 @@ void Personnage::boucleAnimations()
     else if(mVitesse.x > 0) mAnimations.setCurrentAnimation(2);
     else if(mVitesse.x < 0) mAnimations.setCurrentAnimation(1);
     else mAnimations.setCurrentAnimation(0);
+}
+
+bool Personnage::siImmobile()
+{
+    return mEstImmobile;
+}
+void Personnage::setImmobile(int pEstImmobile)
+{
+    mEstImmobile = pEstImmobile;
+}
+
+void Personnage::propulsionToile()
+{
+   mVitesse = testGravity.propulsionToileGrav(mAngle);
+   mCollisionSol=false;
 }
 

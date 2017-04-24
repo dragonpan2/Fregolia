@@ -1,4 +1,7 @@
 id 07
+
 di 45 90
+
 dt 45 90
+
 i ./resources/Sword.png

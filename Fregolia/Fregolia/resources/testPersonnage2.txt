@@ -1,5 +1,0 @@
-id 99
-vit 80
-di 150 150
-dt 150 150
-i ./resources/image2.png

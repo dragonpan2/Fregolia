@@ -22,6 +22,10 @@
 #include <stdlib.h>
 #include <vector>
 #include <math.h>
+#include <typeinfo>
+#include <string>
+
+//#pragma GCC poison setPos
 
 #define CONSTANTE_GRAVITE 9.8f
 #define SCREEN_WIDTH 1024.0f

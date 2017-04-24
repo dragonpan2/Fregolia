@@ -1,4 +1,7 @@
 id 0
+
 di 150 150
+
 dt 150 150
-i ./resources/Spiderweb.jpg
+
+i ./resources/Spiderweb.png

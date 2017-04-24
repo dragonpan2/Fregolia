@@ -9,14 +9,42 @@ Environnement::Environnement()
 }
 Environnement::~Environnement()
 {
-    for(unsigned int i = 0; i < mListeMvt.size(); ++i)
+    for(unsigned int i = 0; i < mListeMvt.size(); ++i) {
+        //delete mListeMvt[i]->object;
         delete mListeMvt[i];
+    }
 
-    for(unsigned int i = 0; i < mGround.size(); ++i)
+    for(unsigned int i = 0; i < mGround.size(); ++i) {
+        delete mGround[i]->object;
         delete mGround[i];
+    }
 
-    for(unsigned int i = 0; i < mListeCollisions.size(); ++i)
+    for(unsigned int i = 0; i < mListeCollisions.size(); ++i) {
+        //delete mListeCollisions[i]->object;
         delete mListeCollisions[i];
+    }
+
+    for(unsigned int i = 0; i < mListePhysique.size(); ++i) {
+        //delete mListePhysique[i]->object;
+        delete mListePhysique[i];
+    }
+
+    for(unsigned int i = 0; i < mListeInteractif.size(); ++i) {
+        //delete mListeInteractif[i]->object;
+        delete mListeInteractif[i];
+    }
+
+    mListeMvt.clear();
+    mGround.clear();
+    mListeCollisions.clear();
+    mListePhysique.clear();
+    mListeInteractif.clear();
+
+    delete mSky;
+    delete mBackground;
+    delete mForeground;
+    delete mPorte;
+    delete mWater;
 
 }
 
@@ -130,7 +158,7 @@ glm::vec2 Environnement::loadLevel(std::string pLevelFile)
             go->canInteract = canInteract;
             go->canDeplacer=canDeplacer;
             mGround.push_back(go);
-            if(canDeplacer==1)mListePhysic.push_back(go);
+            if(canDeplacer==1) mListePhysique.push_back(go);
         }
         else if(line.substr(0, 4) == "wtr ")
         {
@@ -167,6 +195,76 @@ glm::vec2 Environnement::loadLevel(std::string pLevelFile)
             std::istringstream streamLine(line.substr(4));
             streamLine >> mNextId;
         }
+        else if(line.substr(0, 4) == "spw ")
+        {
+            std::string modelFile;
+            glm::vec2 coord;
+            float angle;
+            int canCollide, canDraw, canInteract;
+
+            std::istringstream streamLine(line.substr(4));
+            streamLine >> modelFile;
+            streamLine >> coord.x;
+            streamLine >> coord.y;
+            streamLine >> angle;
+            streamLine >> canCollide;
+            streamLine >> canDraw;
+            streamLine >> canInteract;
+
+            SpiderWeb* obj = new SpiderWeb();
+
+            obj->loadFile(modelFile, coord);
+            obj->setAngle(angle);
+
+            groundObject* go = new groundObject();
+            go->object = obj;
+            go->canCollide = canCollide;
+            go->canDraw = canDraw;
+            go->canInteract = canInteract;
+            go->canDeplacer = 0;
+            //mGround.push_back(go);
+            mListeInteractif.push_back(go);
+        }
+        else if(line.substr(0, 4) == "emi ")
+        {
+            std::string modelFile;
+            glm::vec2 coord;
+            float angle, uC,masse,constanteRappel,uS;
+            int canCollide, canDraw, canInteract, canDeplacer;
+
+            std::istringstream streamLine(line.substr(4));
+            streamLine >> modelFile;
+            streamLine >> coord.x;
+            streamLine >> coord.y;
+            streamLine >> angle;
+            streamLine >> canCollide;
+            streamLine >> canDraw;
+            streamLine >> canInteract;
+            streamLine >> canDeplacer;
+            streamLine >> uC;
+            streamLine >> masse;
+            streamLine >> constanteRappel;
+            streamLine >> uS;
+
+            Enemy* obj = new Enemy();
+
+            //obj = new PhysicActor();
+            ((PhysicActor*)obj)->createActor(uC, masse, constanteRappel,uS);
+
+            obj->loadFile(modelFile, coord);
+            obj->setAngle(angle);
+
+            groundObject* go = new groundObject();
+            go->object = obj;
+            go->canCollide = canCollide;
+            go->canDraw = canDraw;
+            go->canInteract = canInteract;
+            go->canDeplacer=canDeplacer;
+
+            //mGround.push_back(go);
+            mListeInteractif.push_back(go);
+        }
+
     }
 
     fichier.close();
@@ -198,6 +296,14 @@ void Environnement::drawGround(GLuint pShaderProgram, float pTimeElapsed)
     for(unsigned int i = 0; i < mGround.size(); ++i)
         if(mGround[i]->canDraw)
             mGround[i]->object->drawImage(pShaderProgram, pTimeElapsed, mView, mProj);
+
+    std::cout << mListeInteractif.size() << std::endl;
+
+    for(unsigned int i = 0; i < mListeInteractif.size(); ++i)
+        if(mListeInteractif[i]->canDraw) {
+                std::cout << "Dessin de " << i << std::endl;
+            mListeInteractif[i]->object->drawImage(pShaderProgram, pTimeElapsed, mView, mProj);
+        }
 }
 
 void Environnement::drawWater(GLuint pShaderProgram, float pTimeLastFrame)
@@ -228,13 +334,39 @@ void Environnement::resoudreCollisionsPerso(Personnage* pPerso)
             }
 
     pPerso->mCollisionSol = collisionSol;
+
+    for(unsigned int i = 0; i < mListeInteractif.size(); ++i)
+        if(pPerso->isCollision(mListeInteractif[i]->object) && mListeInteractif[i]->canInteract)
+        {
+            if(dynamic_cast<SpiderWeb*>(mListeInteractif[i]->object) != 0)
+                ((SpiderWeb*)(mListeInteractif[i]->object))->collisionToile();
+        }
 }
 
-void Environnement::resoudreCollisionsEnnemi(Enemy* pPerso)
+void Environnement::updateInteractifs(Personnage* pPerso, int timeLastFrame)
 {
-    for(unsigned int i = 0; i < mGround.size(); ++i)
-        if(mGround[i]->canCollide)
-            if(pPerso->isCollision(mGround[i]->object)) pPerso->moveImage(pPerso->getDeplacement(mGround[i]->object));
+    for(unsigned int i = 0; i < mListeInteractif.size(); ++i)
+    {
+        if(dynamic_cast<SpiderWeb*>(mListeInteractif[i]->object) != 0)
+            ((SpiderWeb*)(mListeInteractif[i]->object))->processusToile(pPerso);
+        else if(dynamic_cast<Enemy*>(mListeInteractif[i]->object) != 0) {
+            ((Enemy*)(mListeInteractif[i]->object))->aiProcess(pPerso);
+            ((Enemy*)(mListeInteractif[i]->object))->gererDeplacement(timeLastFrame);
+        }
+    }
+}
+
+void Environnement::resoudreCollisionsInteractifs()
+{
+    for(int j = 0; j < mListeInteractif.size(); ++j)
+        if(dynamic_cast<Enemy*>(mListeInteractif[j]->object) != 0 && mListeInteractif[j]->canCollide)
+            for(unsigned int i = 0; i < mGround.size(); ++i)
+                if(mGround[i]->canCollide)
+                    if(mListeInteractif[j]->object->isCollision(mGround[i]->object)) { std::cout << "COLLISION " << j << " " << i << "\t" << mGround[i]->object->getDimensions().x << " " << mGround[i]->object->getDimensions().y << std::endl;
+                    std::cout << "DEPLACEMENT " << mListeInteractif[j]->object->getDeplacement(mGround[i]->object).x << " " << mListeInteractif[j]->object->getDeplacement(mGround[i]->object).y << std::endl;
+                    mListeInteractif[j]->object->moveImage(mListeInteractif[j]->object->getDeplacement(mGround[i]->object));
+                    ((PhysicActor*)mListeInteractif[j]->object)->mCollisionSol = (mListeInteractif[j]->object->getDeplacement(mGround[i]->object).y > 0 ? 1 : 0);
+                    }
 }
 
 imageModel* Environnement::getClickRef(imageModel* pSouris)
@@ -245,11 +377,6 @@ imageModel* Environnement::getClickRef(imageModel* pSouris)
                 return mGround[i]->object;
 
     return nullptr;
-}
-
-std::vector<groundObject*>::iterator Environnement::getListeCollision()
-{
-    return mListeCollisions.begin();
 }
 
 void Environnement::resoudreCollisionsObjets()
@@ -283,18 +410,146 @@ void Environnement::resoudreCollisionsObjets()
 
                         if(deplacement.y > 0) collisionSol = true;
                         ((PhysicActor*)mGround[j]->object)->mCollisionSol = collisionSol;
-                    }else;
-
-
+                    }
+                    else
+                    {
+                        mGround[i]->object->moveImage(((Collidable*)mGround[i]->object)->getDeplacement(((Collidable*)mGround[j]->object)));
+                    }
 }
-void Environnement:: appliquerGraviterEnvironnement(int pTempsEcoule){
-    for(unsigned int i = 0; i < mListePhysic.size(); ++i)
+
+void Environnement::appliquerGravite(int pTempsEcoule){
+    for(unsigned int i = 0; i < mListePhysique.size(); ++i)
     {
 
-        ((PhysicActor*)mListePhysic[i]->object)->gererDeplacement(pTempsEcoule);
-        ((PhysicActor*)mListePhysic[i]->object)->rebondPerso();
+        ((PhysicActor*)mListePhysique[i]->object)->gererDeplacement(pTempsEcoule);
+        ((PhysicActor*)mListePhysique[i]->object)->rebondPerso();
 
-        if(((PhysicActor*)mListePhysic[i]->object)->mCollisionSol)
-            ((PhysicActor*)mListePhysic[i]->object)->mouvementRotation();
+        if(((PhysicActor*)mListePhysique[i]->object)->mCollisionSol)
+            ((PhysicActor*)mListePhysique[i]->object)->mouvementRotation();
     }
 }
+
+void Environnement::updateListeMvt()
+{
+    for(int i = 0; i < mListeCollisions.size(); ++i)
+    {
+        if(mListeCollisions[i]->canDeplacer)
+        {
+            if(mListeMvt.size() == 0)
+            {
+                    mListeMvt.push_back(mListeCollisions[i]);
+                    //testPerso.pousserObjet((PhysicActor*)(mListeCollisions[i])->object);
+                    continue;
+            }
+
+            for(int j = 0; j < mListeMvt.size(); ++j)
+            {
+                if(mListeCollisions[i] == mListeMvt[j]) break;
+                else if(j == mListeMvt.size() - 1)
+                {
+                    mListeMvt.push_back(mListeCollisions[i]);
+                    //testPerso.pousserObjet((PhysicActor*)(mListeCollisions[i])->object);
+                }
+            }
+        }
+    }
+}
+
+void Environnement::updateDeplacements(int timeLastFrame)
+{
+    for(int i = 0; i < mListeMvt.size(); ++i)
+    {
+        if(!(((PhysicActor*)(mListeMvt[i])->object)->enMouvement())) mListeMvt.erase(mListeMvt.begin() + i);
+        else
+        {
+            ((PhysicActor*)(mListeMvt[i])->object)->vitesseReduite(timeLastFrame);
+            ((PhysicActor*)(mListeMvt[i])->object)->moveImage(((PhysicActor*)(mListeMvt[i])->object)->getVitesse());
+
+            ((PhysicActor*)(mListeMvt[i])->object)->rebondPerso();
+        }
+    }
+}
+
+void Environnement::updateAnimations()
+{
+    /*for(int i = 0; i < mGround.size(); ++i)
+    {
+        mGround[i]->obje
+    }*/
+
+    for(unsigned int i = 0; i < mListeInteractif.size(); ++i)
+        if(dynamic_cast<Enemy*>(mListeInteractif[i]->object) != 0)
+            ((Enemy*)(mListeInteractif[i]->object))->boucleAnimations();
+}
+
+void Environnement::resoudreCollisionsArme(Weapon* pWeapon)
+{
+    for(unsigned int i = 0; i < mListeInteractif.size(); ++i)
+        if(dynamic_cast<Enemy*>(mListeInteractif[i]->object) != 0)
+            if(pWeapon->siBeingUsed() && pWeapon->isCollision(((Enemy*)(mListeInteractif[i]->object))))
+            {
+                pWeapon->setBeingUsed(false);
+                ((Enemy*)(mListeInteractif[i]->object))->ennemiTouche(10);
+
+                if (((Enemy*)(mListeInteractif[i]->object))->isMortEnnemi())
+                {
+                    delete mListeInteractif[i]->object;
+                    delete mListeInteractif[i];
+                    mListeInteractif.erase(mListeInteractif.begin() + i);
+                }
+            }
+}
+
+glm::vec2* Environnement::resoudreCollisionPorte(Personnage* pPerso)
+{
+    if(pPerso->isCollision(mPorte))
+    {
+        /// ON EFFACE TOUT!
+        for(unsigned int i = 0; i < mListeMvt.size(); ++i) {
+            delete mListeMvt[i];
+        }
+
+        for(unsigned int i = 0; i < mGround.size(); ++i) {
+            delete mGround[i]->object;
+            delete mGround[i];
+        }
+
+        for(unsigned int i = 0; i < mListeCollisions.size(); ++i) {
+            delete mListeCollisions[i];
+        }
+
+        for(unsigned int i = 0; i < mListePhysique.size(); ++i) {
+            delete mListePhysique[i];
+        }
+
+        for(unsigned int i = 0; i < mListeInteractif.size(); ++i) {
+            delete mListeInteractif[i];
+        }
+
+        mListeMvt.clear();
+        mGround.clear();
+        mListeCollisions.clear();
+        mListePhysique.clear();
+        mListeInteractif.clear();
+
+        delete mSky;
+        delete mBackground;
+        delete mForeground;
+        delete mPorte;
+        delete mWater;
+
+
+
+        /// CHARGEMENT DU NOUVEAU NIVEAU
+        std::stringstream ss;
+        ss << mNextId;
+        glm::vec2 newStartPos = this->loadLevel((std::string)"./resources/level" + ss.str() + (std::string)".txt");
+        pPerso->moveImage(newStartPos);
+        pPerso->reset(newStartPos);
+        return &newStartPos;
+    }
+
+    return nullptr;
+}
+
+

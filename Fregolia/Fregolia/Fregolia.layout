@@ -1,29 +1,93 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
+	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="Personnage.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="AI.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5022" topLine="116" />
+			<Cursor1 position="0" topLine="9" />
 		</Cursor>
 	</File>
-	<File name="PhysicActor.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1325" topLine="51" />
+			<Cursor1 position="3499" topLine="99" />
 		</Cursor>
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="8349" topLine="251" />
-		</Cursor>
-	</File>
-	<File name="Environment.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="9728" topLine="265" />
-		</Cursor>
-	</File>
-	<File name="Environment.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Environment.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1754" topLine="37" />
+		</Cursor>
+	</File>
+	<File name="Personnage.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1177" topLine="28" />
+		</Cursor>
+	</File>
+	<File name="PhysicActor.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1325" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="PhysicActor.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="976" topLine="32" />
+		</Cursor>
+	</File>
+	<File name="AnimationManager.cpp" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Gravity.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1911" topLine="56" />
+		</Cursor>
+	</File>
+	<File name="AnimationManager.h" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="990" topLine="16" />
+		</Cursor>
+	</File>
+	<File name="Environment.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8994" topLine="267" />
+		</Cursor>
+	</File>
+	<File name="LoadModel.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="967" topLine="27" />
+		</Cursor>
+	</File>
+	<File name="Personnage.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4458" topLine="169" />
+		</Cursor>
+	</File>
+	<File name="TextManager.cpp" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="891" topLine="36" />
+		</Cursor>
+	</File>
+	<File name="LoadModel.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6552" topLine="19" />
+		</Cursor>
+		<Folding>
+			<Collapse line="17" />
+		</Folding>
+	</File>
+	<File name="Enemy.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="812" topLine="19" />
+		</Cursor>
+	</File>
+	<File name="Gravity.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="693" topLine="12" />
+		</Cursor>
+	</File>
+	<File name="Enemy.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="911" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

@@ -215,6 +215,9 @@ void imageModel::setAngle(float pAngle)
     }
 }
 
+float imageModel::getAngle(){
+    return mAngle;
+}
 void imageModel::setTaille(glm::vec2 pPourcentage)
 {
     mScaleMat = glm::scale(glm::mat4(1.0f), glm::vec3(pPourcentage.x, pPourcentage.y, 1));

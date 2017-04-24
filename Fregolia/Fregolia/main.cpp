@@ -10,6 +10,9 @@
 #include "Weapon.h"
 #include "SpiderWeb.h"
 #include "TextManager.h"
+#include "RangedWeapon.h"
+#include "Arrow.h"
+
 
 using namespace std;
 
@@ -26,17 +29,15 @@ imageModel healthModel;
 imageModel healthBarModel;
 imageModel arcOne;
 imageModel swordOne;
+imageModel selection;
 
-
-PhysicActor testRoche1, testRoche2;
 Environnement testEnv;
 Personnage testPerso;
-Water testWater;
-Enemy testEnemy;
-SpiderWeb spiderWeb;
 TextLine testLigne;
 
 Weapon testWeapon;
+RangedWeapon testBow;
+Arrow testArrow;
 
 glm::mat4 projection, view;
 glm::vec2 cameraPos;
@@ -51,10 +52,11 @@ float healthBarScale;
 
 int timeWeapon = 0;
 int timeWeaponUse = 0;
-float angleAttaque = -45.0;
+int timeBowUse = 0;
 int compteurAngle = 1;
-int compteurToile = 0;
+float angleAttaque = -45.0;
 
+bool weaponSelected = false;
 
 /** DÉCLARATIONS DE FONCTIONS **/
 
@@ -67,7 +69,6 @@ void deplacerSouris(int pX, int pY, int pRelX, int pRelY);
 void actualiserCamera();
 
 void gererWeapon();
-void collisionToile(int compteurToile);
 
 
 /** CODE **/
@@ -89,18 +90,19 @@ int initResources()
 
     testWeapon.loadWeapon("./resources/testWeapon.txt", glm::vec2(0.0f, 0.0f));
 
-    spiderWeb.loadFile("./resources/testSpiderWeb.txt", glm::vec2(500.0f, 0.0f));
+    testBow.loadWeapon("./resources/testBow.txt", glm::vec2(0.0f, 0.0f));
+
+    testArrow.loadFile("./resources/testArrow.txt", glm::vec2(0.0f, 0.0f));
 
     testSouris.loadFile("./resources/mouse.txt", glm::vec2(0.0f, 0.0f));
 
     testInv.loadFile("./resources/invex.txt", glm::vec2(-0.0f, -0.85f));
 
-    testEnemy.loadFile("./resources/testPersonnage2.txt", glm::vec2(500.0f, -200.0f));
-    testEnemy.createActor(15, 5,0.05f,0);
-    healthModel.loadFile("./resources/health.txt", glm::vec2(0.0f,0.0f));
-    healthBarModel.loadFile("./resources/healthBar.txt", glm::vec2(0.0f,0.0f));
+    healthModel.loadFile("./resources/health.txt", glm::vec2(0.0f,-0.70f));
+    healthBarModel.loadFile("./resources/healthBar.txt", glm::vec2(0.0f,-0.70f));
     arcOne.loadFile("./resources/arcOne.txt", glm::vec2(-0.15f,-0.85f));
     swordOne.loadFile("./resources/swordOne.txt", glm::vec2(-0.45f,-0.85f));
+    selection.loadFile("./resources/selection.txt", glm::vec2(-0.45f,-0.85f));
 
     testLigne.loadFont("./resources/Anke.ttf", 24);
     testLigne.setText("Je suis une patate.");
@@ -118,170 +120,121 @@ int initResources()
     testEnv.setMatrices(view, projection);
     return 0;
 }
-/*
+
+
 void freeResources()
 {
-    delete currentSelection;
+    if(currentSelection != nullptr) delete currentSelection;
 }
-*/
+
+
 int actualiserLogique()
 {
+    /// GESTION DE L'INPUT DU JOUEUR
     gererMouvement();
     gererWeapon();
-    healthBarScale = (float)testPerso.getHealth()/(float)testPerso.getMaxHealth();
 
+    /// VERIFICATIONS DE FIN DE PARTIE OU DE CHANGEMENTS
+    if(testPerso.verifierMort()) testPerso.reset(startPos);
+    glm::vec2* newPos = testEnv.resoudreCollisionPorte(&testPerso);
+    if(newPos != nullptr)
+    {
+        timeLastFrame = 0;
+        startPos = *newPos;
+        return 0;
+    }
+
+    /// MAJ LISTES ET ACTIONS
+    testEnv.updateListeMvt();
+    testEnv.updateInteractifs(&testPerso, timeLastFrame);
+
+    /// MAJ DES DEPLACEMENTS
+    testEnv.appliquerGravite(timeLastFrame);
+    testEnv.updateDeplacements(timeLastFrame);
+    testPerso.gererDeplacement(timeLastFrame);
+    //testPerso.rebondPerso();
+
+    /// MAJ DES COLLISIONS
+    testEnv.resoudreCollisionsInteractifs();
+    testEnv.resoudreCollisionsObjets();
+    testEnv.resoudreCollisionsPerso(&testPerso);
+    if(testWeapon.siBeingUsed()) testEnv.resoudreCollisionsArme(&testWeapon);
+    else if(testBow.siBeingUsed()) testEnv.resoudreCollisionsArme(&testArrow);
+
+    /// MAJ ANIMATIONS
+    testPerso.boucleAnimations();
+    testEnv.updateAnimations();
+
+    /// MAJ ARMES
+    testWeapon.moveImage(glm::vec2((testPerso.getPos() - testWeapon.getPos()).x + 40, (testPerso.getPos() - testWeapon.getPos()).y + 20));
+    testBow.moveImage(glm::vec2((testPerso.getPos() - testBow.getPos()).x + 40, (testPerso.getPos() - testBow.getPos()).y + 20));
+    testArrow.moveImage(glm::vec2((testPerso.getPos() - testArrow.getPos()).x + 50, (testPerso.getPos() - testArrow.getPos()).y + 20));
+
+    /// MAJ CAMERA
+    actualiserCamera();
+
+    /// MAJ INTERFACE
+    healthBarScale = (float)testPerso.getHealth()/(float)testPerso.getMaxHealth();
     healthModel.setTaille(glm::vec2(healthBarScale, 1.0f));
 
 
-    if(testEnemy.aiProcess(testPerso.getPos()) == 5) {
-        testPerso.setHealth(testPerso.getHealth()-1);
-    }
-    testEnemy.gererDeplacement(timeLastFrame);
-
-    testPerso.gererDeplacement(timeLastFrame);
-
-    testEnv.appliquerGraviterEnvironnement(timeLastFrame);
-
-    testEnv.resoudreCollisionsPerso(&testPerso);
-    testEnv.resoudreCollisionsEnnemi(&testEnemy);
-    testEnv.resoudreCollisionsObjets();
-
-    testPerso.rebondPerso();
-
-    for(std::vector<groundObject*>::iterator v = testEnv.getListeMvt(); v != testEnv.lastMvtObj(); v++)
-    {
-
-        if(!(((PhysicActor*)(*v)->object)->enMouvement())) testEnv.removeMvtObject(v - testEnv.getListeMvt());
-        else
-        {
-            ((PhysicActor*)(*v)->object)->vitesseReduite(timeLastFrame);
-            ((PhysicActor*)(*v)->object)->moveImage(((PhysicActor*)(*v)->object)->getVitesse());
-        }
-    }
-
-    for(std::vector<groundObject*>::iterator v = testEnv.getListeCollision(); v != testEnv.lastCollisionObj(); v++)
-    {
-        if((*v)->canDeplacer == 1)
-        {
-            if(testEnv.lastMvtObj() - testEnv.getListeMvt() == 0)
-            {
-                testEnv.addMvtObject(*v);
-                testPerso.pousserObjet((PhysicActor*)(*v)->object);
-                continue;
-            }
-
-            for(std::vector<groundObject*>::iterator w = testEnv.getListeMvt(); w != testEnv.lastMvtObj(); w++)
-            {
-                if((*w) == (*v)) break;
-                if(w - testEnv.getListeMvt() == (testEnv.lastMvtObj() - testEnv.getListeMvt()) - 1)
-                {
-                    testEnv.addMvtObject(*v);
-                    testPerso.pousserObjet((PhysicActor*)(*v)->object);
-                }
-            }
-
-        }
-
-        if(testPerso.mCollisionSol)
-        {
-            testPerso.setAngle((*v)->object->getAngle());
-        }
-    }
-
-    for(std::vector<groundObject*>::iterator v = testEnv.getListeMvt(); v < testEnv.lastMvtObj(); v++)
-    {
-        if(!(((PhysicActor*)(*v)->object)->enMouvement()))
-        {
-            testEnv.removeMvtObject(v - testEnv.getListeMvt());
-        }
-        else
-        {
-
-
-
-            ((PhysicActor*)(*v)->object)->vitesseReduite(timeLastFrame);
-            ((PhysicActor*)(*v)->object)->moveImage(((PhysicActor*)(*v)->object)->getVitesse());
-
-           // ((PhysicActor*)(*v)->object)->rebondPerso();
-
-        }
-
-    }
-
-    if(testPerso.verifierMort()) testPerso.reset(startPos);
-
-    actualiserCamera();
-
-    if (testWeapon.siBeingUsed() && testWeapon.isCollision(&testEnemy))
-    {
-        testWeapon.setBeingUsed(false);
-        testEnemy.ennemiTouche(10);
-        if (testEnemy.isMortEnnemi())
-        {
-            /// ENNEMI TUE
-        }
-    }
-
-    /*collisionToile(compteurToile);
-
-    if (testPerso.siImmobile())
-    {
-        compteurToile++;
-    }*/
-
-    testWeapon.moveImage(glm::vec2((testPerso.getPos() - testWeapon.getPos()).x + 40, (testPerso.getPos() - testWeapon.getPos()).y + 20));
-
-    testPerso.boucleAnimations();
 
     return 0;
 }
 
 int renderScreen(SDL_Window* pWindow)
 {
+    /// SETUP DE L'ECRAN
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
-
-
+    /// AFFICHAGE DU CIEL
     testEnv.drawSky(waveProgram, totalTime);
 
+    /// BLENDING
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    /// AFFICHAGE DU BACKGROUND
     testEnv.drawBackground(shaderProgram, totalTime);
     testEnv.drawGround(shaderProgram, totalTime);
 
+    /// AFFICHAGE DU PERSONNAGE
     testPerso.drawImage(shaderProgram, totalTime, view, projection);
 
+    /// AFFICHAGE DES ARMES
     if(testWeapon.siEquipped()) testWeapon.drawImage(shaderProgram, totalTime, view, projection);
+    else if(testBow.siEquipped()) {
+        testBow.drawImage(shaderProgram, totalTime, view, projection);
+        testArrow.drawImage(shaderProgram, totalTime, view, projection);
+    }
 
-    testEnemy.drawImage(shaderProgram, totalTime, view, projection);
-    spiderWeb.drawImage(shaderProgram, totalTime, view, projection);
 
-
+    /// AFFICHAGE DU FOREGROUND
     testEnv.drawWater(waterProgram, timeLastFrame);
     testEnv.drawForeground(shaderProgram, totalTime);
 
+    /// AFFICHAGE DE L'INTERFACE
     healthModel.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
     healthBarModel.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
 
     testInv.drawImage(shaderProgram, totalTime, glm::mat4(1.0f), glm::mat4(1.0f));
     arcOne.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
     swordOne.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
+    if (weaponSelected == true) selection.drawImage(shaderProgram,totalTime, glm::mat4(1.0f),glm::mat4(1.0f));
 
+    /// AFFICHAGE DU TEXTE
     testLigne.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
 
+    /// FIN DU SETUP
     glDisable(GL_BLEND);
 
     SDL_GL_SwapWindow(pWindow);
 
-    std::cout << timeLastFrame << std::endl;
-
     return 0;
 }
-
 
 
 void gererWeapon()
@@ -295,17 +248,26 @@ void gererWeapon()
         testWeapon.setAngle(angleAttaque);
     }
 
-    if(listeTouches[SDL_SCANCODE_TAB] && timeWeapon == 0)
+    if(listeTouches[SDL_SCANCODE_1] /*&& timeWeapon == 0*/)
     {
         timeWeapon++;
-        if(testWeapon.siEquipped())
-        {
-            testWeapon.setEquipped(false);
-        }
-        else
-        {
-            testWeapon.setEquipped(true);
-        }
+        testBow.setEquipped(false);
+        testWeapon.setEquipped(testWeapon.siEquipped() ^ 1);
+        //listeTouches[SDL_SCANCODE_1] = 0;
+    }
+
+    if(listeTouches[SDL_SCANCODE_2] /*&& timeWeapon == 0*/)
+    {
+        timeWeapon++;
+        testWeapon.setEquipped(false);
+        testBow.setEquipped(testBow.siEquipped() ^ 1);
+        //listeTouches[SDL_SCANCODE_1] = 0;
+    }
+
+    if(listeTouches[SDL_SCANCODE_G] && timeBowUse == 0)
+    {
+        timeBowUse++;
+        testBow.setBeingUsed(true);
     }
 
     if(timeWeaponUse >= 1)
@@ -320,46 +282,49 @@ void gererWeapon()
         testWeapon.setBeingUsed(false);
     }
 
+    if(timeBowUse >= 1)
+    {
+        timeWeaponUse++;
+    }
+    if (timeBowUse > 45)
+    {
+        timeBowUse = 0;
+        testBow.setBeingUsed(false);
+    }
+
     if (timeWeapon > 50) timeWeapon = 0;
     else if(timeWeapon >= 1) timeWeapon++;
 }
 
 
 
-void collisionToile(int compteurToile)
-{
-
-}
-
-
-
 void gererMouvement()
 {
-    if(listeTouches[SDL_SCANCODE_SPACE])
+    if (testPerso.siImmobile() == false)
     {
-             if(!testPerso.mCollisionCoter){
-   testPerso.setState(2, glm::vec2(0, 1));
-             }
-    }
-    if(listeTouches[SDL_SCANCODE_S])
-    {
-    }
-    if(listeTouches[SDL_SCANCODE_A])
-    {
-        testPerso.setState(1, glm::vec2(-1, 0));
-    }
-    if(listeTouches[SDL_SCANCODE_D])
-    {
-        testPerso.setState(1, glm::vec2(1, 0));
-    }
-    if(listeTouches[SDL_SCANCODE_E])
-    {
-
-        if(testPerso.mCollisionCoter)testPerso.mCollisionCoter=false;
-        else if(!testPerso.mCollisionCoter) testPerso.mCollisionCoter=true;
-
-      /*  testEnv.splash();
-        listeTouches[SDL_SCANCODE_E] = 0;*/
+        if(listeTouches[SDL_SCANCODE_SPACE])
+        {
+            if(!testPerso.mCollisionCoter)
+            {
+                testPerso.setState(2, glm::vec2(0, 1));
+            }
+        }
+        if(listeTouches[SDL_SCANCODE_S])
+        {
+        }
+        if(listeTouches[SDL_SCANCODE_A])
+        {
+            testPerso.setState(1, glm::vec2(-1, 0));
+        }
+        if(listeTouches[SDL_SCANCODE_D])
+        {
+            testPerso.setState(1, glm::vec2(1, 0));
+        }
+        if(listeTouches[SDL_SCANCODE_E])
+        {
+            if(testPerso.mCollisionCoter)testPerso.mCollisionCoter=false;
+            else if(!testPerso.mCollisionCoter) testPerso.mCollisionCoter=true;
+        }
     }
 }
 
@@ -414,6 +379,7 @@ int main(int argc, char* argv[])
 
     while(!loopEnd)
     {
+        //SDL_Delay(100);
         int curTime = SDL_GetTicks();
 
         while(SDL_PollEvent(&events))
@@ -434,10 +400,7 @@ int main(int argc, char* argv[])
                 deplacerSouris(events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                if(events.button.button == SDL_BUTTON_LEFT)
-                {
-                    currentSelection = testEnv.getClickRef(&testSouris);
-                }
+                if(events.button.button == SDL_BUTTON_LEFT) currentSelection = testEnv.getClickRef(&testSouris);
                 else if(events.button.button == SDL_BUTTON_RIGHT && currentSelection != nullptr)
                 {
                     std::cout << "Position: " << currentSelection->getPos().x << " " << currentSelection->getPos().y << "; Angle: " << currentSelection->getAngle() << std::endl;
@@ -447,6 +410,8 @@ int main(int argc, char* argv[])
             case SDL_MOUSEBUTTONUP:
                 break;
             case SDL_MOUSEWHEEL:
+                //spiderWeb.changerAngle(&testPerso, signe(events.wheel.y));
+
                 if(currentSelection != nullptr)
                 {
                     currentSelection->setAngle(currentSelection->getAngle() + 1 * signe(events.wheel.y));
@@ -472,7 +437,7 @@ int main(int argc, char* argv[])
         totalTime += timeLastFrame;
     }
 
-    //freeResources();
+    freeResources();
     SDL_GL_DeleteContext(mainContext);
     SDL_DestroyWindow(mainWindow);
     SDL_Quit();

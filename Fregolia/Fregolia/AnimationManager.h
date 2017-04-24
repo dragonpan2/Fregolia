@@ -19,6 +19,7 @@ class AnimationManager
 
         virtual GLuint getCurrentImageBuffer(); /// Renvoie un buffer des coordonnées de texture
         virtual void setCurrentAnimation(unsigned int pState);
+        virtual int getCurrentAnimation() {return mCurrentAnimation;}
 
         virtual GLuint getTexture() {return mTexture;}
 

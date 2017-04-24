@@ -18,6 +18,7 @@ class Gravity
         virtual float resistanceSol(float pMasse,float pMuc);
      //   virtual float resistaceStaticSol(float pMasse,float pMuc);
 
+        virtual glm::vec2 propulsionToileGrav( float pAngle);
         virtual float rentrerCollision(float pVitesse,float pMasseObjet, float pMuc, float pMassePerso);
 
     private:

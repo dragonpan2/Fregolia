@@ -84,9 +84,14 @@ int Ai::redState(glm::vec2 thisPos, glm::vec2 playerPos, glm::vec2 thisDirection
 {
     float signeDistance = signe(playerPos.x - thisPos.x);
     float distance = glm::length(playerPos - thisPos);
+    //std::cout << "delta X" <<std::endl;
+    //std::cout << abs(thisPos.x - playerPos.x) << std::endl;
+    //std::cout << abs(playerPos.y-thisPos.y) << std::endl;
 
     if(distance < attackRange && signeDistance == signe(thisDirection.x)) return 5;
 
+    ///ligne pour jump
+    else if((abs(thisPos.x-playerPos.x) < 250) && (abs(playerPos.y-thisPos.y) > 10)) return 8;
     else if(signeDistance == signe(thisDirection.x)) return std::ceil(6.5 + signe(thisDirection.x));
     else return 4;
 }

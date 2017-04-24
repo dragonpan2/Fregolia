@@ -1,0 +1,6 @@
+id 09
+di 45 20
+
+dt 45 20
+
+i ./resources/Arrow.png

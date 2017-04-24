@@ -11,30 +11,46 @@ Enemy::~Enemy()
 
 }
 
-int Enemy::aiProcess(glm::vec2 pPlayerPos)
+int Enemy::aiProcess(Personnage* pPlayer)
 {
-    mAction = ai.actionSetter(mPos, pPlayerPos, mDirection, false, mAction, 0);
+    mAction = ai.actionSetter(mPos, pPlayer->getPos(), mDirection, false, mAction, 0);
 
-    switch (ai.aiMethode(mPos, pPlayerPos, mDirection, false, mAction))
+    switch (ai.aiMethode(mPos, pPlayer->getPos(), mDirection, false, mAction))
     {
         case 1:
+
             mAction = 0;
+             if(mState != 2) mState = 0;
             break;
         case 2:
             mAction = 1;
             mDirection = glm::vec2(-1.0f, 0.0f);
+             if(mState != 2) mState = 1;
             break;
         case 3:
             mAction = 1;
             mDirection = glm::vec2(1.0f, 0.0f);
+             if(mState != 2) mState = 1;
             break;
         case 4:
             mDirection.x = mDirection.x * -1;
             mVitesse.x = 0;
+             if(mState != 2) mState = 1;
             break;
         case 5:
+            //std::cout << "Attacked" << std::endl;
             /// Attaque
+            pPlayer->setHealth(pPlayer->getHealth()-1);
             return 5;
+            break;
+        case 8:
+            //std::cout << "Jumped" << std::endl;
+            ///jump
+            if(mState==0 || mState==1){
+            mVitesse.y=3;
+            mState=2;
+            }
+            return 6;
             break;
     }
     return 0;
@@ -99,3 +115,10 @@ bool Enemy::isMortEnnemi()
     else return false;
 }
 
+void Enemy::boucleAnimations()
+{
+    if(mAction == 4) mAnimations.setCurrentAnimation(mAnimations.getCurrentAnimation() == 2 ? 3 : 2);
+    else if(mAction == 5) mAnimations.setCurrentAnimation(1);
+
+    std::cout << mPos.x << " " << mPos.y << std::endl;
+}

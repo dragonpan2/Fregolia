@@ -1,0 +1,9 @@
+id 99
+
+vit 80
+
+di 150 150
+
+dt 600 600
+int 50
+i ./resources/nuageAnim.png

@@ -129,4 +129,9 @@ void Water::genererGeometrie()
                  GL_STREAM_DRAW);
 }
 
+void Water::isCollision(imageModel* pOther)
+{
+
+}
+
 
