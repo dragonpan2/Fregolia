@@ -33,6 +33,7 @@ imageModel selection;
 Environnement* testEnv;
 Personnage testPerso;
 TextLine testLigne;
+TextLine ligne1;
 
 HealthBar HPPerso;
 
@@ -109,8 +110,13 @@ int initResources()
     testLigne.setText("Je suis une patate.");
     testLigne.setLocation(glm::vec2(-0.9, 0.7));
 
+    ligne1.loadFont("./resources/Anke.ttf", 34);
+    ligne1.setText("Fregolia");
+    ligne1.setLocation(glm::vec2(-0.9, 0.9));
+
     testEnv = new Environnement;
     startPos = testEnv->loadLevel("./resources/level0.txt");
+    //startPos = testEnv->loadLevel("./resources/level1.txt");
 
     testPerso.moveImage(startPos);
 
@@ -233,7 +239,7 @@ int renderScreen(SDL_Window* pWindow)
 
     /// AFFICHAGE DU TEXTE
     testLigne.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
-
+    ligne1.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
     /// FIN DU SETUP
     glDisable(GL_BLEND);
 

@@ -1,0 +1,9 @@
+id 101
+
+vit 80
+
+di 200 200
+
+dt 1000 2000
+int 50
+i ./resources/mv2.png

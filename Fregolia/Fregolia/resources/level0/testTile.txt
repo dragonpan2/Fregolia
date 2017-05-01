@@ -1,0 +1,5 @@
+id 06
+di 128 128
+dt 128 128
+t 0.0 0.0 1.0 0.0 0.0 1.0 1.0 0.0 0.0 1.0 1.0 1.0
+i ./resources/level0/testTile.jpg

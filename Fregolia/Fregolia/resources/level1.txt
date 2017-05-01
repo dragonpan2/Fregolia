@@ -1,0 +1,32 @@
+id 1
+
+cnn
+0
+dim 0 4196
+
+sky ./resources/level0/Sky.txt 2560.0 0.0
+
+bkg ./resources/level0/Background.txt 2560.0 0.0
+
+frg ./resources/level0/Foreground.txt 2560.0 0.0
+
+
+# obj nom posX posY angle canCollide canDraw canInteract canDeplacer uC Masse K uS
+
+obj ./resources/level0/testTile.txt 1328.0 -300.0 0.0 1 0 1 0 0 0 0.75
+
+obj ./resources/level0/testTile.txt 0.0 -300.0 0.0 1 0 1 0 0 0 0.75
+
+obj ./resources/level0/tile.txt 2628.0 -100.0 45.0 1 0 1 0 0 0 0.75
+
+obj ./resources/level0/tile2.txt 1328.0 100.0 90.0 1 1 1 1 1 10 1
+obj ./resources/level0/tile2.txt 328.0 100.0 90.0 1 1 1 1 1 10 1
+
+
+emi ./resources/nuage.txt 800.0 0.0 0.0 1 1 1 1 15 5 0.01 0.02
+emi ./resources/nuage.txt 650.0 0.0 0.0 1 1 1 1 15 5 0.01 0.02
+
+prt ./resources/Porte.txt 400.0 0.0 
+wtr 0.0 5120.0 -320.0
+
+str 100.0 0.0
