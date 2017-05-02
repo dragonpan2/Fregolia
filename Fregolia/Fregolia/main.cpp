@@ -290,7 +290,7 @@ void gererWeapon()
         testWeapon.setAngle(angleAttaque);
     }
 
-    if(listeTouches[SDL_SCANCODE_1] /*&& timeWeapon == 0*/)
+    if(listeTouches[SDL_SCANCODE_1] && timeWeapon == 0)
     {
         timeWeapon++;
         testBow.setEquipped(false);
@@ -298,7 +298,7 @@ void gererWeapon()
         //listeTouches[SDL_SCANCODE_1] = 0;
     }
 
-    if(listeTouches[SDL_SCANCODE_2] /*&& timeWeapon == 0*/)
+    if(listeTouches[SDL_SCANCODE_2] && timeWeapon == 0)
     {
         timeWeapon++;
         testWeapon.setEquipped(false);
