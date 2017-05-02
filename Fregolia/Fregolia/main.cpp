@@ -32,8 +32,23 @@ imageModel selection;
 
 Environnement* testEnv;
 Personnage testPerso;
+
+///
 TextLine testLigne;
 TextLine ligne1;
+TextLine textMenuPTitre;
+TextLine textMenuPPlay;
+TextLine textMenuPCredit;
+TextLine textMenuPHelp;
+TextLine textMenuHHelp;
+TextLine textMenuCCredit;
+TextLine textMenuCnoms;
+TextLine textMenuCretour;
+TextLine textMenuHretour;
+
+
+///text menue C for credit, h for help, p for princiaple
+
 
 HealthBar HPPerso;
 
@@ -110,9 +125,23 @@ int initResources()
     testLigne.setText("Je suis une patate.");
     testLigne.setLocation(glm::vec2(-0.9, 0.7));
 
+
     ligne1.loadFont("./resources/Anke.ttf", 34);
     ligne1.setText("Fregolia");
     ligne1.setLocation(glm::vec2(-0.9, 0.9));
+
+    textMenuPTitre.manage(54, "Fregolia", glm::vec2(-0.9,0.7));
+    textMenuPPlay.manage(34, "Jeu", glm::vec2(0.3,0.3));
+    textMenuPCredit.manage(34, "Credit", glm::vec2(-0.9,0.2));
+    textMenuPHelp.manage(34, "Aide", glm::vec2(-0.9,0.2));
+
+    textMenuCCredit.manage(44, "Aide", glm::vec2(0.0,0.0));
+    textMenuCnoms.manage(34, "Ahmad Faour   Bei Ning Pan    Hadrien Renault    Simon G-Roze ", glm::vec2(0.0,0.3));
+    textMenuCretour.manage(34, "Retour", glm::vec2(0.0,0.9));
+
+    textMenuHHelp.manage(34, "Aide", glm::vec2(0.0, 0.0));
+    textMenuHretour.manage(44, "Retour", glm::vec2(0.0,0.0));
+
 
     testEnv = new Environnement;
     startPos = testEnv->loadLevel("./resources/level0.txt");
@@ -240,6 +269,7 @@ int renderScreen(SDL_Window* pWindow)
     /// AFFICHAGE DU TEXTE
     testLigne.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
     ligne1.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
+
     /// FIN DU SETUP
     glDisable(GL_BLEND);
 
@@ -456,3 +486,29 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+
+void menuPrincipale() {
+
+        textMenuPTitre.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
+        textMenuPPlay.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
+        textMenuPCredit.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
+        textMenuPHelp.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
+
+
+}
+
+void menuCredit() {
+    textMenuCCredit.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
+    textMenuCnoms.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
+    textMenuCretour.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
+
+
+}
+
+void menuAide() {
+    textMenuHHelp.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
+    textMenuHretour.drawText(textProgram, totalTime, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::mat4(1.0f), glm::mat4(1.0f));
+
+
+}
+

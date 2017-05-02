@@ -40,6 +40,9 @@ class TextLine : public TextManager
         virtual void setText(std::string pText);
         virtual void setLocation(glm::vec2 pLocation);
 
+        ///
+        virtual void manage(int size, std::string text, glm::vec2 position);
+
         virtual void drawText(GLuint pShaderProgram, float pTimeElapsed, glm::vec4 pColor, glm::mat4 pView, glm::mat4 pProj);
     private:
         glm::mat4 mTranslateMat;

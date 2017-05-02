@@ -13,7 +13,7 @@ frg ./resources/level0/Foreground.txt 2560.0 0.0
 
 # obj nom posX posY angle canCollide canDraw canInteract canDeplacer uC Masse K uS
 
-obj ./resources/level0/testTile.txt 1328.0 -300.0 0.0 1 0 1 0 0 0 0.75
+obj ./resources/level0/testTile.txt 1328.0 -300.0 0.0 1 1 1 0 0 0 0.75
 
 obj ./resources/level0/testTile.txt 0.0 -300.0 0.0 1 0 1 0 0 0 0.75
 

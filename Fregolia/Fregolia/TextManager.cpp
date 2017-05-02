@@ -186,4 +186,11 @@ void TextLine::drawText(GLuint pShaderProgram, float pTimeElapsed, glm::vec4 pCo
     }
 }
 
+void TextLine::manage(int size, std::string text, glm::vec2 position) {
+    loadFont("./resources/Anke.ttf", size);
+    setText(text);
+    setLocation(position);
+
+}
+
 

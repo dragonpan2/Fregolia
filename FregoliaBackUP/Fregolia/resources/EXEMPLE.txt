@@ -1,4 +1,0 @@
-id Z
-d X Yp
-v -X/2 -Y/2 X/2 Y/2 -X/2 Y/2 X/2 -Y/2 -X/2 Y/2 X/2 Y/2
-i ./resources/Background.png
