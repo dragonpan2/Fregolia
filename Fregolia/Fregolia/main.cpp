@@ -71,9 +71,12 @@ int timeWeapon = 0;
 int timeWeaponUse = 0;
 int timeBowUse = 0;
 int compteurAngle = 1;
+int slotSelected = 0;
 float angleAttaque = -45.0;
 
 bool weaponSelected = false;
+bool slot3Selected = false;
+bool slot4Selected = false;
 
 /** DÉCLARATIONS DE FONCTIONS **/
 
@@ -283,6 +286,7 @@ void gererWeapon()
 {
     if(listeTouches[SDL_SCANCODE_F] && timeWeaponUse == 0)
     {
+        cout << "Attacked" << endl;
         angleAttaque = -45.0;
         compteurAngle = 0;
         timeWeaponUse++;
@@ -290,20 +294,76 @@ void gererWeapon()
         testWeapon.setAngle(angleAttaque);
     }
 
-    if(listeTouches[SDL_SCANCODE_1] && timeWeapon == 0)
+    if(listeTouches[SDL_SCANCODE_1] && timeWeapon == 0 /*&& testBow.siEquipped() == false && !slot3Selected && !slot4Selected*/)
     {
+        if (slotSelected != 1) {
+            slotSelected = 1;
+            weaponSelected = true;
+
+        }
+        else {
+            weaponSelected = false;
+        }
+       // weaponSelected = weaponSelected ^ 1;
+      // weaponSelected = true;
+         selection.setPos(glm::vec2(-0.45f,-0.85f));
         timeWeapon++;
         testBow.setEquipped(false);
         testWeapon.setEquipped(testWeapon.siEquipped() ^ 1);
         //listeTouches[SDL_SCANCODE_1] = 0;
     }
 
-    if(listeTouches[SDL_SCANCODE_2] && timeWeapon == 0)
+    if(listeTouches[SDL_SCANCODE_2] && timeWeapon == 0  /*&& testWeapon.siEquipped() == false && !slot3Selected && !slot4Selected*/)
     {
+        if (slotSelected != 2) {
+            slotSelected = 2;
+            weaponSelected = true;
+
+        }
+        else {
+            weaponSelected = false;
+        }
+       // weaponSelected = weaponSelected ^ 1;
+     //  weaponSelected = true;
+         selection.setPos(glm::vec2(-0.15f,-0.85f));
         timeWeapon++;
         testWeapon.setEquipped(false);
         testBow.setEquipped(testBow.siEquipped() ^ 1);
         //listeTouches[SDL_SCANCODE_1] = 0;
+    }
+
+    if(listeTouches[SDL_SCANCODE_3] && timeWeapon == 0 /*&& testWeapon.siEquipped() == false && testBow.siEquipped() == false && slot4Selected == false*/)
+    {
+        if (slotSelected != 3) {
+            slotSelected = 3;
+            weaponSelected = true;
+
+        }
+        else {
+            weaponSelected = false;
+        }
+            testBow.setEquipped(false);
+            testWeapon.setEquipped(false);
+            selection.setPos(glm::vec2(0.15f,-0.85f));
+            slot3Selected = slot3Selected ^ 1;
+            timeWeapon++;
+    }
+
+    if(listeTouches[SDL_SCANCODE_4] && timeWeapon == 0/* && testWeapon.siEquipped() == false && testBow.siEquipped() == false && slot3Selected == false*/)
+    {
+        if (slotSelected != 4) {
+            slotSelected = 4;
+            weaponSelected = true;
+
+        }
+        else {
+            weaponSelected = false;
+        }
+            testBow.setEquipped(false);
+            testWeapon.setEquipped(false);
+            selection.setPos(glm::vec2(0.45f,-0.85f));
+            slot4Selected = slot4Selected ^ 1;
+            timeWeapon++;
     }
 
     if(listeTouches[SDL_SCANCODE_G] && timeBowUse == 0)

@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1491586118 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.cpp
+1493647233 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.cpp
 	"InitOpenGL.h"
 
-1491586118 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.h
+1493647233 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\initopengl.h
 	"ExternalIncludes.h"
 
-1491586118 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\externalincludes.h
+1493647232 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\externalincludes.h
 	<glm.hpp>
 	<gtc/matrix_transform.hpp>
 	<gtc/type_ptr.hpp>
@@ -13,6 +13,7 @@
 	<SDL.h>
 	<SDL_mixer.h>
 	<SOIL.h>
+	<ft2build.h>
 	<iostream>
 	<iterator>
 	<fstream>
@@ -20,24 +21,27 @@
 	<stdlib.h>
 	<vector>
 	<math.h>
+	<typeinfo>
+	<string>
 
-1491586119 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\shaderutilities.cpp
+1493647234 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\shaderutilities.cpp
 	"ShaderUtilities.h"
 
-1491586119 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\shaderutilities.h
+1493647234 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\shaderutilities.h
 	"ExternalIncludes.h"
 
-1492007836 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\environment.cpp
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\environment.cpp
 	"Environment.h"
 
-1492096653 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.cpp
+1493647233 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.cpp
 	"LoadModel.h"
 
-1492096653 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.h
+1493647233 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\loadmodel.h
 	"ExternalIncludes.h"
 	"Collisions.h"
+	"AnimationManager.h"
 
-1492102089 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\main.cpp
+1493823911 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\main.cpp
 	"ExternalIncludes.h"
 	"InitOpenGL.h"
 	"ShaderUtilities.h"
@@ -49,6 +53,10 @@
 	"PhysicActor.h"
 	"Weapon.h"
 	"SpiderWeb.h"
+	"TextManager.h"
+	"RangedWeapon.h"
+	"Arrow.h"
+	"HealthBar.h"
 
 1490200565 source:e:\fregolia\fregolia\fregolia\environment.cpp
 	"environment.h"
@@ -271,72 +279,73 @@
 1491957119 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\collisions.h
 	"ExternalIncludes.h"
 
-1491586116 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\consumable.cpp
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\consumable.cpp
 	"Consumable.h"
 
-1491586116 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\consumable.h
+1493647230 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\consumable.h
 
-1492095026 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.cpp
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.cpp
 	"Enemy.h"
 
-1492100632 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.h
+1493647230 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\enemy.h
 	"ExternalIncludes.h"
 	"Ai.h"
 	"PhysicActor.h"
 	"Gravity.h"
+	"Personnage.h"
 
-1491586116 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\meleeweapon.cpp
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\meleeweapon.cpp
 	"MeleeWeapon.h"
 
-1491586116 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\meleeweapon.h
+1493647230 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\meleeweapon.h
 	"Weapon.h"
 	"ExternalIncludes.h"
 
-1491586116 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\weapon.h
+1493647231 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\weapon.h
 	"Item.h"
 	"Inventory.h"
 	"Enemy.h"
 	"LoadModel.h"
 	"ExternalIncludes.h"
 
-1491586116 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.h
+1493647230 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.h
 	"LoadModel.h"
 
-1491586116 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.cpp
+1493647231 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.cpp
 	"RangedWeapon.h"
 
-1491586116 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.h
+1493647231 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\rangedweapon.h
 	"Weapon.h"
 	"ExternalIncludes.h"
 
-1491586116 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\weapon.cpp
+1493647231 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\weapon.cpp
 	"Weapon.h"
 	"Inventory.h"
 	"Enemy.h"
 
-1491586116 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.cpp
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.cpp
 	"Inventory.h"
 	<algorithm>
 
-1491586116 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.h
+1493647230 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\inventory.h
 	"Item.h"
 	"ExternalIncludes.h"
 
-1491586116 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.cpp
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\item.cpp
 	"Item.h"
 
-1491586116 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\collisions.h
+1493647230 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\collisions.h
 	"ExternalIncludes.h"
 
-1492097959 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\personnage.h
+1493647234 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\personnage.h
 	"ExternalIncludes.h"
 	"PhysicActor.h"
 	"Gravity.h"
 
-1492098712 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\personnage.cpp
+1493647234 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\personnage.cpp
 	"Personnage.h"
 
-1491586116 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\collisions.cpp
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\collisions.cpp
 	"Collisions.h"
 
 1491104278 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravitymanager.cpp
@@ -893,41 +902,44 @@
 1492636512 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\gravity.cpp
 	"Gravity.h"
 
-1491586116 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.cpp
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.cpp
 	"Ai.h"
 
-1491586116 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.h
+1493647230 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\ai.h
 	"ExternalIncludes.h"
 
 1491234952 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\environment2.cpp
 	"environment.h"
 
-1492007836 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\environment.h
+1493647232 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\environment.h
 	"ExternalIncludes.h"
 	"personnage.h"
 	"Water.h"
 	"LoadModel.h"
 	"Enemy.h"
+	"SpiderWeb.h"
+	"Weapon.h"
 
-1491586116 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\water.h
-	"ExternalIncludes.h"
-
-1492007836 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravity.cpp
-	"Gravity.h"
-
-1492007836 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravity.h
+1493647231 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\water.h
 	"ExternalIncludes.h"
 	"LoadModel.h"
 
-1492007836 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicactor.h
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravity.cpp
+	"Gravity.h"
+
+1493647230 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\gravity.h
+	"ExternalIncludes.h"
+	"LoadModel.h"
+
+1493647231 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicactor.h
 	"ExternalIncludes.h"
 	"LoadModel.h"
 	"Gravity.h"
 
-1492007836 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicactor.cpp
+1493647231 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\physicactor.cpp
 	"PhysicActor.h"
 
-1491586116 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\water.cpp
+1493647231 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\water.cpp
 	"Water.h"
 
 1491354784 source:c:\users\spiritus\documents\github\fregolia\fregolia\fregolia\fregolia\ai.cpp
@@ -2088,11 +2100,12 @@
 
 1492384275 ncludes.h"
 
-1491586116 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\spiderweb.cpp
+1493647231 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\spiderweb.cpp
 	"SpiderWeb.h"
 
-1491586116 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\spiderweb.h
+1493647231 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\spiderweb.h
 	"PhysicActor.h"
+	"Personnage.h"
 
 1491586116 gin/master
 
@@ -3206,4 +3219,30 @@
 1492995737 c:\users\simon\documents\programmation\c++\fregolia\fregolia\fregolia\fregolia\healthbar.h
 	"ExternalIncludes.h"
 	"LoadModel.h"
+
+1493647230 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\animationmanager.h
+	"ExternalIncludes.h"
+
+1493745357 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\textmanager.h
+	"ExternalIncludes.h"
+
+1493647230 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\arrow.h
+	"PhysicActor.h"
+	"Weapon.h"
+
+1493647230 c:\users\panbe\documents\github\fregolia\fregolia\fregolia\healthbar.h
+	"ExternalIncludes.h"
+	"LoadModel.h"
+
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\animationmanager.cpp
+	"AnimationManager.h"
+
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\arrow.cpp
+	"Arrow.h"
+
+1493647230 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\healthbar.cpp
+	"HealthBar.h"
+
+1493751290 source:c:\users\panbe\documents\github\fregolia\fregolia\fregolia\textmanager.cpp
+	"TextManager.h"
 
